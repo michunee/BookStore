@@ -9,7 +9,6 @@ const getAllBookPage = async (req, res) => {
         categoryList : categoryList
     })
 }
-
 module.exports = {
     getAllBookPage
 }
