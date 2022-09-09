@@ -13,6 +13,15 @@ const getAllBookPage = async (req, res) => {
     })
 }
 
+const getBookByCategoryPage = async (req, res) => {
+    const catId = req.params.catId;
+    const bookList = await Book.getBookByCategory(catId);
+    res.status(200).json({
+        bookList : bookList
+    })
+}
+
 module.exports = {
-    getAllBookPage
+    getAllBookPage,
+    getBookByCategoryPage
 }
