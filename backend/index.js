@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // ROUTES
-app.use('/bookstore/books', bookRouter);
-app.use('/bookstore/users', userRouter);
+app.use('/api/bookstore/books', bookRouter);
+app.use('/api/bookstore/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);
