@@ -9,6 +9,7 @@ const errorHandlerMiddleware = require('./middlewares/errorHandler');
 
 const bookRouter = require('./routes/bookRoute');
 const userRouter = require('./routes/userRoute');
+const categoryRouter = require('./routes/categoryRoute');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 // ROUTES
 app.use('/api/bookstore/books', bookRouter);
 app.use('/api/bookstore/users', userRouter);
+app.use('/api/bookstore/categories', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);

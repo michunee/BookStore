@@ -1,7 +1,7 @@
 const db = require('./database');
 var listData =[];
 
-exports.getAllBooks = async()=>{
+exports.getAllBook = async()=>{
     return new Promise((resolve, reject) => {
         let sql = "SELECT * FROM book";
         db.query(sql, (err, data) => {
