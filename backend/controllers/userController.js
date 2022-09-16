@@ -22,7 +22,7 @@ const createUser = async (req, res) => {
     const user = await User.createUser(username, hashedPassword, birthname, email, phonenumber, address, admin)
     res.status(200).json({
         status : "success",
-        message : "Create new user success !",
+        message : "Create new user success !"
     })
 }
 

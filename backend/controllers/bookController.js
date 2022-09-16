@@ -15,7 +15,16 @@ const getBookByCategory = async (req, res) => {
     })
 }
 
+const getDetailBookById = async (req, res) => {
+    const bookId = req.params.bookId;
+    const book = await Book.getDetailBookById(bookId);
+    res.status(200).json({
+        book : book
+    })
+}
+
 module.exports = {
     getAllBook,
-    getBookByCategory
+    getBookByCategory,
+    getDetailBookById
 }

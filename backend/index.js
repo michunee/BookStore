@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const catchErrorMiddleware = require('./middlewares/catchError');
 const errorHandlerMiddleware = require('./middlewares/errorHandler');
@@ -17,11 +18,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 // ROUTES
-app.use('/api/bookstore/books', bookRouter);
-app.use('/api/bookstore/users', userRouter);
-app.use('/api/bookstore/categories', categoryRouter);
+app.use('/api/books', bookRouter);
+app.use('/api/users', userRouter);
+app.use('/api/categories', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);
