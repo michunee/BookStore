@@ -1,6 +1,6 @@
 const db = require('./database');
 
-exports.getAllCategorys = async()=>{
+exports.getAllCategory = async () => {
     return new Promise((resolve, reject) => {
         let sql = "SELECT * FROM category";
         db.query(sql, (err, data) => {

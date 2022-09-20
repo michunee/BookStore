@@ -1,8 +1,8 @@
 const db = require('./database');
 
-exports.getUserById = async(userId)=>{
+exports.getAllUser = async () => {
     return new Promise((resolve, reject) => {
-        let sql = "SELECT * FROM user WHERE userId = " + userId;
+        let sql = "SELECT * FROM user";
         db.query(sql, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
@@ -10,9 +10,20 @@ exports.getUserById = async(userId)=>{
     })
 }
 
-exports.createUser = async(username, password, birthname, email, phonenumber, address, admin)=>{
+
+exports.getUserByUsername = async (username) => {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM user WHERE username = '${username}'`;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.createUser = async (username, password, birthname, email, phonenumber, address, admin) => {
     let userData = {
-        username , password, birthname, email, phonenumber, address, admin
+        username, password, birthname, email, phonenumber, address, admin
     }
     return new Promise((resolve, reject) => {
         let sql = "INSERT INTO user SET ?";

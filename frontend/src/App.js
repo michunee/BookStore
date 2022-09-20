@@ -1,4 +1,5 @@
-import { Typography, Box, Container } from "@mui/material";
+import * as React from 'react';
+import { Container } from "@mui/material";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,28 +7,26 @@ import {
 } from "react-router-dom";
 
 import Home from './pages/Home';
+import BookDetail from './pages/BookDetail';
 
 function App() {
 
   return (
-    <div className="App">
-      <Router>
-        <Container>
-          <Box>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <Home />
-                  </>
-                }
-              />
-            </Routes>
-          </Box>
-        </Container>
-      </Router >
-    </div>
+    <Router>
+      <Container>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+              </>
+            }
+          />
+          <Route path="/book/:id" element={<BookDetail />} />
+        </Routes>
+      </Container>
+    </Router >
   )
 }
 

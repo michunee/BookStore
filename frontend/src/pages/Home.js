@@ -1,75 +1,48 @@
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea, Container, Grid } from '@mui/material';
-import Header from '../components/Header';
-import ShoppingCard from '../components/ShoppingCard';
-import useAxios from '../hooks/useAxios';
-import CircularProgress from '@mui/material/CircularProgress';
-import { Box } from '@mui/system';
+import useAxios from "../hooks/useAxios";
+import { Grid } from '@mui/material';
 
+import Header from '../components/Header';
+import ScrollTop from '../components/ScrollTop';
+import Sidebar from '../components/Sidebar';
+import Product from '../components/Product';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Home() {
-    const { response, error, loading } = useAxios({ url: "bookstore/books/" })
+    // TODO: Get api những cuốn sách theo category
+    const [id, setId] = useState(1);
+    const [data, setData] = useState({});
 
-    if (loading) {
-        return (
-            <Box sx={{ display: 'flex' }}>
-                <CircularProgress />
-            </Box>
-        )
+    const useSelectTabHandler = (id) => {
+        setId(id);
     }
 
-    if (error) {
-        return (
-            <Typography textAlign="center" variant="h6" mt={20} color="red"> Something Went Wrong!
-            </Typography>
-        )
-    }
-
+    useEffect(() => {
+        const fetchData = () => {
+            axios
+                .get(`api/books/categories/${id}`)
+                .then(res => setData(res.data))
+        }
+        fetchData();
+    }, [id]);
+    // TODO: Get api những category 
+    // const { response, error, loading } = useAxios({ url: "api/books/categories/1" })
     return (
-        <div>
+        <div >
             <Header />
-
-            <Grid sx={{ mt: 10 }} container spacing={3}>
-                {response.bookList && response.bookList.map((book, index) => {
-                    return (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-
-                            <Card sx={{ maxWidth: 345 }}>
-                                <CardActionArea component="div">
-                                    <CardMedia
-                                        component="img"
-                                        height="100%"
-                                        width="100%"
-                                        image={require(`../assets/${(book.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
-                                        alt="image"
-                                    />
-                                    <CardContent>
-
-                                        <Typography gutterBottom variant="h7" component="div">
-                                            {book.bookName}
-                                        </Typography>
-                                        <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                            <Grid item xs={9}>
-                                                <Typography variant="body2" color="red">
-                                                    {book.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                                <ShoppingCard />
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                    )
-                })}
+            <Grid sx={{ mt: 10 }} container spacing={1}>
+                <Grid item xs={3} >
+                    <Card style={{ boxShadow: "0 0 5px #ccc" }}>
+                        <Sidebar onClickSelectTab={useSelectTabHandler} />
+                    </Card>
+                </Grid>
+                <Grid item xs={9}>
+                    <Product response={data} />
+                </Grid>
             </Grid>
-
-        </div>
+            <ScrollTop />
+        </div >
     )
 }
 
