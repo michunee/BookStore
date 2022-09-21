@@ -8,4 +8,7 @@ router.route('/')
 router.route('/categories/:catId')
     .get(bookController.getBookByCategory);
 
+router.route('/:bookId')
+    .get(bookController.getDetailBookById);
+
 module.exports = router;

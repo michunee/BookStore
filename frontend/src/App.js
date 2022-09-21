@@ -12,21 +12,16 @@ import BookDetail from './pages/BookDetail';
 function App() {
 
   return (
-    <Router>
-      <Container>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Home />
-              </>
-            }
-          />
-          <Route path="/book/:id" element={<BookDetail />} />
-        </Routes>
-      </Container>
-    </Router >
+    <div className='App'>
+      <Router>
+        <Container maxWidth="lg">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/books/:id" element={<BookDetail />} />
+          </Routes>
+        </Container>
+      </Router>
+    </div>
   )
 }
 

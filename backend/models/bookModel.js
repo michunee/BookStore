@@ -20,3 +20,13 @@ exports.getBookByCategory = async (catId) => {
         })
     })
 }
+
+exports.getDetailBookById = async (bookId) => {
+    return new Promise((resolve, reject) => {
+        let sql = "SELECT * FROM book where bookId = " + bookId;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}

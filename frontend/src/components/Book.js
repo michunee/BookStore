@@ -8,7 +8,7 @@ import useAxios from '../hooks/useAxios';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
 
-function Product({ response, error, loading }) {
+function Book({ response, error, loading }) {
     const navigate = useNavigate();
 
     if (loading) {
@@ -32,7 +32,7 @@ function Product({ response, error, loading }) {
     }
 
     const navigateToBookDetail = (id) => {
-        navigate(`/book/${id}`,)
+        navigate(`/books/${id}`,)
     }
 
 
@@ -65,4 +65,4 @@ function Product({ response, error, loading }) {
     )
 }
 
-export default Product
+export default Book

@@ -1,16 +1,16 @@
 import Card from '@mui/material/Card';
-import useAxios from "../hooks/useAxios";
 import { Grid } from '@mui/material';
 
 import Header from '../components/Header';
 import ScrollTop from '../components/ScrollTop';
 import Sidebar from '../components/Sidebar';
-import Product from '../components/Product';
+import Book from '../components/Book';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Home() {
     // TODO: Get api những cuốn sách theo category
+
     const [id, setId] = useState(1);
     const [data, setData] = useState({});
 
@@ -38,7 +38,7 @@ function Home() {
                     </Card>
                 </Grid>
                 <Grid item xs={9}>
-                    <Product response={data} />
+                    <Book response={data} />
                 </Grid>
             </Grid>
             <ScrollTop />
