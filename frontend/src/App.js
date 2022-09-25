@@ -8,6 +8,8 @@ import {
 
 import Home from './pages/Home';
 import BookDetail from './pages/BookDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
 
@@ -18,6 +20,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/books/:id" element={<BookDetail />} />
+            {/* <Route path="/cart/:id" element={<Cart />} /> */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </Container>
       </Router>
