@@ -4,7 +4,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import useAxios from '../hooks/useAxios';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
 
@@ -45,7 +44,7 @@ function Book({ response, error, loading }) {
                             <CardActionArea onClick={() => navigateToBookDetail(book.bookid)} component="div" >
                                 <CardMedia
                                     component="img"
-                                    image={require(`../assets/${(book.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
+                                    image={require(`/assets/${(book.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
                                     alt="image"
                                 />
                                 <CardContent>

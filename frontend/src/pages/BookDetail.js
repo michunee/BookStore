@@ -7,12 +7,15 @@ import Header from "../components/Header"
 import GoBackBtn from "../components/GoBackBtn";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReadMore from "../components/ReadMore";
+import { useNavigate } from "react-router-dom";
 
 function BookDetail() {
-    const [count, setCount] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState({});
     const { id } = useParams();
     console.log(id);
+
+    const navigate = useNavigate();
     // const { response, error, loading } = useAxios({ url: `/api/books/${id}` })
 
     useEffect(() => {
@@ -24,7 +27,22 @@ function BookDetail() {
         fetchData();
     }, [id]);
 
-    console.log(data.book);
+    // console.log(data.book);
+
+    const addToCartHandler = (e) => {
+        e.preventDefault();
+        const cart = {
+            bookId: data.book.id,
+            quantity: quantity,
+        }
+        axios
+            .post("api/cart", cart)
+            .then(res => {
+                console.log(res);
+                navigate("/cart");
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <div>
@@ -35,7 +53,7 @@ function BookDetail() {
                     <Grid item xs={4} className='animate__animated animate__fadeInLeft' >
                         <Fade in>
                             <Card raised sx={{ my: 3 }}>
-                                <CardMedia component='img' image={require(`../assets/${(data.book[0].bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)} alt={id} />
+                                <CardMedia component='img' image={require(`/assets/${(data.book[0].bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)} alt={id} />
                             </Card>
                         </Fade>
 
@@ -56,10 +74,10 @@ function BookDetail() {
 
 
                     <Grid item xs={8} >
-                        <Paper elevation={8} sx={{ my: 3 }}>
+                        <Paper elevation={8} sx={{ my: 2 }}>
                             <List>
                                 <ListItem>
-                                    <ListItemText primary='Tên sách' secondary={data.book[0].bookName} />
+                                    <ListItemText primary='Tên sách' secondary={<Typography variant="h6">{data.book[0].bookName}</Typography>} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
@@ -78,8 +96,8 @@ function BookDetail() {
                                     <ListItemText primary='Số lượng' />
                                     <TextField
                                         sx={{ mx: 1 }}
-                                        value={count}
-                                        onChange={(e) => setCount(e.target.value)}
+                                        value={quantity}
+                                        onChange={(e) => setQuantity(e.target.value)}
                                         variant='outlined'
                                         size='small'
                                         type='number'
@@ -93,7 +111,7 @@ function BookDetail() {
                             aria-label='addToCart'
                             variant='outlined'
                             color='primary'
-
+                            onClick={addToCartHandler}
                             startIcon={<ShoppingCartIcon />}
                             sx={{ mt: 1 }}
                         >
