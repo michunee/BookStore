@@ -21,6 +21,16 @@ exports.getUserByUsername = async(username)=>{
     })
 }
 
+exports.getUserByEmail = async(email)=>{
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM user WHERE email = '${email}'`;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
 exports.createUser = async(username, password, birthname, email, phonenumber, address, admin)=>{
     let userData = {
         username , password, birthname, email, phonenumber, address, admin
