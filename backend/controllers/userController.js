@@ -16,18 +16,7 @@ const getUserByUsername = async (req, res) => {
     })
 }
 
-const createUser = async (req, res) => {
-    const {username, password , birthname, email, phonenumber, address, admin} = req.body;
-    let hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.createUser(username, hashedPassword, birthname, email, phonenumber, address, admin)
-    res.status(200).json({
-        status : "success",
-        message : "Create new user success !"
-    })
-}
-
 module.exports = {
     getAllUser,
-    getUserByUsername,
-    createUser
+    getUserByUsername
 }
