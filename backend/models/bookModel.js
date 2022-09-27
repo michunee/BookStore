@@ -29,13 +29,3 @@ exports.getDetailBookById = async(bookId)=>{
         })
     })
 }
-
-// exports.getDetailBookByName = async(bookName)=>{
-//     return new Promise((resolve, reject) => {
-//         let sql = `SELECT * FROM book where bookName = "${bookName}"`;
-//         db.query(sql, (err, data) => {
-//             if (err) console.log(err);
-//             else resolve(data);
-//         })
-//     })
-// }
