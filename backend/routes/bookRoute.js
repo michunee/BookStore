@@ -11,7 +11,4 @@ router.route('/category/:catId')
 router.route('/:bookId')
     .get(bookController.getDetailBookById);
 
-// router.route('/:bookName')
-//     .get(bookController.getDetailBookByName);
-
 module.exports = router;
