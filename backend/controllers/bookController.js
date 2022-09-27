@@ -26,5 +26,5 @@ const getDetailBookById = async (req, res) => {
 module.exports = {
     getAllBook,
     getBookByCategory,
-    getDetailBookById,
+    getDetailBookById
 }
