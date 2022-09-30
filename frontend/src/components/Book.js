@@ -39,7 +39,7 @@ function Book({ response, error, loading }) {
         <Grid container spacing={1}>
             {response.bookList && response.bookList.map((book, index) => {
                 return (
-                    <Grid item xs={3} key={index}>
+                    <Grid item xs={4} key={index}>
                         <Card sx={{ height: "100%" }} style={{ boxShadow: "0 0 5px #ccc" }}>
                             <CardActionArea onClick={() => navigateToBookDetail(book.bookid)} component="div" >
                                 <CardMedia

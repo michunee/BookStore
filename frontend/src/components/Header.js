@@ -3,8 +3,16 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from "@mui/system";
 import SearchBar from "./SearchBar";
+import { useEffect, useState } from "react";
 
 function Header() {
+    const [isLogin, setIsLogin] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setIsLogin(true);
+        }
+    }, [])
 
     return (
         <AppBar position='fixed' >
@@ -31,7 +39,7 @@ function Header() {
                     </Button>
                     <Button color='inherit'>
                         <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>
-                            Đăng nhập
+                            {isLogin ? 'Logout' : 'Login'}
                         </Link>
                     </Button>
                 </Box>

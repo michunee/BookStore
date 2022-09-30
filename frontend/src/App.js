@@ -8,25 +8,23 @@ import {
 
 import Home from './pages/Home';
 import BookDetail from './pages/BookDetail';
-import Login from './pages/Login';
 import Register from './pages/Register';
+import Login from './components/Login';
 
 function App() {
 
   return (
-    <div className='App'>
-      <Router>
-        <Container maxWidth="lg">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/books/:id" element={<BookDetail />} />
-            {/* <Route path="/cart/:id" element={<Cart />} /> */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </Container>
-      </Router>
-    </div>
+    <Router>
+      <Container maxWidth="lg">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/books/:id" element={<BookDetail />} />
+          {/* <Route path="/cart/:id" element={<Cart />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Container>
+    </Router>
   )
 }
 

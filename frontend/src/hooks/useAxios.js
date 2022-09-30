@@ -9,12 +9,15 @@ const useAxios = ({ url }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = () => {
-            axios
-                .get(url)
-                .then(res => setResponse(res.data))
-                .catch(err => setError(err))
-                .finally(() => setLoading(false));
+        const fetchData = async () => {
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            setResponse(response.data)
+            setLoading(false)
+            setError("")
         }
         fetchData();
     }, [url]);

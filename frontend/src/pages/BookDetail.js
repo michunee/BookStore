@@ -13,7 +13,6 @@ function BookDetail() {
     const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState({});
     const { id } = useParams();
-    console.log(id);
 
     const navigate = useNavigate();
     // const { response, error, loading } = useAxios({ url: `/api/books/${id}` })
@@ -21,13 +20,15 @@ function BookDetail() {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/${id}`)
+                .get(`api/books/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
                 .then(res => setData(res.data))
         }
         fetchData();
     }, [id]);
-
-    // console.log(data.book);
 
     const addToCartHandler = (e) => {
         e.preventDefault();
@@ -36,12 +37,11 @@ function BookDetail() {
             quantity: quantity,
         }
         axios
-            .post("api/cart", cart)
+            .post(`api/cart`, cart)
             .then(res => {
                 console.log(res);
                 navigate("/cart");
             })
-            .catch(err => console.log(err))
     }
 
     return (
@@ -94,6 +94,7 @@ function BookDetail() {
                                 <Divider />
                                 <ListItem>
                                     <ListItemText primary='Số lượng' />
+
                                     <TextField
                                         sx={{ mx: 1 }}
                                         value={quantity}
@@ -103,6 +104,7 @@ function BookDetail() {
                                         type='number'
                                         inputProps={{ min: 1, max: 10 }}
                                     />
+                                    <Typography variant="h7">{data.book[0].amount} sản phẩm có sẵn</Typography>
                                 </ListItem>
                             </List>
                         </Paper>
@@ -122,6 +124,7 @@ function BookDetail() {
                 </Grid>
             )
             }
+            <div id="error" style={{ display: 'none' }}>Error</div>
         </div >
     )
 }

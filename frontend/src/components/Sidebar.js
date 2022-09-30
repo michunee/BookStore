@@ -6,6 +6,7 @@ function Sidebar(props) {
     // TODO: Viết api lấy ra tất cả category, endpoint = /categories
     const { response, error, loading } = useAxios({ url: "api/categories" })
     const [value, setValue] = useState(0);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
         const idSelected = response.categoryList[newValue].catId;
@@ -32,8 +33,6 @@ function Sidebar(props) {
             </Typography>
         )
     }
-
-    // abc
 
     return (
         <div>

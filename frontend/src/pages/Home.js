@@ -10,7 +10,7 @@ import axios from 'axios';
 
 function Home() {
     // TODO: Get api những cuốn sách theo category
-
+    // TODO: Gọi api lấy tất cả category về sau đó truyền phần tử đầu tiên của category vào useState setId
     const [id, setId] = useState(1);
     const [data, setData] = useState({});
 
@@ -21,11 +21,19 @@ function Home() {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/categories/${id}`)
+                .get(`api/books/categories/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
                 .then(res => setData(res.data))
+            // console.log(localStorage.getItem('token'));
         }
         fetchData();
+        return () => {
+        }
     }, [id]);
+
     // TODO: Get api những category 
     // const { response, error, loading } = useAxios({ url: "api/books/categories/1" })
     return (

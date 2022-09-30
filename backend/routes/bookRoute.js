@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bookController = require('../controllers/bookController');
+const protect = require("../middlewares/authorization");
+
 
 router.route('/')
     .get(bookController.getAllBook);
