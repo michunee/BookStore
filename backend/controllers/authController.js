@@ -5,10 +5,11 @@ const jwt = require("jsonwebtoken");
 const createSendToken = (user, statusCode, res)=>{
     const accessToken = jwt.sign(
         {
-          userId: user[0].id,
+          userId: user[0].userId,
           isAdmin: user[0].admin,
         },
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
     );
 
     const cookieOptions = {
