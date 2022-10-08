@@ -6,7 +6,7 @@ router.route('/')
     .get(bookController.getAllBook);
 
 router.route('/category/:catId')
-    .get(bookController.getBookByCategory);
+    .get(bookController.getBookByCategoryId);
 
 router.route('/:bookId')
     .get(bookController.getDetailBookById);

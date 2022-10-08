@@ -31,13 +31,33 @@ exports.getUserByEmail = async(email)=>{
     })
 }
 
-exports.createUser = async(username, password, birthname, email, phonenumber, address, admin)=>{
+exports.getUserIdIdByCartId = async(cartId)=>{
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT userId FROM cart WHERE cartId = '${cartId}'`;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.createUser = async(username, password, email)=>{
     let userData = {
-        username , password, birthname, email, phonenumber, address, admin
+        username , password, email
     }
     return new Promise((resolve, reject) => {
         let sql = "INSERT INTO user SET ?";
         db.query(sql, userData, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.getUsernameByUserId = async(userId)=>{
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT username FROM user WHERE userId = ${userId}`;
+        db.query(sql, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
         })

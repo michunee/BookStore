@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 03, 2022 lúc 08:11 AM
+-- Thời gian đã tạo: Th10 08, 2022 lúc 07:13 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `bookstore`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `bill`
+--
+
+CREATE TABLE `bill` (
+  `billId` int(11) NOT NULL,
+  `cartId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `ship` int(11) DEFAULT NULL,
+  `discount` int(11) NOT NULL,
+  `totalPrice` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -160,6 +177,48 @@ INSERT INTO `book` (`bookId`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, 
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `bookcart`
+--
+
+CREATE TABLE `bookcart` (
+  `cartId` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `totalprice` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `bookcart`
+--
+
+INSERT INTO `bookcart` (`cartId`, `bookId`, `amount`, `totalprice`) VALUES
+(1, 2, 6, 600000),
+(1, 3, 4, 560000);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cart`
+--
+
+CREATE TABLE `cart` (
+  `cartId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`cartId`, `userId`, `price`, `status`) VALUES
+(1, 35, 0, 0),
+(3, 43, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `category`
 --
 
@@ -205,7 +264,7 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`commentId`, `userId`, `bookId`, `content`, `rating`, `date`) VALUES
-(1, 35, 1, 'Sách quá hay, quá tuyệt vời', 5, '2022-09-30 10:22:24');
+(2, 35, 1, 'Sách quá hay', 5, '2022-10-08 18:11:56');
 
 -- --------------------------------------------------------
 
@@ -231,11 +290,20 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`userId`, `username`, `password`, `birthname`, `email`, `phonenumber`, `address`, `admin`) VALUES
 (13, 'thanhthuy', '$2b$10$I4iTFzxH3ON5mz5oNrAu2OCrAjMtumAeG0aEog3dJ6Nn4FTMo0KsK', 'Thanh Thuy', 'thuy@gmail.com', '0923456482', 'Đà Nẵng', 0),
 (14, 'tinap', '$2b$10$3skaNWtSgsuYFhHV66dcseMSVs2x2CoX0qv7deRqzFoWwkb37ipGi', 'Huỳnh Trí Tín', 'tinap@gmail.com', '0923456482', 'Đà Nẵng', 0),
-(35, 'michune', '$2b$10$91WWL56qET14m2gITAuvlOTpkXKDlXML6Hb62t8tyEEYsg2.lR3SO', 'Nguyễn Khôi', 'khoicari@gmail.com', '0923456482', 'Đà Nẵng', 1);
+(35, 'michune', '$2b$10$91WWL56qET14m2gITAuvlOTpkXKDlXML6Hb62t8tyEEYsg2.lR3SO', 'Nguyễn Khôi', 'khoicari@gmail.com', '0923456482', 'Đà Nẵng', 1),
+(43, 'nono', '$2b$10$i243.T.TfQG39ZvmTG6NceUmGUApC6atHBuYbHKlngmtFEnveeMrO', '', 'noooguyen@gmail.com', '', '', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`billId`),
+  ADD KEY `fk_user1` (`userId`),
+  ADD KEY `fk_bill5` (`cartId`);
 
 --
 -- Chỉ mục cho bảng `book`
@@ -243,6 +311,20 @@ INSERT INTO `user` (`userId`, `username`, `password`, `birthname`, `email`, `pho
 ALTER TABLE `book`
   ADD PRIMARY KEY (`bookId`),
   ADD KEY `fk_category` (`catId`);
+
+--
+-- Chỉ mục cho bảng `bookcart`
+--
+ALTER TABLE `bookcart`
+  ADD KEY `fk_cart` (`cartId`),
+  ADD KEY `fk_book` (`bookId`);
+
+--
+-- Chỉ mục cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cartId`),
+  ADD KEY `fk_user2` (`userId`);
 
 --
 -- Chỉ mục cho bảng `category`
@@ -271,10 +353,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT cho bảng `book`
 --
 ALTER TABLE `book`
   MODIFY `bookId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+
+--
+-- AUTO_INCREMENT cho bảng `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -286,23 +380,43 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
 
 --
+-- Các ràng buộc cho bảng `bill`
+--
+ALTER TABLE `bill`
+  ADD CONSTRAINT `fk_bill5` FOREIGN KEY (`cartId`) REFERENCES `cart` (`cartId`),
+  ADD CONSTRAINT `fk_user1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+
+--
 -- Các ràng buộc cho bảng `book`
 --
 ALTER TABLE `book`
   ADD CONSTRAINT `fk_category` FOREIGN KEY (`catId`) REFERENCES `category` (`catId`);
+
+--
+-- Các ràng buộc cho bảng `bookcart`
+--
+ALTER TABLE `bookcart`
+  ADD CONSTRAINT `fk_book` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
+  ADD CONSTRAINT `fk_cart` FOREIGN KEY (`cartId`) REFERENCES `cart` (`cartId`);
+
+--
+-- Các ràng buộc cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `fk_user2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
 -- Các ràng buộc cho bảng `comment`

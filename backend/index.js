@@ -12,6 +12,7 @@ const bookRouter = require('./routes/bookRoute');
 const userRouter = require('./routes/userRoute');
 const categoryRouter = require('./routes/categoryRoute');
 const commentRouter = require('./routes/commentRoute');
+const cartRouter = require('./routes/cartRoute');
 
 const app = express();
 
@@ -25,7 +26,8 @@ app.use(cors());
 app.use('/api/books', bookRouter);
 app.use('/api/users', userRouter);
 app.use('/api/categories', categoryRouter);
-app.use('/api/comments', commentRouter)
+app.use('/api/comments', commentRouter);
+app.use('/api/carts',cartRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);

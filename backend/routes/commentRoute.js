@@ -6,6 +6,6 @@ router.route('/')
     .get(commentController.getAllComment);
 
 router.route('/book/:bookId')
-    .get(commentController.getCommentByBook);
+    .get(commentController.getCommentByBookId);
 
 module.exports = router;

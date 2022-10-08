@@ -10,7 +10,7 @@ exports.getAllComment = async()=>{
     })
 }
 
-exports.getCommentByBook = async(bookId)=>{
+exports.getCommentByBookId = async(bookId)=>{
     return new Promise((resolve, reject) => {
         let sql = "SELECT * FROM comment WHERE bookId = " + bookId;
         db.query(sql, (err, data) => {

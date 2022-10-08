@@ -7,9 +7,9 @@ const getAllBook = async (req, res) => {
     })
 }
 
-const getBookByCategory = async (req, res) => {
+const getBookByCategoryId = async (req, res) => {
     const catId = req.params.catId;
-    const bookList = await Book.getBookByCategory(catId);
+    const bookList = await Book.getBookByCategoryId(catId);
     res.status(200).json({
         bookList : bookList
     })
@@ -25,6 +25,6 @@ const getDetailBookById = async (req, res) => {
 
 module.exports = {
     getAllBook,
-    getBookByCategory,
-    getDetailBookById
+    getDetailBookById,
+    getBookByCategoryId
 }

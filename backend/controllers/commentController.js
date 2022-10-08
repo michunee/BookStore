@@ -7,9 +7,9 @@ const getAllComment = async (req, res) => {
     })
 }
 
-const getCommentByBook = async(req, res) => {
+const getCommentByBookId = async(req, res) => {
     const bookId = req.params.bookId;
-    const commentList = await Comment.getCommentByBook(bookId);
+    const commentList = await Comment.getCommentByBookId(bookId);
     res.status(200).json({
         commentList : commentList
     })
@@ -18,5 +18,5 @@ const getCommentByBook = async(req, res) => {
 
 module.exports = {
     getAllComment,
-    getCommentByBook
+    getCommentByBookId
 }
