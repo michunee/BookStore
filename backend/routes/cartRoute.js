@@ -6,14 +6,14 @@ const { verifyUser, verifyAdmin } = require("../middlewares/authorization");
 router.route('/:username')
     .get(verifyUser, cartController.getDetailCartByUsername);
 
-router.route('/:cartId/book/:bookId')
+router.route('/:username/book/:bookId')
     .post(verifyUser, cartController.addBookIntoCart)
     .delete(verifyUser, cartController.deleteBookFromCart);
 
-router.route('/:cartId/book/:bookId/increase')
+router.route('/:username/book/:bookId/increase')
     .patch(verifyUser, cartController.increaseBookInCart)
 
-router.route('/:cartId/book/:bookId/decrease')
+router.route('/:username/book/:bookId/decrease')
     .patch(verifyUser, cartController.decreaseBookInCart)
 
 module.exports = router;

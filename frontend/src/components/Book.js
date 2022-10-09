@@ -41,7 +41,7 @@ function Book({ response, error, loading }) {
                 return (
                     <Grid item xs={4} key={index}>
                         <Card sx={{ height: "100%" }} style={{ boxShadow: "0 0 5px #ccc" }}>
-                            <CardActionArea onClick={() => navigateToBookDetail(book.bookid)} component="div" >
+                            <CardActionArea onClick={() => navigateToBookDetail(book.bookId)} component="div" >
                                 <CardMedia
                                     component="img"
                                     image={require(`/assets/${(book.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
