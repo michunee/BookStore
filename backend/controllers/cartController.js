@@ -47,8 +47,44 @@ const deleteBookFromCart = async (req, res) => {
     res.redirect(`/api/carts/${username}`)
 }
 
+const increaseBookInCart = async (req, res) => {
+    const cartId = req.params.cartId
+    const bookId = req.params.bookId
+    const amount = req.body.bookAmount
+    const totalprice = req.body.totalprice
+    const price = req.body.bookPrice
+    const newAmount = amount + 1;
+    const newtotalprice = totalprice + price;
+    const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice)
+    const userId = await User.getUserIdIdByCartId(cartId)
+    let username = await User.getUsernameByUserId(userId[0].userId)
+    username = username[0].username
+    res.redirect(`/api/carts/${username}`)
+}
+
+const decreaseBookInCart = async (req, res) => {
+    const cartId = req.params.cartId
+    const bookId = req.params.bookId
+    const amount = req.body.bookAmount
+    const totalprice = req.body.totalprice
+    const price = req.body.bookPrice
+    const userId = await User.getUserIdIdByCartId(cartId)
+    let username = await User.getUsernameByUserId(userId[0].userId)
+    username = username[0].username
+    if(amount == 1) {
+        res.redirect(`/api/carts/${username}`)
+    } else {
+        const newAmount = amount - 1
+        const newtotalprice = totalprice - price
+        const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice)
+        res.redirect(`/api/carts/${username}`)
+    }
+}
+
 module.exports = {
     addBookIntoCart,
     getDetailCartByUsername,
-    deleteBookFromCart
+    deleteBookFromCart,
+    increaseBookInCart,
+    decreaseBookInCart
 }

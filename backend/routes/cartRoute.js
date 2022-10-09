@@ -9,4 +9,10 @@ router.route('/:cartId/book/:bookId')
     .post(cartController.addBookIntoCart)
     .delete(cartController.deleteBookFromCart);
 
+router.route('/:cartId/book/:bookId/increase')
+    .patch(cartController.increaseBookInCart)
+
+router.route('/:cartId/book/:bookId/decrease')
+    .patch(cartController.decreaseBookInCart)
+
 module.exports = router;
