@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const getAllUser = async (req, res) => {
     const user = await User.getAllUser();
     res.status(200).json({
-        user: user
+        user : user
     })
 }
 
@@ -12,7 +12,7 @@ const getUserByUsername = async (req, res) => {
     const username = req.params.username;
     const user = await User.getUserByUsername(username);
     res.status(200).json({
-        user: user
+        user : user
     })
 }
 
@@ -20,7 +20,3 @@ module.exports = {
     getAllUser,
     getUserByUsername
 }
-
-
-
-

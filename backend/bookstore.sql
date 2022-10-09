@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 27, 2022 lúc 03:36 PM
+-- Thời gian đã tạo: Th10 08, 2022 lúc 07:13 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -24,11 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `bill`
+--
+
+CREATE TABLE `bill` (
+  `billId` int(11) NOT NULL,
+  `cartId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `ship` int(11) DEFAULT NULL,
+  `discount` int(11) NOT NULL,
+  `totalPrice` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `book`
 --
 
 CREATE TABLE `book` (
-  `bookid` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
   `bookName` varchar(100) NOT NULL,
   `bookAuthor` varchar(50) NOT NULL,
   `bookImg` varchar(250) NOT NULL,
@@ -43,7 +60,7 @@ CREATE TABLE `book` (
 -- Đang đổ dữ liệu cho bảng `book`
 --
 
-INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
+INSERT INTO `book` (`bookId`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
 (1, 'Thất Tịch Không Mưa', 'Lâu Vũ Tinh', 'img/that-tich-khong-mua.jpg', 66000, 'Từ nhỏ cô đã thầm yêu anh, như số kiếp không thể thay đổi Tình yêu trong sáng ấy, như lần đầu được nếm mùi vị của quả khế mới chín. Sau đó cô và anh xa nhau, gặp lại đều cách nhau ba năm.\r\n\r\nTình yêu, giống như lần đầu được nếm thử quả khế mới chín.\r\n\r\nChua chua, chát chát, nhưng không kìm được, vẫn muốn nếm thêm lần nữa.\r\n\r\nTrong quả khế chát xanh xanh, nụ cười ngốc nghếch, ngọt ngào của anh, tình đầu thơ ngây, trong sáng của em lặng lẽ nảy mầm.              ', 1, 100, 1),
 (2, 'Call Me By Your Name', 'André Aciman', 'img/call-me-by-your-name.jpg', 100000, 'Gọi em bằng tên anh là câu chuyện tình yêu bất ngờ và mạnh mẽ nảy nở giữa thiếu niên 17 tuổi tên Elio với Oliver, một học giả Mỹ là khách trọ mùa hè ở căn biệt thự của ba mẹ Elio tại vùng duyên hải Riviera nước Ý thập niên 1980. Trong những tuần mùa hè sôi động ấy, dòng chảy cuồn cuộn ám ảnh và đam mê bị kìm nén càng làm mãnh liệt thêm tình yêu giữa hai chàng trai trẻ. Cuốn tiểu thuyết đầu tay của André Aciman là một khúc bi ca chân thành và cảm động dành cho tình yêu con người. Một cuốn sách không thể nào quên.\r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 100, 1),
 (3, 'Tam Sinh Tam Thế - Thập Lý Đào Hoa', 'Đường Thất Công Tử', 'img/tam-sinh-tam-the.jpg', 140000, 'Một người thà say mèm trong rừng đào mười dặm để quên hết quá khứ, một người nặng tình ba đời ba kiếp mòn mỏi đợi chờ.\r\n\r\nBóng hình bắt gặp đó, như đúng như sai. Những chuyện cũ đã quên đó, như hư như thực.\r\n\r\nMười dặm hoa đào chiếu rạng đôi mắt bi thương, nhưng chẳng thể nào quên đi được giây phút trông thấy gương mặt nàng trong quá khứ.\r\n\r\nQuá khứ, hiện tại, tương lai - ba kiếp nhân duyên của Dạ Hoa và Bạch Thiển, giữa mười dặm hoa đào mênh mông thắm sắc, từ nay chỉ còn hạnh phúc ngập tràn.\"\r\n                                                    ', 1, 100, 1),
@@ -83,7 +100,7 @@ INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, 
 (37, 'Tự Truyện Andrew Carnegie', 'Andrew Carnegie', 'img/tu-truyen-andrew-carnegie.jpg', 169000, 'Andrew Carnegie là một nhà đại tư bản của nước Mỹ nhưng cũng là một trong những người bác ái, đóng góp tài sản, tiền bạc cho sự phát triển của cộng đồng, của quê hương và nhân loại. Sinh năm 1835 ở Xcốt-len, Carnegie đã cùng với gia đình chuyển tới Mỹ. Khi trưởng thành, ở Pittsburgh, ông làm nhân viên điện báo và nhân viên thư ký trong ngành đường sắt và tiếp tục thăng tiến trong công ty đường sắt Pennsylvania. Khi Cuộc Nội chiến nổ ra, ông được giao nhiệm vụ đảm nhiệm hệ thống đường sắt và điện báo của chính phủ Mỹ và ông đã làm xuất sắc công việc này. Ông là người theo Đảng Cộng hoà và là người phản đối chế độ nô lệ. Ngoài khả năng làm việc chăm chỉ, xuất sắc và cách đối xử tốt với mọi người, Carnegie còn có rất tài giỏi trong việc xác định nghề nghiệp. Hệ thống đường sắt của Mỹ phát triển nhanh và ông nói: “Việc sản xuất như của chúng tôi khó có thể phát triển để đáp ứng kịp nhu cầu của người dân Mỹ. Nhờ vậy, ông bắt đầu trở nên giàu có và sau khi bán nhà máy sắt thép lớn nhất nước Mỹ, ông trở thành người giàu có nhất thế giới. Ông về nghỉ hưu trong lâu đài Skibo yêu thích ở Xcốt-len và qua đời tại Lenox, Massachusetts vào năm 1919.', 7, 100, 1),
 (38, 'Tự Truyện Benjamin Franklin', 'Benjamin Franklin', 'img/tu-truyen-benjamin-franklin.jpg', 100000, '\"Mười bảy tuổi, tôi khăn gói thu xếp hành lý cùng lên tàu với anh. Sau ba ngày lênh đênh trên biển, từ Boston, chúng tôi đã đến New York. Nhưng đáng tiếc, tại đây, chúng tôi không tìm được việc làm và phải tiếp tục lên đường đến Philadelphia. Thật không may, chuyến đi không biết trước lần này lại đem đến cho chúng tôi một tai họa. Chúng tôi gặp phải một cơn bão lớn, chiếc thuyền bị đánh nát tươm những cánh buồm. Trôi lênh đênh 30 giờ trên biển, rốt cuộc chúng tôi không thể đi xa hơn để đến Philadelphia mà phải dừng lại ở một bến cách đó vài mươi dặm…”\r\n\r\nĐược coi là một trong những tác phẩm kinh điển trong nền văn học Mỹ, cuốn tự truyện của Benjamin Franklin đã được dịch sang nhiều ngôn ngữ và được độc giả nhiều nước hoan nghênh đón nhận. Cuốn sách có nội dung bao trùm toàn bộ cuộc đời của Benjamin Franklin từ khi ông còn sinh sống tại London cho tới khi trở thành người đại diện cho Hội đồng lập pháp bang Pensylvania.\r\n\r\nFranklin là một chính khách, nhà lập quốc nổi tiếng nhất của Hoa Kỳ. Ông là một trong 4 người ký vào tuyên ngôn độc lập của Hoa Kỳ năm 1776. Ngoài ra, ông còn là người đa tài của Thời Đại Khai Sáng: nhà khoa học, tác giả, triết gia, nhà phát minh, nhà hoạt động xã hội và nhà ngoại giao hàng đầu.\r\n\r\nNăm chương đầu của cuốn Tự truyện của Benjamin Frankalin được viết ở Anh vào năm 1771, được tiếp tục vào năm 1784 - 1785 và bắt đầu viết tiếp vào năm 1788, ông giảm xuống chỉ còn những sự kiện diễn ra tới năm 1757. Sau hàng loạt chuyến phiêu lưu phi thường, bản thảo đầu tiên cũng như cuối cùng được John Bigelow in ra và giờ đây được tái bản để ghi nhận giá trị của cuốn sách như một bức tranh về một trong những nhân vật đáng kính nhất thời thuộc địa và là một trong những cuốn tự truyện xuất sắc nhất thế giới.\r\n\r\nĐây là cuốn tự truyện tuyệt vời về một vĩ nhân đáng kính phục mà chúng ta - nhất là những người trẻ tuổi không nên bỏ lỡ!', 7, 100, 1),
 (39, 'Tự truyện Nguyễn Ngọc Ký - Tâm Huyết Trao Đời', 'Nguyễn Ngọc Ký', 'img/tu-truyen-nguyen-ngoc-ky.jpg', 95000, 'Trong cuộc sống, có những con người sinh ra đã phải chịu số phận rủi ro, bất hạnh, tưởng chừng như họ chỉ sống lay lắt, hoặc không thể tồn tại mà không có sự giúp đỡ của người khác. Thế nhưng, cũng không ít người không cam chịu những thiệt thòi của số phận, mà khó khăn tật nguyền càng đè nặng bao nhiêu họ càng bật dậy mạnh mẽ bấy nhiêu. Họ không chỉ tìm cho mình một ánh lửa niềm tin để tồn tại mà còn truyền lửa cho nhiều người lành lặn khác - Thầy giáo Nguyễn Ngọc Ký là một con người như thế.\r\n\r\nMấy chục năm qua, tấm gương vượt khó để học tập của Nguyễn Ngọc Ký  từ trang sách giáo khoa, lan tỏa và truyền động lực cho nhiều thế hệ thanh niên, học sinh ở Việt Nam. Mấy chục năm qua cũng là quãng thời gian mà cậu học sinh tật nguyền Nguyễn Ngọc Ký kiên trì, vượt qua nhiều khó khăn của cuộc sống tật nguyền để trở thành Nhà giáo giàu tri thức, giàu tâm huyết. Thầy Nguyễn Ngọc Ký không chỉ thắp sáng cuộc đời mình bằng ý chí, bằng nghị lực mà còn thắp sáng cho bao nhiêu thế hệ học sinh bằng tất cả tâm huyết của mình. Bây giờ bước vào tuổi “thất thập cổ lai hy” tuy không còn lên lớp giảng bài, nhưng thầy Nguyễn Ngọc Ký vẫn miệt mài truyền lửa bằng ngòi bút của mình - đó chính là cuốn sách “Tâm huyết trao đời”.\r\n\r\nGần năm mươi câu chuyện trong cuốn tự truyện “Tâm huyết trao đời”, bao quát khoảng thời gian từ lúc chàng sinh viên Nguyễn Ngọc Ký tốt nghiệp Đại học Tổng hợp Hà Nội, theo lời khuyên của Cố Thủ tướng Phạm Văn Đồng về quê dạy học, trở thành giáo viên dạy giỏi của toàn ngành, đến khi là cán bộ xuất sắc của Phòng Giáo dục Quận Gò Vấp, Thành phố Hồ Chí Minh, nghỉ hưu năm 2005… càng giúp bạn đọc thêm ngưỡng mộ một con người tuy bị tàn tật về thân thể, nhưng mạnh mẽ về trí tuệ, tinh thần, có lòng tha thiết yêu đời, yêu nghề, kiên cường vượt lên thử thách nghiệt ngã của số phận và đã làm nên những điều tuyệt vời mà không phải ai cũng có thể làm được.\r\n\r\nVới tâm huyết cháy bỏng của mình, thông qua mỗi câu chuyện kể, Nhà giáo Ưu tú, Nhà văn Nguyễn Ngọc Ký cũng “trao đời” những bài học kinh nghiệm sâu sắc, đúc rút từ chính cuộc đời mình – người thầy dạy học, viết văn bằng chân đầu tiên ở Việt Nam, với tư duy đổi mới về dạy và học, về đào tạo phát triển toàn diện con người. Đó không chỉ là những chắt lọc mang tính chuyên môn mà còn là tâm hồn, tình cảm, nhân cách cao đẹp của một nhà giáo chân chính, có sức lan tỏa tích cực trong xã hội. Chính những ưu điểm trên, cuốn “Tâm huyết trao đời” của Nhà giáo Ưu tú, Nhà văn Nguyễn Ngọc Ký như người bạn hiền, luôn khích lệ bạn đọc mỗi khi họ phải đối mặt với khó khăn, thử thách. Cuốn sách cũng truyền cảm hứng yêu đời, luôn phấn đấu vượt lên chính mình, cho các thế hệ học sinh hôm nay và mai sau.\r\n\r\n“Tâm huyết trao đời”, cũng là tập cuối của bộ ba hồi ký cuộc đời nhà văn, Nhà giáo Ưu tú Nguyễn Ngọc Ký như một bức tranh hoàn chỉnh gửi đến bạn đọc. Trong tác phẩm, những câu chuyện giản dị được kể một cách chân thật, sinh động, có sức hấp dẫn và lay động mạnh mẽ. Mỗi chương là một cánh cửa, mở ra không gian rộng lớn cho bạn đọc hiểu thêm về tâm hồn và triết lý sống của Thầy - một con người cởi mở, khiêm nhường, giàu yêu thương, đầy khát vọng, nhiệt huyết, nhiều sáng kiến và quyết tâm…Nó thực sự là một tấm lòng cao cả của hôm qua, hôm nay và mai sau cho thế hệ sau này đang muốn vươn về tương lai tươi sáng.\r\n\r\nNguyễn Ngọc Ký sinh ra và lớn lên ở Hải Hậu, Nam Định – vùng đất giàu truyền thống văn hiến và hiếu học. Lên 4 tuổi, không may bị bệnh, liệt cả hai tay, Nguyễn Ngọc Ký không còn điều kiện để được ăn, học, vui chơi, phát triển như bao đứa trẻ bình thường khác. Nhưng không đầu hàng số phận, Nguyễn Ngọc Ký đã kiên trì khổ luyện, tập viết bằng chân, tập làm việc, sinh hoạt bằng chân, thay đôi tay đã bị tàn phế; được đến trường đi học, phấn đấu trở thành học sinh giỏi, hai lần được Bác Hồ tặng Huy hiệu cao quý của Người; rồi anh thi đỗ đại học, mở cánh cửa vào đời bằng… đôi chân kỳ diệu.', 7, 100, 1);
-INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
+INSERT INTO `book` (`bookId`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
 (40, 'Hồ Chí Minh Biên Niên Tiểu Sử', 'Nhiều Tác Giả', 'img/ho-chi-minh-bien-nien-tieu-su.jpg', 1150000, 'Cuốn Sách Hồ Chí Minh – Biên niên tiểu sử là một công trình lịch sử được trình bày dưới hình thức biên niên. Nhưng khác với niên biểu hay biên niên sự kiện trong đó chỉ liệt kê tóm tắt năm tháng xảy ra các sự kiện chính, đánh dấu bước chuyển biến trong cuộc đời và tư tưởng của vĩ nhân, mà không lược thuật nội dung các sự kiện, còn biên niên tiểu sử là một cuốn sử với đầy đủ các yếu tố niên đại, nhân vật, sự kiện, hoàn cảnh… được ghi chép lại theo trình tự thời gian diễn ra các sự việc, lời nói, bài viết, hành động, sinh hoạt, giao tiếp, v.v. của vĩ nhân đối với thời đại, đất nước, dân tộc, giai cấp, gia đình, họ hàng, bạn hữu, kẻ thù…; từ chuyện lớn đến chuyện nhỏ, trong đời sống chung và đời sống riêng, thể hiện lãnh tụ vừa như một vĩ nhân, vừa như một người bình thường.\r\n\r\nBiên niên tiểu sử được kết cấu theo đơn vị thời gian: năm, tháng, ngày, có khi đến từng giờ. Với một phương pháp ghi chép có vẻ tản mạn, ngẫu nhiên, có biến cố gì ghi nấy, song toàn bộ nội dung của nó bao giờ cũng được nhận thức, phản ánh, diễn đạt theo quan điểm chính trị, tư tưởng, đạo đức của một giai cấp nhất định. Trong biên niên tiểu sử, người đọc được tiếp xúc với một khối lượng tư liệu phong phú, nhiều sự kiện cụ thể, tuy được thể hiện bằng văn lịch sử; nhưng lại sinh động, đáp ứng được yêu cầu của nhà nghiên cứu lẫn người đọc thông thường.\r\n\r\n \r\n\r\nTừ lâu, nhân dân ta, bạn bè, đồng chí và kiều bào ta ở nước ngoài vẫn mong muốn có một bộ sách lớn, công bố đầy đủ những tư liệu chính xác về cuộc đời và sự nghiệp cách mạng “vô cùng oanh liệt và phong phú, vô cùng trong sáng và đẹp đẽ” của Chủ tịch Hồ Chí Minh kính yêu, giúp cho cán bộ và nhân dân ta có điều kiện nghiên cứu, tìm hiểu, học tập sâu sắc về tiểu sử, sự nghiệp, tư tưởng, đạo đức và phong cách của Người. Năm 1992, bộ sách Hồ Chí Minh - Biên niên tiểu sử (10 tập) đã được Nhà xuất bản Chính trị quốc gia Sự thật xuất bản lần đầu tiên và tái bản năm 2006. Năm 2016, sau 10 năm, bộ sách tiếp tục được Nhà xuất bản tái bản, bổ sung thêm một lượng lớn các sự kiện, nâng cao hơn về chất lượng khoa học. Đây được xem như là một “bộ phim” lịch sử quay lại toàn bộ cuộc đời của một vĩ nhân từ thuở ấu thơ cho đến ngày Người “đi gặp cụ Các Mác, cụ Lênin và các vị cách mạng đàn anh khác”.\r\n\r\nBộ sách Hồ Chí Minh - Biên niên tiểu sử do Viện Hồ Chí Minh và các lãnh tụ của Đảng biên soạn là một công trình lịch sử được trình bày dưới hình thức biên niên. Nhưng khác với niên biểu hay biên niên sự kiện mà trong đó chỉ liệt kê tóm tắt năm tháng xảy ra các sự kiện chính, đánh dấu bước chuyển biến trong cuộc đời và tư tưởng của vĩ nhân, mà không lược thuật nội dung các sự kiện, biên niên tiểu sử là một cuốn sử với đầy đủ các yếu tố niên đại, nhân vật, sự kiện, hoàn cảnh,... được ghi chép lại theo trình tự thời gian diễn ra các sự việc, lời nói, bài viết, hành động, sinh hoạt, giao tiếp, v.v. của vĩ nhân đối với thời đại, đất nước, dân tộc, giai cấp, gia đình, họ hàng, bạn hữu, kẻ thù...; từ chuyện lớn đến chuyện nhỏ, trong đời sống chung và đời sống riêng, thể hiện lãnh tụ vừa như một vĩ nhân, vừa như một người bình thường.\r\n\r\nThông qua bộ sách, các nhà nghiên cứu khoa học về kinh tế, chính trị, quân sự, ngoại giao, văn hoá, giáo dục, lịch sử Đảng khai thác được tương đối đầy đủ và hệ thống những tư liệu về Chủ tịch Hồ Chí Minh, người sáng lập Đảng, Mặt trận Dân tộc Thống nhất, Nhà nước và Quân đội nhân dân, người mở đầu và đặt nền móng cho các khoa học xã hội và nhân văn ở nước ta theo quan điểm của chủ nghĩa Mác - Lênin. Bộ sách có tác dụng tra cứu và tham khảo rất bổ ích đối với các nhà nghiên cứu khoa học xã hội ở trong và ngoài nước. Bên cạnh đó, các nhà văn nghệ, sáng tác tiểu thuyết, sân khấu, điện ảnh, hội họa,... có thể khai thác từ biên niên tiểu sử của Chủ tịch Hồ Chí Minh những sự kiện chân thực, sinh động, cụ thể trong cuộc đời của Người từ thời niên thiếu cho đến khi qua đời, để sáng tạo nên những công trình nghệ thuật tương xứng với tầm vóc vĩ đại của Người, góp phần vào sự nghiệp bồi dưỡng thế hệ cách ', 7, 100, 1),
 (41, 'Einstein - Cuộc Đời Và Vũ Trụ', 'Walter Isaacson', 'img/einstein-cuoc-doi-va-vu-tru.jpg', 135000, 'Cuốn sách khai thác và công bố những tư liệu mới nhất về Einstein, làm rõ những giai đoạn, sự kiện và vấn đề trong cuộc sống cá nhân của Einstein. Cuốn sách cũng chỉ ra và làm rõ những chặng trên con đường khoa học của Einstein, cho thấy những suy tư và trăn trở của ông để đưa ra những lý thuyết vật lý làm thay đổi toàn bộ nền vật lý thế kỷ XX, cũng như cuộc tranh luận của ông với các nhà cơ học lượng tử. Tác giả đã lột tả được cá tính, tư tưởng chính trị và những đặc điểm trong   trí tuệ, nhân cách của Einstein một cách sinh động.\r\n\r\nNhận định:\r\n\r\n\"Với tài kể chuyện vô song, Isaacson đã làm nên kỳ tích là vừa giữ được tượng đài Einstein, vừa mang lại cho ông hơi thở sống động, giúp ta cảm thấy như thể ông đang bước đi giữa chúng ta. Đúng là một tác phẩm tuyệt vời\" (Doris Kearns Goodwin, tác giả cuốn Team of Rivals [Đội của các đối thủ], No Ordinary Time [Không có thời gian thông thường], và là tác giả đoạt giải Pulitzer về lịch sử.)\r\n\r\n\"Isaacson đã làm được một việc xuất sắc là truyền tải được cả phần con người lẫn các chi tiết thú vị trong cuộc đời khoa học của Einstein. Đây không chỉ là một cuốn tiểu sử hấp dẫn, mà mỗi trang luôn mời chào ta đọc trang tiếp theo, mà còn là một tác phẩm tiêu biểu hàng đầu trong thể loại phi hư cấu.&quot; (Lawrence M. Krauss, Giáo sư vật lý theo chương trình Ambrose Swasey tại Đại học Case Western Reserve và là tác giả của cuốn Hiding in the Mirror [Trốn trong gương]) Isaacson đã viết một cuốn tiểu sử chính xác, hấp dẫn và thú vị, trình bày thật khéo các văn liệu lịch sử và đưa đến nhiều hiểu biết mới mẻ về cuộc đời cũng như sự nghiệp của Einstein (Diana Kormos Buchwald, chủ biên cuốn Tuyển tập các bài nghiên cứu của Albert Einstein và là Giáo sư lịch sử tại Caltech)', 7, 100, 1),
 (42, 'Hồi Ký Tiến Sĩ Lê Thẩm Dương', 'Lê Thẩm Dương', 'img/hoi-ky-tien-si-le-tham-duong.jpg', 110000, 'Tiến sĩ Lê Thẩm Dương – Người truyền cảm hứng có sự tương tác rất cao với bạn đọc: Tên cuốn sách, tên các phần của cuốn sách, hình thức của cuốn sách được lựa chọn sau khi đã tham khảo ý kiến của bạn đọc trên mạng xã hội.\r\n\r\nTS Lê Thẩm Dương giảng dạy tại Học viện Ngân hàng Hà Nội từ năm 1982, sau đó chuyển vào Đại học Ngân hàng TP.HCM. Hiện ông đang là Trưởng khoa Tài chính, trường ĐH Ngân hàng TP.HCM. Ông cũng là giảng viên chính chương trình cấp chứng chỉ hành nghề của Uỷ ban Chứng khoán Nhà nước, giảng viên thỉnh giảng của nhiều tập đoàn, trường Đại học, chương trình đào tạo. Ông là khách mời thường xuyên của nhiều diễn đàn cấp quốc gia và khu vực, nhiều chương trình truyền hình uy tín… TS Lê Thẩm Dương nổi tiếng trên mạng với những bài giảng “gây bão”.\r\n\r\n', 7, 100, 1),
@@ -122,7 +139,7 @@ INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, 
 (75, 'Đề Thi Đẫm Máu', 'Lôi Mễ', 'img/de-thi-dam-mau.jpg', 128000, 'Một tên sát thủ có sở thích uống chất hỗn hợp máu nạn nhân với sữa tươi, hắn có căn bệnh gì đặc biệt hay là con quỷ hút máu bất tử nghìn năm trong truyền thuyết?\r\n\r\nTrong thành phố C liên tiếp xảy ra 4 vụ cưỡng hiếp giết người, nạn nhân đều là những cô gái trí thức từ 25 - 35 tuổi, đây rốt cuộc là giết người trả thù hay đơn giản là cưỡng dâm?\r\n\r\nHàng loạt cái chết bí ẩn thảm khốc của những người sống trong trường Đại học J liên tiếp xảy ra. Ở hiện trường vụ án, hung thủ đều để lại gợi ý cho vụ án tiếp theo, nhằm gợi ý gì?\r\n\r\nTrong hàng loạt các vụ án ly kỳ khiến cảnh sát bàng hoàng bó tay, Phương Mộc trầm mặc kiệm lời đột nhiên bị cảnh sát lôi vào cuộc. Tên ác quỷ giấu mặt lần lượt giết hại những người bạn của cậu, vì sao? Khi câu trả lời được vén màn bí mật, thì đề thi tàn khốc đã bị tích 5 dấu X đẫm máu.\r\n\r\nMột cuộc đấu trí so tài khốc liệt đầy kịch tính nổ Ai sẽ là người thắng cuộc?\r\n\r\nĐây là tác phẩm trinh thám được nhiều người biết đến nhất của Lôi Mễ - sĩ quan cảnh sát cấp phòng (sở) giảng dạy bộ môn Hình pháp học tại một trường cảnh sát trực thuộc Bộ Công an Trung Quốc, đồng thời cũng là một tác giả truyện trinh thám nổi tiếng. Truyện của Lôi Mễ luôn có sức hấp dẫn đặc biệt đối với độc giả bởi ngòi bút sắt bén với những tình tiết ly kì, lôi cuốn đến trang cuối cùng.', 3, 100, 1),
 (76, 'Cuồng Vọng Phi Nhân Tính', 'Lôi Mễ', 'img/cuong-vong-phi-nhan-tinh.jpg', 130000, 'Cậu ấy đã giết chết cô giáo chủ nhiệm cũ của bạn gái mình vào đúng ngày Nhà giáo, tại sao lại đột ngột vượt ngục trong lúc Phương Mộc ra toà làm chứng ra sức bảo vệ xin để cậu được miễn tội tử hình? Ông ấy đã nuôi dưỡng bao nhiêu trẻ nhỏ mồ côi bị cha mẹ vứt bỏ, tại sao lại thường trầm mặc đau thương trước di ảnh của một đứa bé?\r\n\r\nTrong đường hầm mê cung sâu thẳm, người đàn ông bị kích điện cho đến chết; Con gấu nhồi bông treo ở siêu thị đột nhiên nhỏ máu tươi; Thi thể người đàn ông bị thiến ôm chặt một \"trẻ em\" mặc quần áo hoàn chỉ Họ là một nhóm người đáng thương bị coi là vật thí nghiệm, hay là những tên sát thủ biến thái hung tàn? Những màn kịch cổ xưa, là thần dược để cứu chuộc hay là nghi thức của ma quỷ? Phương Mộc lại một lần nữa bị cuốn vào trong vòng xoáy của những cuộc tàn sát, là do chức trách hay là do anh không được phép chọn lựa? Phương Mộc sau khi đã trải qua bao nỗi đau giày vò, cuối cùng anh sẽ chọn lựa nghe theo tâm nguyện của thầy Kiều làm một người cảnh sát, hay sẽ trở lại làm một người dân thường? Nếu có cơ hội thay đổi số phận người khác, bạn sẽ làm gì? Hãy để \"Cuồng vọng phi nhân tính\" nói cho bạn biế Không có thứ gọi là số phận - tất cả mọi thứ chẳng qua chỉ là khảo nghiệm, trừng phạt hoặc bồi thường.', 3, 100, 1),
 (77, 'Bí Mật Của Naoko', 'Higashino Keigo', 'img/bi-mat-cua-naoko.jpg', 69000, 'Cuộc sống của Hirasule trôi qua hết sức bình lặng, cho đến một ngày tai nạn giao thông khủng khiếp xảy ra và gã mất đi người vợ yêu quý nhất của mình, còn đứa con gái bé bỏng vẫn trong tình trạng hôn mê bất tỉnh. Nhưng chỉ sau một đêm, con gái gã tỉnh lại và một mực xưng mình là Naoko, vợ gã. Dường như linh hồn của Naoko đã nhập vào thể xác con gái, còn Monami thực sự đã chết. Rốt cuộc Hirasuke đã mất vợ hay con gái trong vụ tai nạn ấy?\r\n\r\nBí mật của Naoko đã giành Giải thưởng của Hiệp hội các Nhà văn viết truyện kỳ bí Nhật Bản vào năm 1999, và là một trong những tác phẩm quan trọng nhất trong sự nghiệp của Higashino Keigo, bậc thầy truyện trinh thám Nhật thế kỷ XX.', 3, 100, 1);
-INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
+INSERT INTO `book` (`bookId`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, `bookDes`, `catId`, `amount`, `enable`) VALUES
 (78, 'Hỏa Ngục', 'Dan Brown', 'img/hoa-nguc.jpg', 157000, 'Giáo sư biểu tượng học của Harvard, Robert Langdon, tỉnh lại trong một bệnh viện vào lúc nửa đêm. Anh hoàn toàn mất phương hướng và đau đầu dữ dội, cũng chẳng nhớ nổi điều gì về quãng thời gian ba mươi sáu tiếng vừa qua, kể cả chuyện làm thế nào anh lại có mặt ở nơi này hay nguồn gốc của thứ đồ kinh khủng mà các bác sĩ phát hiện thấy trong đồ đạc của anh.\r\n\r\nChỉ ít lâu sau, thế giới của Landon trở nên hỗn loạn khi anh phải chạy trốn khỏi  những kẻ lạ mặt ở Florence cùng một nữ bác sĩ trẻ có phần khắc kỷ, Sienna Brooks, người đã vận dụng mưu mẹo khôn khéo để cứu mạng anh. Langdon nhanh chóng nhận ra mình bị mắc kẹt trong chuỗi mật mã do một nhà khoa học xuất chúng sáng tạo nên, một thiên tài mang nỗi ám ảnh về sự diệt vong của thế giới và có đam mê mãnh liệt với một trong những kiệt tác có tầm ảnh hưởng sâu rộng nhất từng được sáng tác: Trường ca Thần khúc của Dante Alighieri.\r\n\r\nTrong cuộc hành trình chạy đua những địa danh không nhuốm màu thời gian như cung điện Vecchio, Vườn Boboli và Bảo tàng Duomo, Langdon cùng Brooks đã phát hiện ra một mạng lưới ngõ ngách và những bí mật cổ xưa, cũng như mô hình khoa học mới đáng kinh ngạc sẽ được sử dụng để nâng cao đáng kể chất lượng cuộc sống trên trái đất hoặc để hủy hoại nó.\r\n\r\nTrong tác phẩm vô cùng hấp dẫn và kịch tính này, Dan Brown lại một lần nữa “Tự phá kỷ lục của chính mình”. Hỏa ngục thực sự là một cuốn sách vô cùng thú vị, một tiểu thuyết làm say lòng độc giả bằng vẻ đẹp của nghệ thuật, lịch sử và văn học kinh điển Ý, đồng thời cũng đặt ra những câu hỏi nhức nhối về vai trò của khoa học trong tương lai của chúng ta', 3, 100, 1),
 (79, '451 Độ F', 'Ray Bradbury', 'img/451-do-f.jpg', 84000, 'Hãy mường tượng một thế giới nơi truyền hình thống trị và văn chương ngấp nghé trên bờ tuyệt chủng, nơi thông tin nông cạn được tung hô còn tri thức và ý tưởng thì bị ruồng rẫy, nơi tàng trữ sách là phạm pháp, ta có thể bị bắt chỉ vì tản bộ trên vỉa hè, còn nhiệm vụ của những người lính không phải cứu hỏa mà là châm mồi cho những đám cháy…\r\n\r\nKhi khắc họa cái xã hội giả tưởng ấy qua con mắt nhìn khủng hoảng niềm tin của anh lính phóng hỏa Montag, Ray Bradbury chắc không thể ngờ vào tính tiên tri khủng khiếp của cuốn sách. Xã hội chúng ta đang sống ngày nay giống với những gì Bradbury mô tả đến rùng mình: một nền văn minh lệ thuộc quá nhiều vào truyền thông, giải trí và công nghệ. Bởi lẽ đó, hơn sáu chục năm kể từ lần đầu xuất bản, 451 độ F vẫn đủ sức khiến bất kỳ ai đọc nó phải sửng sốt và choáng váng.', 4, 100, 1),
 (80, 'Xứ Cát', 'Frank Herbert', 'img/xu-cat.jpg', 153000, 'Một thời điểm rất xa trong tương lai…\r\n\r\nTừ đời này sang đời khác, người Fremen trên hành tinh sa mạc lưu truyền lời tiên tri về một đấng cứu tinh sẽ dẫn dắt họ giành lấy tự do đích thực…\r\n\r\nTừ thế hệ này sang thế hệ khác, những nữ phù thủy Bene Gesserit mỏi mòn chờ đợi sự xuất hiện của một B.G. nam giới duy nhất, người có thể vượt qua mọi giới hạn không gian - thời gian…\r\n\r\nLà Lisal al-Gaib của người Fremen, là Kwisatz Haderach của học viện Bene Gesserit, chàng công tước trẻ tuổi Paul Atreides đã làm tất cả những gì có thể để thay đổi định mệnh đó. Cha bị giết chết, mẹ bị cho là kẻ phản bội, gia tộc bị tàn sát, bản thân bị săn đuổi đến đường cùng, Paul đơn độc dấn thân vào một cuộc phiêu lưu sinh tử, không hề biết rằng mỗi hành động của mình sẽ góp phần quyết định vận mệnh của cả thiên hà. Sa mạc Arrakis khắc nghiệt tưởng như sẽ là nơi chôn vùi vĩnh viễn vinh quang của gia tộc Atreides, nhưng hóa ra lại thành điểm khởi đầu cho một huyền thoại mới…\r\n\r\nLà một trong những cuốn tiểu thuyết khoa học giả tưởng bán chạy nhất mọi thời đại, Xứ Cát không chỉ là lựa chọn đối với những tín đồ của Chúa nhẫn, Chiến tranh giữa các vì sao… mà còn chinh phục độc giả đủ mọi lứa tuổi, mọi tầng lớp và sở thích bởi sự đa dạng và phức tạp của con người và không gian trong truyện, bởi sự tinh tế trong xây dựng tâm lý, bởi sự hấp dẫn, căng thẳng và bất ngờ của cốt truyện, bởi sự độc đáo và thú vị của khối lượng kiến thức khổng lồ cũng như bởi sự hấp dẫn trong những tư tưởng về tôn giáo, về tự do, về tình yêu, về sự sống và cái chết…', 4, 100, 1),
@@ -155,7 +172,49 @@ INSERT INTO `book` (`bookid`, `bookName`, `bookAuthor`, `bookImg`, `bookPrice`, 
 (107, 'Hoàng Lê Nhất Thống Chí', 'Ngô gia văn phái', 'img/hoang-le-nhat-thong-chi.jpg', 71000, '“Sách Hoàng Lê nhất thống chí này mới cách đây hơn một trăm năm, chép theo chính sử mà in tường truyện luận chia ra từng hồi.\r\n\r\nXem qua thì biết vua Lê hèn yếu, chúa Trịnh chuyên quyền, chính trị thì rối loạn ở trên, phong tục thì bại hoại ở dưới, nàng Tuyên Phi lấy làm người bé thiếp, chỉ cầu sủng ái mà gây nên cái họa chiêu binh, Cống Chỉnh thì là kẻ gian thần, cầu lấy thoát thân mà gây ra cái cơ ngoại hoạn.\r\n\r\nMay mà: Trời còn dành sơn hà cho Nam quốc, mới sinh ra anh hùng ở Tây Sơn. Một lần cử binh mà trừ được uy quyền chúa Trịnh. Hai lần cử binh mà đốt hết lông cánh quận Bằng. Tôn Sĩ Nghị thì ôm đầu về Bắc, Phúc Khang An không dám tiến bước sang Nam. Vua tôi nhà Thanh ngại dùng binh mà không dám sinh lòng xâm lược. Vua tôi nhà Lê bị chước dối mà không trở lại nước nhà.”', 11, 100, 1),
 (108, 'Súng Vi Trùng và Thép', 'Jared Diamond', 'img/sung-vi-trung-va-thep.jpg', 265000, '\"Bàn tay của diễn trình lịch sử từ 8.000 năm trước vẫn đang đè nặng lên chúng ta.\" Cuốn sách giải thích vì sao các nền văn minh Á – Âu (bao gồm cả Bắc Phi) lại tồn tại được, cũng như đã chinh phục các nền văn minh khác, cùng lúc ông bác bỏ các lý thuyết về sự thống trị của các nền văn minh Á –Âu dựa trên trí tuệ, đạo đức hay ưu thế di truyền. Jared Diamond lập luận rằng, sự khác biệt về quyền lực và công nghệ giữa các xã hội loài người có nguồn gốc từ sự khác biệt về môi trường, trong đó sự khác biệt này được khuếch đại không ngường. Qua đó, ông giải thích tại sao Tây Âu, chứ không phải các nền văn minh khác trong thế giới Á – Âu như Trung Quốc, lại trở thành các thế lực thống trị Mục đích của cuốn sách này là cung cấp một lược sử về tất cả mọi người trong khoảng 13.000 năm trở lại đây.\r\n\r\nCâu hỏi đã khiến tôi viết ra cuốn sách này là: tại sao lịch sử đã diễn ra trên mỗi châu lục một khác? Nếu như câu hỏi này lập tức khiến bạn nhún vai cho rằng bạn sắp phải đọc một luận văn phân biệt, xin thưa, không phải vậy. Như bạn sẽ thấy, những lời đáp cho câu hỏi này tuyệt không bao hàm những sự khác biệt về chủng tộc. Cuốn sách này tập trung truy tìm những lý giải tối hậu và đẩy lùi chuỗi nhân quả lịch sử càng xa bao nhiêu càng tốt bấy nhiêu. Tuy cuốn sách này nói cho cùng là về lịch sử và tiền sử, song chủ đề của nó không chỉ có giá trị hàn lâm mà còn có tầm quan trọng to lớn về thực tiễn và chính trị. Lịch sử những tương tác giữa các dân tộc khác nhau chính là cái đã định hình thế giới hiện đại thông qua sự chinh phục, bệnh truyền nhiễm và diệt chủng. Các xung đột đó tạo ra những ảnh hưởng lâu dài mà sau nhiều thế kỷ vẫn chưa thôi tác động, vẫn đang tích cực tiếp diễn ở một số khu vực nhiều vấn đề nhất của thế giới ngày nay.', 11, 100, 1),
 (109, 'Một Chuyến Du Hành Đến Xứ Nam Hà', 'John Barrow', 'img/mot-chuyen-du-hanh-den-xu-nam-ha.jpg', 66330, 'Cuốn sách được dịch từ ba chương viết về xứ Đàng Trong-Nam Hà trong tập du ký-du khảo, được John Barrow khởi thảo trong chuyến đi tới Trung Ho, có lưu lại vùng biển Đà Nẵng xứ Nam Hà vào khoảng cuối thế kỷ XVIII, đầu thế kỷ XIX. Ông vừa miêu tả, tường thuật những gì ông trông thấy, bên cạnh đó ông còn nghiên cứu, tổng hợp những tài liệu khác để có những khảo luận của riêng mình về kinh tế - chính trị - lịch sử - xã hội ở vùng đất này.\r\n\r\nChương một “Xứ Nam Hà” phác họa những nét khái quát về địa lý, lịch sử của cả hai xứ Nam Hà và Bắc Hà. Nhân vật Nguyễn Ánh và cuộc chiến của ông chống lại quân Tây Sơn được tác giả quan tâm đặc biệt.  \r\n\r\nChương hai tác giả dùng để kể về kết quả cuộc khảo sát thực địa của mình về đời sống vật chất, tinh thần của cư dân cảng thị Đà Nẵng, vùng đất lúc này đang dưới sự cai trị của vị vua trẻ Quang Toản. \r\n\r\nTrong chương cuối cùng của quyển sách, Barrow đã dành trọn dung lượng để trình bày những lợi ích to lớn khi giao dịch buôn bán với xứ Nam Hà, góp phần làm tăng cường sức mạnh của Anh và cạnh tranh trực tiếp với người Pháp.\r\n\r\n« Với ngòi bút sắc sảo của một chàng trai đương tuổi 30, đầy nhiệt huyết và ưu thích phiêu lưu, J. Barrow đã thu hút sự quan tâm của độc giả qua những quan sát, nhận xét, cảm xúc cũng như những bình luận, tranh luận độc đáo và khá hấp dẫn. Ít sa vào việc kể lể nhiều hoặc nêu những con số, J. Barrow đã chú ý đến việc phân tích, so sánh, khơi gợi ra những vấn đề lớn từ những chi tiết nhỏ, không bó buộc vào phạm vi và nội dung trình bày. Những tranh biện của ông cũng không cứng nhắc, gò bó vào ý thức hệ và lập trường chính trị, mà tỏ ra khá phóng khoáng tự do, nhiều chiều, pha trộn những luận điểm logic vững vàng với những tình cảm nhiệt thành và một óc hài hước sắc bén. » - Trích Lời giới thiệu của Dịch giả.', 11, 100, 1),
-(110, 'Dầu Mỏ, Tiền Bạc Và Quyền Lực', 'Daniel Yergin', 'img/dau-mo-quyen-luc-va-tien-bac', 449000, 'Dầu mỏ, tiền bạc và quyền lực khắc họa toàn cảnh lịch sử ngành công nghiệp dầu mỏ - cuộc giao tranh giành tiền bạc và quyền lực có xung quanh vấn đề dầu mỏ. Cuộc chiến này đã làm rung chuyển nền kinh tế toàn cầu, phản ánh hậu quả của các cuộc chiến tranh thế giới và khu vực, đồng thời thay đổi vận mệnh nhân loại nói chung và các quốc gia nói riêng.\r\n\r\nDầu mỏ, tiền bạc và quyền lực là một bức tranh về lịch sử thế kỷ XX, cũng là về ngành công nghiệp dầu mỏ. Bức họa khổng lồ này tái hiện lịch sử từ khi người ta khoan giếng dầu đầu tiên ở Pennsylvania, trải qua hai cuộc đại chiến, tới khi Iraq xâm lược Kuwait và Chiến dịch bão táp sa mạc.\r\n\r\nNhiều nhân vật lịch sử xuất hiện trong cuốn sách, từ những người liều mạng đi tìm dầu mỏ, những kẻ lừa đảo tới những ông vua dầu mỏ, từ cựu Thủ tướng Anh Winston Churchill, và Quốc vương Ả-rập Xê-út Ibn Saud, tới Tổng thống Mỹ George Bush và cựu Tổng thống Iraq Saddam Hussein. Là cuốn sách đồ sộ và hùng tráng về chủ đề dầu mỏ đầy bí ẩn, lôi cuốn và mang tính sống còn với thế giới, Dầu mỏ, tiền bạc và quyền lực không chỉ trình bày những nhận thức cơ bản về dầu mỏ, về quyền lực, về tiền bạc mà còn về cả thế kỷ XX. Tác phẩm có sức khái quát đặc biệt, tầm quan trọng to lớn và lôi cuốn tới mức mê hoặc.\r\n\r\nDầu mỏ, tiền bạc và quyền lực đã được hãng PBS dựng thành bộ phim cùng tên và được trao giải Eccle cho tác phẩm không hư cấu xuất sắc nhất năm 1992.', 11, 100, 1);
+(110, 'Dầu Mỏ, Tiền Bạc Và Quyền Lực', 'Daniel Yergin', 'img/dau-mo-quyen-luc-va-tien-bac.jpg', 449000, 'Dầu mỏ, tiền bạc và quyền lực khắc họa toàn cảnh lịch sử ngành công nghiệp dầu mỏ - cuộc giao tranh giành tiền bạc và quyền lực có xung quanh vấn đề dầu mỏ. Cuộc chiến này đã làm rung chuyển nền kinh tế toàn cầu, phản ánh hậu quả của các cuộc chiến tranh thế giới và khu vực, đồng thời thay đổi vận mệnh nhân loại nói chung và các quốc gia nói riêng.\r\n\r\nDầu mỏ, tiền bạc và quyền lực là một bức tranh về lịch sử thế kỷ XX, cũng là về ngành công nghiệp dầu mỏ. Bức họa khổng lồ này tái hiện lịch sử từ khi người ta khoan giếng dầu đầu tiên ở Pennsylvania, trải qua hai cuộc đại chiến, tới khi Iraq xâm lược Kuwait và Chiến dịch bão táp sa mạc.\r\n\r\nNhiều nhân vật lịch sử xuất hiện trong cuốn sách, từ những người liều mạng đi tìm dầu mỏ, những kẻ lừa đảo tới những ông vua dầu mỏ, từ cựu Thủ tướng Anh Winston Churchill, và Quốc vương Ả-rập Xê-út Ibn Saud, tới Tổng thống Mỹ George Bush và cựu Tổng thống Iraq Saddam Hussein. Là cuốn sách đồ sộ và hùng tráng về chủ đề dầu mỏ đầy bí ẩn, lôi cuốn và mang tính sống còn với thế giới, Dầu mỏ, tiền bạc và quyền lực không chỉ trình bày những nhận thức cơ bản về dầu mỏ, về quyền lực, về tiền bạc mà còn về cả thế kỷ XX. Tác phẩm có sức khái quát đặc biệt, tầm quan trọng to lớn và lôi cuốn tới mức mê hoặc.\r\n\r\nDầu mỏ, tiền bạc và quyền lực đã được hãng PBS dựng thành bộ phim cùng tên và được trao giải Eccle cho tác phẩm không hư cấu xuất sắc nhất năm 1992.', 11, 100, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `bookcart`
+--
+
+CREATE TABLE `bookcart` (
+  `cartId` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `totalprice` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `bookcart`
+--
+
+INSERT INTO `bookcart` (`cartId`, `bookId`, `amount`, `totalprice`) VALUES
+(1, 2, 6, 600000),
+(1, 3, 4, 560000);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cart`
+--
+
+CREATE TABLE `cart` (
+  `cartId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`cartId`, `userId`, `price`, `status`) VALUES
+(1, 35, 0, 0),
+(3, 43, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -188,6 +247,28 @@ INSERT INTO `category` (`catId`, `catName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `comment`
+--
+
+CREATE TABLE `comment` (
+  `commentId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  `content` varchar(2000) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `comment`
+--
+
+INSERT INTO `comment` (`commentId`, `userId`, `bookId`, `content`, `rating`, `date`) VALUES
+(2, 35, 1, 'Sách quá hay', 5, '2022-10-08 18:11:56');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `user`
 --
 
@@ -209,24 +290,55 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`userId`, `username`, `password`, `birthname`, `email`, `phonenumber`, `address`, `admin`) VALUES
 (13, 'thanhthuy', '$2b$10$I4iTFzxH3ON5mz5oNrAu2OCrAjMtumAeG0aEog3dJ6Nn4FTMo0KsK', 'Thanh Thuy', 'thuy@gmail.com', '0923456482', 'Đà Nẵng', 0),
 (14, 'tinap', '$2b$10$3skaNWtSgsuYFhHV66dcseMSVs2x2CoX0qv7deRqzFoWwkb37ipGi', 'Huỳnh Trí Tín', 'tinap@gmail.com', '0923456482', 'Đà Nẵng', 0),
-(35, 'michune', '$2b$10$91WWL56qET14m2gITAuvlOTpkXKDlXML6Hb62t8tyEEYsg2.lR3SO', 'Nguyễn Khôi', 'khoicari@gmail.com', '0923456482', 'Đà Nẵng', 1);
+(35, 'michune', '$2b$10$91WWL56qET14m2gITAuvlOTpkXKDlXML6Hb62t8tyEEYsg2.lR3SO', 'Nguyễn Khôi', 'khoicari@gmail.com', '0923456482', 'Đà Nẵng', 1),
+(43, 'nono', '$2b$10$i243.T.TfQG39ZvmTG6NceUmGUApC6atHBuYbHKlngmtFEnveeMrO', '', 'noooguyen@gmail.com', '', '', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
 
 --
+-- Chỉ mục cho bảng `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`billId`),
+  ADD KEY `fk_user1` (`userId`),
+  ADD KEY `fk_bill5` (`cartId`);
+
+--
 -- Chỉ mục cho bảng `book`
 --
 ALTER TABLE `book`
-  ADD PRIMARY KEY (`bookid`),
+  ADD PRIMARY KEY (`bookId`),
   ADD KEY `fk_category` (`catId`);
+
+--
+-- Chỉ mục cho bảng `bookcart`
+--
+ALTER TABLE `bookcart`
+  ADD KEY `fk_cart` (`cartId`),
+  ADD KEY `fk_book` (`bookId`);
+
+--
+-- Chỉ mục cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cartId`),
+  ADD KEY `fk_user2` (`userId`);
 
 --
 -- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`catId`);
+
+--
+-- Chỉ mục cho bảng `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`commentId`),
+  ADD KEY `fk_user` (`userId`),
+  ADD KEY `fk_bookId` (`bookId`);
 
 --
 -- Chỉ mục cho bảng `user`
@@ -241,10 +353,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT cho bảng `book`
 --
 ALTER TABLE `book`
-  MODIFY `bookid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `bookId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+
+--
+-- AUTO_INCREMENT cho bảng `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -253,20 +377,53 @@ ALTER TABLE `category`
   MODIFY `catId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT cho bảng `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
 
 --
+-- Các ràng buộc cho bảng `bill`
+--
+ALTER TABLE `bill`
+  ADD CONSTRAINT `fk_bill5` FOREIGN KEY (`cartId`) REFERENCES `cart` (`cartId`),
+  ADD CONSTRAINT `fk_user1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+
+--
 -- Các ràng buộc cho bảng `book`
 --
 ALTER TABLE `book`
   ADD CONSTRAINT `fk_category` FOREIGN KEY (`catId`) REFERENCES `category` (`catId`);
+
+--
+-- Các ràng buộc cho bảng `bookcart`
+--
+ALTER TABLE `bookcart`
+  ADD CONSTRAINT `fk_book` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
+  ADD CONSTRAINT `fk_cart` FOREIGN KEY (`cartId`) REFERENCES `cart` (`cartId`);
+
+--
+-- Các ràng buộc cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `fk_user2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+
+--
+-- Các ràng buộc cho bảng `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `fk_bookId` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

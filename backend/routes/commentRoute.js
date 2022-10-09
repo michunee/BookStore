@@ -1,36 +1,18 @@
-const Comment = require('../models/commentModel');
-const User = require('../models/userModel');
+const express = require('express');
+const router = express.Router();
+const commentController = require('../controllers/commentController');
+const { verifyUser, verifyAdmin } = require("../middlewares/authorization");
 
-const getAllComment = async (req, res) => {
-    const commentList = await Comment.getAllComment();
-    res.status(200).json({
-        commentList: commentList
-    })
-}
+router.route('/')
+    .get(commentController.getAllComment);
 
-const getCommentByBookId = async (req, res) => {
-    const bookId = req.params.bookId;
-    const commentList = await Comment.getCommentByBookId(bookId);
-    res.status(200).json({
-        commentList: commentList
-    })
-}
+router.route('/book/:bookId')
+    .get(commentController.getCommentByBookId);
 
-const postCommentbyUsername = async (req, res) => {
-    const bookId = req.params.bookId;
-    const username = req.params.username;
-    const content = req.body.content;
-    const rating = req.body.rating;
-    const user = await User.getUserByUsername(username)
-    const commentList = await Comment.postCommentbyUserId(user[0].userId, bookId, content, rating)
-    res.status(200).json({
-        status: "success",
-        message: "Post comment success!"
-    })
-}
+router.route('/book/:bookId')
+    .get(commentController.getCommentByBookId);
 
-module.exports = {
-    getAllComment,
-    getCommentByBookId,
-    postCommentbyUsername
-}
+router.route('/user/:username/book/:bookId')
+    .post(commentController.postCommentbyUsername);
+    
+module.exports = router;

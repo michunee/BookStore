@@ -3,9 +3,9 @@ const verifyToken = require("./verifyToken");
 const verifyUser = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.userId) {
-            next();
+        next();
         } else {
-            res.status(403).json("You are not user for allowed to do that!");
+            res.status(403).json("You are not allowed to do that!");
         }
     });
 };
@@ -13,7 +13,7 @@ const verifyUser = (req, res, next) => {
 const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.isAdmin) {
-            next();
+        next();
         } else {
             res.status(403).json("You are not admin for allowed to do that!");
         }
