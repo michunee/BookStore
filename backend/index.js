@@ -4,7 +4,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-require("dotenv").config();
 
 const catchErrorMiddleware = require('./middlewares/catchError');
 const errorHandlerMiddleware = require('./middlewares/errorHandler');
@@ -12,19 +11,23 @@ const errorHandlerMiddleware = require('./middlewares/errorHandler');
 const bookRouter = require('./routes/bookRoute');
 const userRouter = require('./routes/userRoute');
 const categoryRouter = require('./routes/categoryRoute');
+const commentRouter = require('./routes/commentRoute');
+const cartRouter = require('./routes/cartRoute');
 
 const app = express();
 
-app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors());
 
 // ROUTES
 app.use('/api/books', bookRouter);
 app.use('/api/users', userRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/comments', commentRouter);
+app.use('/api/carts', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);

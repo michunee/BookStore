@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Cart = require('../models/cartModel');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
@@ -28,9 +29,9 @@ const createSendToken = (user, statusCode, res) => {
 }
 
 const register = async (req, res) => {
-    const { username, password, birthname, email, phonenumber, address, admin } = req.body;
+    const { username, password, email } = req.body;
     // 1) Check if information is full
-    if (!username || !password || !birthname || !email || !phonenumber || !address || !admin) {
+    if (!username || !password || !email) {
         return res.status(400).json({
             status: "fail",
             message: "Please provide full information !",
@@ -45,8 +46,9 @@ const register = async (req, res) => {
         });
     }
     let hashedPassword = await bcrypt.hash(password, 10);
-    const createUser = await User.createUser(username, hashedPassword, birthname, email, phonenumber, address, admin)
+    const createUser = await User.createUser(username, hashedPassword, email)
     const user = await User.getUserByEmail(email);
+    const cart = await Cart.createCart(user[0].userId);
     // 3) If everything ok, send token to client
     createSendToken(user, 200, res);
 }
@@ -57,7 +59,7 @@ const login = async (req, res) => {
     if (!email || !password) {
         return res.status(400).json({
             status: "fail",
-            message: "Vui lòng điền đầy đủ thông tin email và mật khẩu !"
+            message: "Please provide username and password !"
         });
     }
     // 2) Check if user exists && password is correct
@@ -65,17 +67,16 @@ const login = async (req, res) => {
     if (!user[0]) {
         return res.status(400).json({
             status: "fail",
-            message: "Email không tồn tại !",
+            message: "This email has not be register",
         });
     }
     const isEqual = await bcrypt.compare(password, user[0].password);
     if (!user || !isEqual) {
         return res.status(401).json({
             status: "fail",
-            message: "Sai mật khẩu. Vui lòng nhập lại!"
+            message: "Incorrect password !"
         });
     }
-    // console.log(user);
     // 3) If everything ok, send token to client
     createSendToken(user, 200, res);
 }

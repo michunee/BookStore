@@ -31,9 +31,9 @@ exports.getUserByEmail = async (email) => {
     })
 }
 
-exports.createUser = async (username, password, birthname, email, phonenumber, address, admin) => {
+exports.createUser = async (username, password, email) => {
     let userData = {
-        username, password, birthname, email, phonenumber, address, admin
+        username, password, email
     }
     return new Promise((resolve, reject) => {
         let sql = "INSERT INTO user SET ?";

@@ -1,5 +1,5 @@
 import Card from '@mui/material/Card';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 import Header from '../components/Header';
 import ScrollTop from '../components/ScrollTop';
@@ -7,6 +7,8 @@ import Sidebar from '../components/Sidebar';
 import Book from '../components/Book';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Footer from '../components/Footer';
+import Pagination from '../components/Pagination';
 
 function Home() {
     // TODO: Get api những cuốn sách theo category
@@ -39,16 +41,20 @@ function Home() {
     return (
         <div >
             <Header />
-            <Grid sx={{ mt: 10 }} container spacing={1}>
-                <Grid item xs={3} >
-                    <Card style={{ boxShadow: "0 0 5px #ccc" }}>
-                        <Sidebar onClickSelectTab={useSelectTabHandler} />
-                    </Card>
+            <Container maxWidth="lg">
+                <Grid sx={{ mt: 10 }} container spacing={1}>
+                    <Grid item xs={3} >
+                        <Card style={{ boxShadow: "0 0 5px #ccc" }}>
+                            <Sidebar onClickSelectTab={useSelectTabHandler} />
+                        </Card>
+                    </Grid>
+                    <Grid item xs={9}>
+                        <Book response={data} />
+                        <Pagination />
+                    </Grid>
                 </Grid>
-                <Grid item xs={9}>
-                    <Book response={data} />
-                </Grid>
-            </Grid>
+            </Container>
+            <Footer />
             <ScrollTop />
         </div >
     )

@@ -12,6 +12,10 @@ function Header() {
         if (localStorage.getItem('token')) {
             setIsLogin(true);
         }
+        else {
+            localStorage.removeItem('token');
+            setIsLogin(false);
+        }
     }, [])
 
     return (
