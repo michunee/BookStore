@@ -19,3 +19,16 @@ exports.getCommentByBookId = async(bookId)=>{
         })
     })
 }
+
+exports.postCommentbyUserId = async(userId, bookId, content, rating)=>{
+    const data = {
+        userId, bookId, content, rating
+    }
+    return new Promise((resolve, reject) => {
+        let sql = `INSERT INTO comment SET ?`;
+        db.query(sql,data, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}

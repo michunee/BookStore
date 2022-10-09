@@ -46,10 +46,10 @@ exports.addBookIntoCart = async(cartId, bookId, amount, totalprice)=>{
 
 exports.updateBookFromCart = async(cartId, bookId, amount, totalprice)=>{
     let cartData = {
-        cartId, bookId, amount, totalprice
+        amount, totalprice
     }
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE bookcart SET ? WHERE bookId = ${bookId}`;
+        let sql = `UPDATE bookcart SET ? WHERE cartId = ${cartId} AND bookId = ${bookId}`;
         db.query(sql, cartData, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
