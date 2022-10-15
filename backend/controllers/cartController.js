@@ -24,7 +24,7 @@ const addBookIntoCart = async(req, res) => {
     const amount = req.body.bookAmount;
     const book = await Book.getDetailBookById(bookId)
     const totalprice = amount * book[0].bookPrice;
-    const checkBook = await Book.getBookByCart(bookId)
+    const checkBook = await Book.getBookByCart(bookId, cartId)
     if(!checkBook[0]){
         const cartList = await Cart.addBookIntoCart(cartId,bookId,amount,totalprice);
         res.redirect(`/api/carts/${username}`)

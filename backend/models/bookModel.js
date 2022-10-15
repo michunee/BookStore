@@ -30,9 +30,9 @@ exports.getDetailBookById = async(bookId)=>{
     })
 }
 
-exports.getBookByCart = async(bookId)=>{
+exports.getBookByCart = async(bookId, cartId)=>{
     return new Promise((resolve, reject) => {
-        let sql = "SELECT * FROM bookcart where bookId = " + bookId;
+        let sql = `SELECT * FROM bookcart where bookId = ${bookId} and cartId = ${cartId}`;
         db.query(sql, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
