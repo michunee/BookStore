@@ -63,3 +63,16 @@ exports.getUsernameByUserId = async(userId)=>{
         })
     })
 }
+
+exports.updateUserByUsername = async(username, phonenumber, address)=>{
+    let userData = {
+        phonenumber, address
+    }
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE user SET ? WHERE username = ${username}`;
+        db.query(sql, userData,  (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}

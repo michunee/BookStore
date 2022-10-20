@@ -12,7 +12,7 @@ exports.getDueCartByUserId = async(userId)=>{
 
 exports.getDetailCartByCartId = async(cartId)=>{
     return new Promise((resolve, reject) => {
-        let sql = `SELECT * FROM bookcart WHERE cartId = ${cartId}`;
+        let sql = `SELECT book.bookId, bookName, bookImg, bookPrice, bookcart.amount, totalprice FROM bookcart INNER JOIN book ON bookcart.bookId = book.bookId WHERE cartId = ${cartId}`;
         db.query(sql, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
