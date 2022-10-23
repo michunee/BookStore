@@ -45,6 +45,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 function SearchBar() {
+
     return (
         <div>
             <Search>

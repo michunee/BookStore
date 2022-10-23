@@ -13,6 +13,7 @@ function BookDetail() {
     const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState({});
     const { id } = useParams();
+    const userName = localStorage.getItem('user');
 
     const navigate = useNavigate();
     // const { response, error, loading } = useAxios({ url: `/api/books/${id}` })
@@ -20,29 +21,15 @@ function BookDetail() {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                })
+                .get(`api/books/${id}`)
                 .then(res => setData(res.data))
         }
         fetchData();
     }, [id]);
 
-    const addToCartHandler = (e) => {
-        e.preventDefault();
-        const cart = {
-            bookId: data.book.id,
-            quantity: quantity,
-        }
-        axios
-            .post(`api/cart`, cart)
-            .then(res => {
-                console.log(res);
-                navigate("/cart");
-            })
+    const handleAddToCart = () => {
     }
+
 
     return (
         <div>
@@ -70,8 +57,6 @@ function BookDetail() {
                                 </Typography>
                             </Box>
                         </Grid>
-
-
 
                         <Grid item xs={8} >
                             <Paper elevation={8} sx={{ my: 2 }}>
@@ -113,7 +98,7 @@ function BookDetail() {
                                 aria-label='addToCart'
                                 variant='outlined'
                                 color='primary'
-                                onClick={addToCartHandler}
+                                onClick={handleAddToCart}
                                 startIcon={<ShoppingCartIcon />}
                                 sx={{ mt: 1 }}
                             >
@@ -124,7 +109,6 @@ function BookDetail() {
                     </Grid>
                 )
                 }
-                <div id="error" style={{ display: 'none' }}>Error</div>
             </Container>
         </div >
     )

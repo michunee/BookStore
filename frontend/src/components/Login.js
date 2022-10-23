@@ -33,12 +33,11 @@ function Login() {
             password: password
         }
 
-
         axios.post("api/users/login", data)
             .then(res => {
                 console.log(res.data);
                 localStorage.setItem("token", res.data.accessToken);
-                // localStorage.setItem("user", JSON.stringify(res.data.user));
+                localStorage.setItem("user", res.data.data[0].username);
                 window.location.href = "/";
             })
             .catch(err => {
@@ -81,7 +80,6 @@ function Login() {
                         autoComplete="email"
                         autoFocus
                     />
-
 
                     <Typography variant="h7" color="error">
                         {error}

@@ -16,6 +16,7 @@ function Home() {
     const [id, setId] = useState(1);
     const [data, setData] = useState({});
 
+
     const useSelectTabHandler = (id) => {
         setId(id);
     }
@@ -23,11 +24,7 @@ function Home() {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/category/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                })
+                .get(`api/books/category/${id}`)
                 .then(res => setData(res.data))
             // console.log(localStorage.getItem('token'));
         }

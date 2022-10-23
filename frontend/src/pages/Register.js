@@ -14,6 +14,7 @@ import axios from 'axios';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
 const REGISTER_URL = '/api/users/register';
 
 function Register() {
@@ -43,6 +44,11 @@ function Register() {
 
         if (!USER_REGEX.test(username)) {
             alert("Username must be between 4 and 24 characters and contain only letters, numbers, dashes and underscores");
+            return;
+        }
+
+        if (!EMAIL_REGEX.test(email)) {
+            alert("Email is not valid");
             return;
         }
 

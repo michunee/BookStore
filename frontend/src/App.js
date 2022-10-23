@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import BookDetail from './pages/BookDetail';
 import Register from './pages/Register';
 import Login from './components/Login';
+import Cart from './pages/Cart';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/:id" element={<BookDetail />} />
-        {/* <Route path="/cart/:id" element={<Cart />} /> */}
+        <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

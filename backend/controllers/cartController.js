@@ -2,7 +2,7 @@ const Cart = require('../models/cartModel');
 const User = require('../models/userModel');
 const Book = require('../models/bookModel');
 
-const getDetailCartByUsername = async(req, res) => {
+const getDetailCartByUsername = async (req, res) => {
     const username = req.params.username
     const user = await User.getUserByUsername(username)
     const userId = user[0].userId
@@ -10,12 +10,12 @@ const getDetailCartByUsername = async(req, res) => {
     const cartId = cart[0].cartId;
     const cartList = await Cart.getDetailCartByCartId(cartId);
     res.status(200).json({
-        status : "success",
-        data : cartList
+        status: "success",
+        data: cartList
     })
 }
 
-const addBookIntoCart = async(req, res) => {
+const addBookIntoCart = async (req, res) => {
     const username = req.params.username
     const user = await User.getUserByUsername(username)
     const cart = await Cart.getDueCartByUserId(user[0].userId)
@@ -24,15 +24,15 @@ const addBookIntoCart = async(req, res) => {
     const amount = req.body.bookAmount;
     const book = await Book.getDetailBookById(bookId)
     const totalprice = amount * book[0].bookPrice;
-    const checkBook = await Book.getBookByCart(bookId)
-    if(!checkBook[0]){
-        const cartList = await Cart.addBookIntoCart(cartId,bookId,amount,totalprice);
+    const checkBook = await Book.getBookByCart(bookId, cartId)
+    if (!checkBook[0]) {
+        const cartList = await Cart.addBookIntoCart(cartId, bookId, amount, totalprice);
         res.redirect(`/api/carts/${username}`)
     }
-    else{
+    else {
         const newAmount = amount + checkBook[0].amount
         const newtotalprice = totalprice + checkBook[0].totalprice;
-        const cartList = await Cart.updateBookFromCart(cartId,bookId,newAmount,newtotalprice);
+        const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
         res.redirect(`/api/carts/${username}`)
     }
 }
@@ -72,7 +72,7 @@ const decreaseBookInCart = async (req, res) => {
     const totalprice = req.body.totalprice
     const price = req.body.bookPrice
     const userId = await User.getUserIdIdByCartId(cartId)
-    if(amount == 1) {
+    if (amount == 1) {
         res.redirect(`/api/carts/${username}`)
     } else {
         const newAmount = amount - 1

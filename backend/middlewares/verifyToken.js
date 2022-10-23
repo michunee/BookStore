@@ -10,9 +10,9 @@ const verifyToken = (req, res, next) => {
     } else if (req.cookies.jwt) {
         token = req.cookies.jwt;
     }
-    
+
     if (token) {
-            jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (err) res.status(403).json("Token is not valid!");
             req.user = user;
             next();

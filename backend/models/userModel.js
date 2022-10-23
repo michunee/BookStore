@@ -1,6 +1,6 @@
 const db = require('./database');
 
-exports.getAllUser = async()=>{
+exports.getAllUser = async () => {
     return new Promise((resolve, reject) => {
         let sql = "SELECT * FROM user";
         db.query(sql, (err, data) => {
@@ -11,7 +11,7 @@ exports.getAllUser = async()=>{
 }
 
 
-exports.getUserByUsername = async(username)=>{
+exports.getUserByUsername = async (username) => {
     return new Promise((resolve, reject) => {
         let sql = `SELECT * FROM user WHERE username = '${username}'`;
         db.query(sql, (err, data) => {
@@ -21,7 +21,7 @@ exports.getUserByUsername = async(username)=>{
     })
 }
 
-exports.getUserByEmail = async(email)=>{
+exports.getUserByEmail = async (email) => {
     return new Promise((resolve, reject) => {
         let sql = `SELECT * FROM user WHERE email = '${email}'`;
         db.query(sql, (err, data) => {
@@ -31,12 +31,45 @@ exports.getUserByEmail = async(email)=>{
     })
 }
 
-exports.createUser = async(username, password, birthname, email, phonenumber, address, admin)=>{
+exports.getUserIdIdByCartId = async (cartId) => {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT userId FROM cart WHERE cartId = '${cartId}'`;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.createUser = async (username, password, email) => {
     let userData = {
-        username , password, birthname, email, phonenumber, address, admin
+        username, password, email
     }
     return new Promise((resolve, reject) => {
         let sql = "INSERT INTO user SET ?";
+        db.query(sql, userData, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.getUsernameByUserId = async (userId) => {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT username FROM user WHERE userId = ${userId}`;
+        db.query(sql, (err, data) => {
+            if (err) console.log(err);
+            else resolve(data);
+        })
+    })
+}
+
+exports.updateUserByUsername = async (username, phonenumber, address) => {
+    let userData = {
+        phonenumber, address
+    }
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE user SET ? WHERE username = ${username}`;
         db.query(sql, userData, (err, data) => {
             if (err) console.log(err);
             else resolve(data);

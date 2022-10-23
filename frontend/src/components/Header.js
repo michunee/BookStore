@@ -18,6 +18,8 @@ function Header() {
         }
     }, [])
 
+
+
     return (
         <AppBar position='fixed' >
             <Toolbar>
@@ -41,10 +43,15 @@ function Header() {
                             </Badge>
                         </Link>
                     </Button>
+
+
                     <Button color='inherit'>
-                        <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>
-                            {isLogin ? 'Logout' : 'Login'}
-                        </Link>
+                        {isLogin ? `${localStorage.getItem('user')}` : 'Guest'}
+                    </Button>
+
+
+                    <Button color='inherit'>
+                        {isLogin ? <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Logout</Link> : <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Login</Link>}
                     </Button>
                 </Box>
             </Toolbar>
