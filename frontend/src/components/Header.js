@@ -3,22 +3,17 @@ import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box } from "@mui/system";
 import SearchBar from "./SearchBar";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/selectors";
 
 function Header() {
-    const [isLogin, setIsLogin] = useState(false);
+    const username = useSelector(userSelector);
+    console.log(username);
 
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            setIsLogin(true);
-        }
-        else {
-            localStorage.removeItem('token');
-            setIsLogin(false);
-        }
-    }, [])
-
-
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+    }
 
     return (
         <AppBar position='fixed' >
@@ -36,23 +31,20 @@ function Header() {
                     justifyContent='space-between'
                     alignContent='center'
                 >
-                    <Button color='inherit'>
-                        <Link to='/cart' style={{ textDecoration: 'none', color: 'white' }}>
+
+                    <Link to='/cart' style={{ textDecoration: 'none', color: 'white' }}>
+                        <Button color='inherit'>
                             <Badge badgeContent={4} color='secondary'>
                                 <ShoppingCartIcon />
                             </Badge>
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
 
+                    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                        {username}
+                    </Typography>
 
-                    <Button color='inherit'>
-                        {isLogin ? `${localStorage.getItem('user')}` : 'Guest'}
-                    </Button>
-
-
-                    <Button color='inherit'>
-                        {isLogin ? <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Logout</Link> : <Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Login</Link>}
-                    </Button>
+                    <Button color='inherit' onClick={handleLogout}>Logout</Button>
                 </Box>
             </Toolbar>
         </AppBar >

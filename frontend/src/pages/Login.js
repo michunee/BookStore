@@ -12,11 +12,44 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { userSlice } from "../redux/reducer";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [username, setUsername] = useState("tinhuynh");
+    // const name = useSelector(state => state.user);
+    // console.log(name);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        // e.preventDefault();
+        // const data = {
+        //     email: email,
+        //     password: password
+        // }
+
+        // axios.post("api/users/login", data)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         localStorage.setItem("token", res.data.accessToken);
+        //         setUsername(res.data.data[0].username);
+        //         dispatch(userSlice.actions.getUserName(res.data.data[0].username));
+
+        //     })
+
+        //     .catch(err => {
+        //         setError(err.response.data.message);
+        //     }
+        //     )
+        dispatch(userSlice.actions.getUserName(username));
+        navigate("/");
+
+    }
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -24,27 +57,6 @@ function Login() {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            email: email,
-            password: password
-        }
-
-        axios.post("api/users/login", data)
-            .then(res => {
-                console.log(res.data);
-                localStorage.setItem("token", res.data.accessToken);
-                localStorage.setItem("user", res.data.data[0].username);
-                window.location.href = "/";
-            })
-            .catch(err => {
-                setError(err.response.data.message);
-            }
-            )
-
     }
 
     return (

@@ -17,7 +17,8 @@ import {
     MDBTypography,
 } from "mdb-react-ui-kit";
 import React from "react";
-
+import { Button } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -25,6 +26,8 @@ function Cart() {
     const [total, setTotal] = useState(0);
     const shippingFee = 15000
     const userName = localStorage.getItem('user');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = () => {
@@ -54,9 +57,26 @@ function Cart() {
         setTotal(subTotal + shippingFee);
     }, [cartItems])
 
-    return (
+    const handleDeleteBookFromCart = (id) => {
+        axios
+            .delete(`api/carts/${userName}/book/${id}`, {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                console.log(res.data);
+            }
+            )
+    }
 
-        <section className="h-100 gradient-custom">
+    const handleClickImage = (id) => {
+        navigate(`/books/${id}`);
+    }
+
+
+    return (
+        <div className="h-100 gradient-custom">
             <Header></Header>
             <MDBContainer className="py-5 mt-4 h-100">
                 <MDBRow className="justify-content-center my-4">
@@ -67,48 +87,71 @@ function Cart() {
                                     Giỏ hàng - {cartItems.length} sản phẩm
                                 </MDBTypography>
                             </MDBCardHeader>
-                            {
-                                cartItems.map((item, index) => (
-                                    <MDBCardBody key={item.bookId}>
+                            <MDBCardBody >
+                                <MDBRow className="align-items-center">
+                                    <MDBCol md="2" className="d-flex justify-content-center">
+                                        <p className="small text-muted">Sản phẩm</p>
+                                    </MDBCol>
+                                    <MDBCol md="3">
 
-                                        <MDBRow className="align-items-center">
+                                    </MDBCol>
+                                    <MDBCol md="2" className="d-flex justify-content-center">
+                                        <p className="small text-muted">Đơn giá</p>
+                                    </MDBCol>
+                                    <MDBCol md="2" className="d-flex justify-content-center">
+                                        <p className="small text-muted">Số lượng</p>
+                                    </MDBCol>
+                                    <MDBCol md="2" className="d-flex justify-content-center">
+                                        <p className="small text-muted">Số tiền</p>
+                                    </MDBCol>
+                                    <MDBCol md="1" className="d-flex justify-content-center">
+                                        <p className="small text-muted">Xóa</p>
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCardBody>
+                            {cartItems && cartItems.map((item) => (
+                                <MDBCardBody key={item.bookId}>
 
-                                            <MDBCol md="2">
-                                                <MDBCardImage
-                                                    fluid
-                                                    src={require(`/assets/${(item.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
-                                                    alt="Generic placeholder image"
-                                                />
-                                            </MDBCol>
-                                            <MDBCol md="3" className="d-flex justify-content-center">
-                                                <div>
-                                                    <p className="small text-muted">Tên</p>
-                                                    <p >{item.bookName.substr(0, 20)}</p>
-                                                </div>
-                                            </MDBCol>
+                                    <MDBRow className="align-items-center">
 
-                                            <MDBCol md="2" className="d-flex justify-content-center">
-                                                <div>
-                                                    <p className="small text-muted">Đơn giá</p>
-                                                    <p> {item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
-                                                </div>
-                                            </MDBCol>
-                                            <MDBCol md="3" className="d-flex justify-content-center">
-                                                <div>
-                                                    <p className="small text-muted">Số lượng</p>
-                                                    <p>{item.amount}</p>
-                                                </div>
-                                            </MDBCol>
-                                            <MDBCol md="2" className="d-flex justify-content-center">
-                                                <div>
-                                                    <p className="small text-muted">Số tiền</p>
-                                                    <p>{item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
-                                                </div>
-                                            </MDBCol>
-                                        </MDBRow>
-                                    </MDBCardBody>
+                                        <MDBCol md="2"  >
+                                            <MDBCardImage onClick={() => handleClickImage(item.bookId)} style={{ maxWidth: "100px", cursor: "pointer" }}
+                                                src={require(`/assets/${(item.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
+                                                alt="Generic placeholder image"
+                                            />
+                                        </MDBCol>
+                                        <MDBCol md="3" >
+                                            <div>
+                                                {item.bookName}
+                                            </div>
+                                        </MDBCol>
+                                        <MDBCol md="2" className="d-flex justify-content-center">
+                                            <div>
+                                                {item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                            </div>
+                                        </MDBCol>
+                                        <MDBCol md="2" className="d-flex justify-content-center">
+                                            <div>
+                                                {item.amount}
+                                            </div>
+                                        </MDBCol>
+                                        <MDBCol md="2" className="d-flex justify-content-center">
+                                            <div>
+                                                {item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                            </div>
+                                        </MDBCol>
+                                        <MDBCol md="1" className="d-flex justify-content-center">
+                                            <div>
+                                                <Button onClick={() => handleDeleteBookFromCart(item.bookId)}>
+                                                    Xóa
+                                                </Button>
 
-                                ))
+                                            </div>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </MDBCardBody>
+
+                            ))
 
                             }
                         </MDBCard>
@@ -144,7 +187,7 @@ function Cart() {
                     </MDBCol >
                     <MDBCol md="4">
                         <MDBCard className="mb-4">
-                            <MDBCardHeader>
+                            <MDBCardHeader className="py-3">
                                 <MDBTypography tag="h5" className="mb-0">
                                     Tổng thanh toán ({cartItems.length} Sản phẩm)
                                 </MDBTypography>
@@ -179,15 +222,15 @@ function Cart() {
                                     </MDBListGroupItem>
                                 </MDBListGroup>
 
-                                <MDBBtn block size="lg">
-                                    Thanh toán
-                                </MDBBtn>
+                                <Button fullWidth variant="contained"> Thanh Toán </Button>
+
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow >
             </MDBContainer >
-        </section >
+        </ div>
+
     )
 }
 

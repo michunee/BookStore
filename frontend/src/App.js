@@ -8,14 +8,13 @@ import {
 import Home from './pages/Home';
 import BookDetail from './pages/BookDetail';
 import Register from './pages/Register';
-import Login from './components/Login';
+import Login from './pages/Login';
 import Cart from './pages/Cart';
 
 function App() {
 
   return (
     <Router>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/:id" element={<BookDetail />} />

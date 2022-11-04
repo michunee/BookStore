@@ -8,6 +8,8 @@ import GoBackBtn from "../components/GoBackBtn";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReadMore from "../components/ReadMore";
 import { useNavigate } from "react-router-dom";
+import Comment from "../components/Comment";
+import Footer from "../components/Footer";
 
 function BookDetail() {
     const [quantity, setQuantity] = useState(1);
@@ -27,9 +29,28 @@ function BookDetail() {
         fetchData();
     }, [id]);
 
-    const handleAddToCart = () => {
+    const handleChangeQuantity = (e) => {
+        setQuantity(Number(e.target.valueAsNumber));
+        console.log(quantity);
     }
 
+
+    const handleAddBookIntoCart = () => {
+        const data = {
+            bookAmount: quantity,
+        }
+        axios
+            .post(`api/carts/${userName}/book/${id}`, data, {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+
+            .then(res => {
+                console.log(res.data);
+                navigate('/cart');
+            })
+    }
 
     return (
         <div>
@@ -83,7 +104,7 @@ function BookDetail() {
                                         <TextField
                                             sx={{ mx: 1 }}
                                             value={quantity}
-                                            onChange={(e) => setQuantity(e.target.value)}
+                                            onChange={handleChangeQuantity}
                                             variant='outlined'
                                             size='small'
                                             type='number'
@@ -98,7 +119,7 @@ function BookDetail() {
                                 aria-label='addToCart'
                                 variant='outlined'
                                 color='primary'
-                                onClick={handleAddToCart}
+                                onClick={handleAddBookIntoCart}
                                 startIcon={<ShoppingCartIcon />}
                                 sx={{ mt: 1 }}
                             >
@@ -109,7 +130,10 @@ function BookDetail() {
                     </Grid>
                 )
                 }
+
+                <Comment />
             </Container>
+            <Footer />
         </div >
     )
 }

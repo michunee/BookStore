@@ -17,9 +17,11 @@ function Home() {
     const [data, setData] = useState({});
 
 
+
     const useSelectTabHandler = (id) => {
         setId(id);
     }
+
 
     useEffect(() => {
         const fetchData = () => {
