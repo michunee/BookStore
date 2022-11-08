@@ -26,14 +26,20 @@ const addBookIntoCart = async (req, res) => {
     const totalprice = amount * book[0].bookPrice;
     const checkBook = await Book.getBookByCart(bookId, cartId)
     if (!checkBook[0]) {
-        const cartList = await Cart.addBookIntoCart(cartId, bookId, amount, totalprice);
-        res.redirect(`/api/carts/${username}`)
+        await Cart.addBookIntoCart(cartId, bookId, amount, totalprice);
+        const cartList = await Cart.getDetailCartByCartId(cartId);
+        res.status(200).json({
+            data: cartList,
+        });
     }
     else {
-        const newAmount = amount + checkBook[0].amount
+        const newAmount = amount + checkBook[0].amount;
         const newtotalprice = totalprice + checkBook[0].totalprice;
-        const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
-        res.redirect(`/api/carts/${username}`)
+        await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
+        const cartList = await Cart.getDetailCartByCartId(cartId);
+        res.status(200).json({
+            data: cartList,
+        });
     }
 }
 
@@ -43,8 +49,11 @@ const deleteBookFromCart = async (req, res) => {
     const user = await User.getUserByUsername(username)
     const cart = await Cart.getDueCartByUserId(user[0].userId)
     const cartId = cart[0].cartId
-    const deleteBook = await Cart.deleteBookFromCart(cartId, bookId)
-    res.redirect(`/api/carts/${username}`)
+    await Cart.deleteBookFromCart(cartId, bookId)
+    // const cartAfterDeleted = await Cart.getDueCartByUserId(user[0].userId)
+    const cartListAfterDeleted = await Cart.getDetailCartByCartId(cartId);
+    res.status(200).send(cartListAfterDeleted)
+    // res.status(200).send({})
 }
 
 const increaseBookInCart = async (req, res) => {
@@ -58,8 +67,9 @@ const increaseBookInCart = async (req, res) => {
     const price = req.body.bookPrice
     const newAmount = amount + 1;
     const newtotalprice = totalprice + price;
-    const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice)
-    res.redirect(`/api/carts/${username}`)
+    await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice)
+    const cartList = await Cart.getDetailCartByCartId(cartId);
+    res.status(200).send(cartList)
 }
 
 const decreaseBookInCart = async (req, res) => {
@@ -73,12 +83,14 @@ const decreaseBookInCart = async (req, res) => {
     const price = req.body.bookPrice
     const userId = await User.getUserIdIdByCartId(cartId)
     if (amount == 1) {
-        res.redirect(`/api/carts/${username}`)
+        const cartList = await Cart.getDetailCartByCartId(cartId);
+        res.status(200).send(cartList)
     } else {
-        const newAmount = amount - 1
-        const newtotalprice = totalprice - price
-        const cartList = await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice)
-        res.redirect(`/api/carts/${username}`)
+        const newAmount = amount - 1;
+        const newtotalprice = totalprice - price;
+        await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
+        const cartList = await Cart.getDetailCartByCartId(cartId);
+        res.status(200).send(cartList)
     }
 }
 

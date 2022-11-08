@@ -5,14 +5,31 @@ import { Box } from "@mui/system";
 import SearchBar from "./SearchBar";
 import { useSelector } from "react-redux";
 import { userSelector } from "../redux/selectors";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
     const username = useSelector(userSelector);
-    console.log(username);
+    // console.log(username);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
+        axios.
+            post('api/users/logout', {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+            )
+            .then(res => {
+                console.log(res.data);
+                localStorage.removeItem('token');
+                navigate('/login');
+            })
+    }
+
+    const handleGoToUserPage = () => {
+        navigate(`/users/${username}`);
     }
 
     return (
@@ -40,9 +57,7 @@ function Header() {
                         </Button>
                     </Link>
 
-                    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                        {username}
-                    </Typography>
+                    <Button color='inherit' onClick={handleGoToUserPage}>{username}</Button>
 
                     <Button color='inherit' onClick={handleLogout}>Logout</Button>
                 </Box>

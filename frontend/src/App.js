@@ -10,6 +10,7 @@ import BookDetail from './pages/BookDetail';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
+import User from './pages/User';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/users/:username" element={<User />} />
       </Routes>
     </Router>
   )

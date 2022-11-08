@@ -6,7 +6,6 @@ import { Divider, List, ListItem, ListItemText, Paper, Rating, Typography } from
 
 function Comment() {
     const [data, setData] = useState([]);
-    const userName = localStorage.getItem('user');
 
     const { id } = useParams();
 
@@ -39,7 +38,7 @@ function Comment() {
                             <ListItem alignItems="flex-start">
                                 <ListItemText>
                                     <Typography variant="h7" gutterBottom component="div">
-                                        {userName}
+                                        {comment.username}
                                     </Typography>
                                     <React.Fragment>
                                         <Rating name="read-only" value={comment.rating ?? ""} readOnly ></Rating>

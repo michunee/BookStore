@@ -20,34 +20,31 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [username, setUsername] = useState("tinhuynh");
     // const name = useSelector(state => state.user);
     // console.log(name);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
-        // const data = {
-        //     email: email,
-        //     password: password
-        // }
+        e.preventDefault();
+        const data = {
+            email: email,
+            password: password
+        }
 
-        // axios.post("api/users/login", data)
-        //     .then(res => {
-        //         console.log(res.data);
-        //         localStorage.setItem("token", res.data.accessToken);
-        //         setUsername(res.data.data[0].username);
-        //         dispatch(userSlice.actions.getUserName(res.data.data[0].username));
+        axios.post("api/users/login", data)
+            .then(res => {
+                console.log(res.data);
+                localStorage.setItem("token", res.data.accessToken);
+                dispatch(userSlice.actions.getUserName(res.data.data[0].username));
+                navigate("/");
+            })
 
-        //     })
+            .catch(err => {
+                setError(err.response.data.message);
+            }
+            )
 
-        //     .catch(err => {
-        //         setError(err.response.data.message);
-        //     }
-        //     )
-        dispatch(userSlice.actions.getUserName(username));
-        navigate("/");
 
     }
 

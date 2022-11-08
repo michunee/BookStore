@@ -10,8 +10,11 @@ router.route('/login')
 router.route('/register')
     .post(authController.register)
 
+router.route('/logout')
+    .post(authController.signout)
+
 router.route('/')
-    .get(protect.verifyAdmin ,userController.getAllUser)
+    .get(protect.verifyAdmin, userController.getAllUser)
 
 router.route('/:username')
     .get(userController.getUserByUsername);

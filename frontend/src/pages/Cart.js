@@ -1,38 +1,40 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
-    MDBBtn,
     MDBCard,
     MDBCardBody,
     MDBCardHeader,
     MDBCardImage,
     MDBCol,
     MDBContainer,
-    MDBIcon,
-    MDBInput,
     MDBListGroup,
     MDBListGroupItem,
     MDBRow,
     MDBTypography,
 } from "mdb-react-ui-kit";
 import React from "react";
-import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Button, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/selectors";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
-    const shippingFee = 15000
-    const userName = localStorage.getItem('user');
+    const shippingFee = 15000;
+    const username = useSelector(userSelector);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/carts/${userName}`, {
+                .get(`api/carts/${username}`, {
                     headers: {
                         'token': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -46,7 +48,7 @@ function Cart() {
         fetchData();
         return () => {
         }
-    }, [userName])
+    }, [username])
 
     useEffect(() => {
         let subTotal = 0;
@@ -57,15 +59,54 @@ function Cart() {
         setTotal(subTotal + shippingFee);
     }, [cartItems])
 
+    const handleIncreaseBook = (id, amount, price) => {
+        const data = {
+            bookAmount: amount,
+            totalprice: amount * price,
+            bookPrice: price
+        }
+        axios.create({
+            headers: {
+                'token': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .patch(`api/carts/${username}/book/${id}/increase`, data)
+            .then(res => {
+
+                setCartItems(res.data);
+                console.log(res.data);
+            })
+    }
+
+    const handleDecreaseBook = (id, amount, price) => {
+        const data = {
+            bookAmount: amount,
+            totalprice: amount * price,
+            bookPrice: price
+        }
+        axios.create({
+            headers: {
+                'token': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .patch(`api/carts/${username}/book/${id}/decrease`, data)
+            .then(res => {
+                setCartItems(res.data);
+                console.log(res.data);
+            })
+    }
+
+
     const handleDeleteBookFromCart = (id) => {
         axios
-            .delete(`api/carts/${userName}/book/${id}`, {
+            .delete(`api/carts/${username}/book/${id}`, {
                 headers: {
                     'token': `Bearer ${localStorage.getItem('token')}`
                 }
             })
             .then(res => {
-                console.log(res.data);
+                console.log('123', res.data);
+                setCartItems(res.data);
             }
             )
     }
@@ -83,6 +124,7 @@ function Cart() {
                     <MDBCol md="8">
                         <MDBCard className="mb-4">
                             <MDBCardHeader className="py-3">
+
                                 <MDBTypography tag="h5" className="mb-0">
                                     Giỏ hàng - {cartItems.length} sản phẩm
                                 </MDBTypography>
@@ -132,21 +174,24 @@ function Cart() {
                                         </MDBCol>
                                         <MDBCol md="2" className="d-flex justify-content-center">
                                             <div>
+                                                <IconButton onClick={() => handleIncreaseBook(item.bookId, item.amount, item.bookPrice)}>
+                                                    <AddCircleIcon margin="5px" fontSize="10px" color="primary" />
+                                                </IconButton>
                                                 {item.amount}
+                                                <IconButton onClick={() => handleDecreaseBook(item.bookId, item.amount, item.bookPrice)}>
+                                                    <RemoveCircleIcon fontSize="10px" color="primary" />
+                                                </IconButton>
                                             </div>
                                         </MDBCol>
                                         <MDBCol md="2" className="d-flex justify-content-center">
-                                            <div>
-                                                {item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                            </div>
+
+                                            {item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+
                                         </MDBCol>
                                         <MDBCol md="1" className="d-flex justify-content-center">
-                                            <div>
-                                                <Button onClick={() => handleDeleteBookFromCart(item.bookId)}>
-                                                    Xóa
-                                                </Button>
-
-                                            </div>
+                                            <IconButton aria-label="delete" onClick={() => handleDeleteBookFromCart(item.bookId)}>
+                                                <DeleteIcon />
+                                            </IconButton>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCardBody>

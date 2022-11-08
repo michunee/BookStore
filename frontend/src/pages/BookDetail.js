@@ -10,12 +10,15 @@ import ReadMore from "../components/ReadMore";
 import { useNavigate } from "react-router-dom";
 import Comment from "../components/Comment";
 import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/selectors";
 
 function BookDetail() {
     const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState({});
     const { id } = useParams();
-    const userName = localStorage.getItem('user');
+
+    const username = useSelector(userSelector);
 
     const navigate = useNavigate();
     // const { response, error, loading } = useAxios({ url: `/api/books/${id}` })
@@ -40,7 +43,7 @@ function BookDetail() {
             bookAmount: quantity,
         }
         axios
-            .post(`api/carts/${userName}/book/${id}`, data, {
+            .post(`api/carts/${username}/book/${id}`, data, {
                 headers: {
                     'token': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -48,8 +51,8 @@ function BookDetail() {
 
             .then(res => {
                 console.log(res.data);
-                navigate('/cart');
             })
+        navigate('/cart');
     }
 
     return (

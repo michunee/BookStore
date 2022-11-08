@@ -16,8 +16,6 @@ function Home() {
     const [id, setId] = useState(1);
     const [data, setData] = useState({});
 
-
-
     const useSelectTabHandler = (id) => {
         setId(id);
     }
