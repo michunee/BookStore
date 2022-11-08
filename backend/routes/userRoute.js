@@ -1,22 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
+const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 const protect = require("../middlewares/authorization");
 
-router.route('/login')
-    .post(authController.login)
+router.route("/login").post(authController.login);
 
-router.route('/register')
-    .post(authController.register)
+router.route("/register").post(authController.register);
 
-router.route('/logout')
-    .post(authController.signout)
+router.route("/logout").post(authController.signout);
 
-router.route('/')
-    .get(protect.verifyAdmin, userController.getAllUser)
+router.route("/").get(protect.verifyAdmin, userController.getAllUser);
 
-router.route('/:username')
-    .get(protect.verifyAdmin, userController.getUserByUsername);
+router
+  .route("/:username")
+  .get(protect.verifyUser, userController.getUserByUsername)
+  .patch(protect.verifyUser, userController.updateUserByUsername);
 
 module.exports = router;

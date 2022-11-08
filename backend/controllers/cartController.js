@@ -49,10 +49,10 @@ const deleteBookFromCart = async (req, res) => {
   const cart = await Cart.getDueCartByUserId(user[0].userId);
   const cartId = cart[0].cartId;
   await Cart.deleteBookFromCart(cartId, bookId);
-  const cartList = await Cart.getDetailCartByCartId(cartId);
-  res.status(200).json({
-    data: cartList,
-  });
+  // const cartAfterDeleted = await Cart.getDueCartByUserId(user[0].userId)
+  const cartListAfterDeleted = await Cart.getDetailCartByCartId(cartId);
+  res.status(200).send(cartListAfterDeleted);
+  // res.status(200).send({})
 };
 
 const increaseBookInCart = async (req, res) => {
@@ -68,9 +68,7 @@ const increaseBookInCart = async (req, res) => {
   const newtotalprice = totalprice + price;
   await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
   const cartList = await Cart.getDetailCartByCartId(cartId);
-  res.status(200).json({
-    data: cartList,
-  });
+  res.status(200).send(cartList);
 };
 
 const decreaseBookInCart = async (req, res) => {
@@ -82,19 +80,16 @@ const decreaseBookInCart = async (req, res) => {
   const amount = req.body.bookAmount;
   const totalprice = req.body.totalprice;
   const price = req.body.bookPrice;
+  const userId = await User.getUserIdIdByCartId(cartId);
   if (amount == 1) {
     const cartList = await Cart.getDetailCartByCartId(cartId);
-    res.status(200).json({
-      data: cartList,
-    });
+    res.status(200).send(cartList);
   } else {
     const newAmount = amount - 1;
     const newtotalprice = totalprice - price;
     await Cart.updateBookFromCart(cartId, bookId, newAmount, newtotalprice);
     const cartList = await Cart.getDetailCartByCartId(cartId);
-    res.status(200).json({
-      data: cartList,
-    });
+    res.status(200).send(cartList);
   }
 };
 
