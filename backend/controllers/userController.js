@@ -8,6 +8,7 @@ const getAllUser = async (req, res) => {
 };
 
 const getUserByUsername = async (req, res) => {
+  console.log(req.user);
   const username = req.params.username;
   const user = await User.getUserByUsername(username);
   res.status(200).json({

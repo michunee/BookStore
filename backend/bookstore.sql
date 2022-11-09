@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 18, 2022 lúc 08:18 AM
+-- Thời gian đã tạo: Th10 09, 2022 lúc 06:58 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -37,6 +37,17 @@ CREATE TABLE `bill` (
   `totalPrice` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `bill`
+--
+
+INSERT INTO `bill` (`billId`, `cartId`, `userId`, `price`, `ship`, `discount`, `totalPrice`, `date`) VALUES
+(3, 6, 46, 340000, 15000, 0, 355000, '2022-11-10 00:42:39'),
+(4, 7, 46, 340000, 15000, 0, 355000, '2022-11-10 00:44:57'),
+(6, 5, 45, 132000, 15000, 0, 147000, '2022-11-10 00:48:00'),
+(7, 10, 45, 200000, 15000, 0, 215000, '2022-11-10 00:49:45'),
+(8, 11, 45, 200000, 15000, 0, 215000, '2022-11-10 00:50:25');
 
 -- --------------------------------------------------------
 
@@ -192,11 +203,13 @@ CREATE TABLE `bookcart` (
 --
 
 INSERT INTO `bookcart` (`cartId`, `bookId`, `amount`, `totalprice`) VALUES
-(5, 1, 6, 396000),
-(5, 2, 3, 300000),
-(6, 3, 3, 420000),
-(5, 3, 3, 420000),
-(6, 1, 3, 198000);
+(5, 2, 2, 132000),
+(6, 2, 2, 200000),
+(6, 3, 1, 140000),
+(7, 7, 5, 340000),
+(9, 2, 1, 100000),
+(10, 2, 2, 200000),
+(11, 2, 2, 200000);
 
 -- --------------------------------------------------------
 
@@ -215,9 +228,14 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cartId`, `userId`, `status`) VALUES
-(1, 35, 0),
-(5, 45, 0),
-(6, 46, 0);
+(5, 45, 1),
+(6, 46, 1),
+(7, 46, 1),
+(8, 46, 1),
+(9, 46, 0),
+(10, 45, 1),
+(11, 45, 1),
+(12, 45, 0);
 
 -- --------------------------------------------------------
 
@@ -259,7 +277,7 @@ CREATE TABLE `comment` (
   `bookId` int(11) NOT NULL,
   `content` varchar(2000) NOT NULL,
   `rating` int(11) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -267,8 +285,9 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`commentId`, `userId`, `bookId`, `content`, `rating`, `date`) VALUES
-(2, 35, 1, 'Sách quá hay', 5, '2022-10-08 18:11:56'),
-(3, 35, 1, 'Hay lắm bro', 5, '0000-00-00 00:00:00');
+(8, 46, 3, 'Quá đã luôn', 5, '0000-00-00 00:00:00'),
+(9, 46, 3, 'Quá đã luôn', 5, '0000-00-00 00:00:00'),
+(10, 46, 3, 'Tuyệt vời', 5, '2022-11-10 00:30:35');
 
 -- --------------------------------------------------------
 
@@ -292,11 +311,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `username`, `password`, `birthname`, `email`, `phonenumber`, `address`, `admin`) VALUES
-(13, 'thanhthuy', '$2b$10$I4iTFzxH3ON5mz5oNrAu2OCrAjMtumAeG0aEog3dJ6Nn4FTMo0KsK', 'Thanh Thuy', 'thuy@gmail.com', '0923456482', 'Đà Nẵng', 0),
-(14, 'tinap', '$2b$10$3skaNWtSgsuYFhHV66dcseMSVs2x2CoX0qv7deRqzFoWwkb37ipGi', 'Huỳnh Trí Tín', 'tinap@gmail.com', '0923456482', 'Đà Nẵng', 0),
-(35, 'michune', '$2b$10$91WWL56qET14m2gITAuvlOTpkXKDlXML6Hb62t8tyEEYsg2.lR3SO', 'Nguyễn Khôi', 'khoicari@gmail.com', '0923456482', 'Đà Nẵng', 1),
 (45, 'mono', '$2b$10$gzSHZ8YrHQzTHNwcOLR2.OS4iTvysICdam7d1KcwCouzLRZcKJMSy', '', 'mono@gmail.com', '', '', 0),
-(46, 'leonnguyen', '$2b$10$cUbe30oKs9pmBzReocs1..wLuGNVptF86wDLfCGpa0i9D1KA.vZgW', '', 'leonnguyen@gmail.com', '', '', 0);
+(46, 'leonnguyen', '$2b$10$cUbe30oKs9pmBzReocs1..wLuGNVptF86wDLfCGpa0i9D1KA.vZgW', 'Lê Hoàng Linh', 'leonnguyen@gmail.com', '0902188341', 'Đà Nẵng', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -361,7 +377,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `book`
@@ -373,7 +389,7 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -385,7 +401,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
