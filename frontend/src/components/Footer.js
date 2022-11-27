@@ -40,28 +40,28 @@ export default function StickyFooter() {
                         <Typography variant="h6" color="#fff" gutterBottom>
                             ABOUT US
                         </Typography>
-                        <ul>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Team
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    History
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Contact us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Locations
-                                </Link>
-                            </li>
-                        </ul>
+
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Team
+                            </Link>
+
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                History
+                            </Link>
+
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Contact us
+                            </Link>
+
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Locations
+                            </Link>
+                        </div>
+
 
 
                     </Grid>
@@ -69,85 +69,76 @@ export default function StickyFooter() {
                         <Typography variant="h6" color="#fff" gutterBottom>
                             CONTACT INFO
                         </Typography>
-                        <ul>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Cool stuff
-                                </Link>
-                            </li>
 
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Random feature
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Team feature
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Developer stuff
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Another one
-                                </Link>
-                            </li>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Cool stuff
+                            </Link>
 
-                            <Box >
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    <FacebookIcon />
-                                </Link>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    <TwitterIcon />
-                                </Link>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    <InstagramIcon />
-                                </Link>
-                            </Box>
 
-                        </ul>
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Random feature
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Team feature
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Developer stuff
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Another one
+                            </Link>
+                        </div>
+
+                        <Box>
+                            <Link margin="5px" underline='none' href="#" variant="subtitle1" color="#fff">
+                                <FacebookIcon />
+                            </Link>
+                            <Link margin="5px" underline='none' href="#" variant="subtitle1" color="#fff">
+                                <TwitterIcon />
+                            </Link>
+                            <Link margin="5px" underline='none' href="#" variant="subtitle1" color="#fff">
+                                <InstagramIcon />
+                            </Link>
+                        </Box>
+
+
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <Typography variant="h6" color="#fff" gutterBottom>
                             CUSTOMER SERVICE
                         </Typography>
-                        <ul>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Cool stuff
-                                </Link>
-                            </li>
 
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Random feature
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Team feature
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Developer stuff
-                                </Link>
-                            </li>
-                            <li>
-                                <Link underline='none' href="#" variant="subtitle1" color="#fff">
-                                    Another one
-                                </Link>
-                            </li>
-                        </ul>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Cool stuff
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Random feature
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Team feature
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Developer stuff
+                            </Link>
+
+                            <Link underline='none' href="#" variant="subtitle1" color="#fff">
+                                Another one
+                            </Link>
+                        </div>
+
                     </Grid>
 
                 </Grid>
                 <Divider style={{ marginTop: "10px", opacity: "0.1" }} color="#fff"></Divider>
-            </Container>
+            </Container >
 
             <Box
                 component="footer"

@@ -1,6 +1,6 @@
-const User = require('../models/userModel');
-const Cart = require('../models/cartModel');
-const bcrypt = require('bcrypt');
+const User = require("../models/userModel");
+const Cart = require("../models/cartModel");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const createSendToken = (user, statusCode, res) => {
@@ -19,14 +19,14 @@ const createSendToken = (user, statusCode, res) => {
         ),
         httpOnly: true,
     };
-    res.cookie('jwt', accessToken, cookieOptions);
+    res.cookie("jwt", accessToken, cookieOptions);
 
     res.status(statusCode).json({
-        status: 'success',
+        status: "success",
         accessToken,
-        data: user
+        data: user,
     });
-}
+};
 
 const register = async (req, res) => {
     const { username, password, email } = req.body;
@@ -34,7 +34,7 @@ const register = async (req, res) => {
     if (!username || !password || !email) {
         return res.status(400).json({
             status: "fail",
-            message: "Please provide full information !",
+            message: "Vui lòng nhập đầy đủ thông tin!",
         });
     }
     // 2) Check if user exists
@@ -42,16 +42,16 @@ const register = async (req, res) => {
     if (checkUser[0]) {
         return res.status(400).json({
             status: "fail",
-            message: "User already exists",
+            message: "Email đã được sử dụng!",
         });
     }
     let hashedPassword = await bcrypt.hash(password, 10);
-    const createUser = await User.createUser(username, hashedPassword, email)
+    const createUser = await User.createUser(username, hashedPassword, email);
     const user = await User.getUserByEmail(email);
     const cart = await Cart.createCart(user[0].userId);
     // 3) If everything ok, send token to client
     createSendToken(user, 200, res);
-}
+};
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -59,7 +59,7 @@ const login = async (req, res) => {
     if (!email || !password) {
         return res.status(400).json({
             status: "fail",
-            message: "Please provide username and password !"
+            message: "Vui lòng nhập email và mật khẩu!",
         });
     }
     // 2) Check if user exists && password is correct
@@ -67,32 +67,32 @@ const login = async (req, res) => {
     if (!user[0]) {
         return res.status(400).json({
             status: "fail",
-            message: "This email has not be register",
+            message: "Email chưa được đăng ký!",
         });
     }
     const isEqual = await bcrypt.compare(password, user[0].password);
     if (!user || !isEqual) {
         return res.status(401).json({
             status: "fail",
-            message: "Incorrect password !"
+            message: "Mật khẩu nhập vào không đúng!",
         });
     }
     // 3) If everything ok, send token to client
     createSendToken(user, 200, res);
-}
+};
 
 const signout = async (req, res) => {
-    res.cookie('jwt', 'loggedout', {
+    res.cookie("jwt", "loggedout", {
         expires: new Date(Date.now() + 10 * 1000),
-        httpOnly: true
+        httpOnly: true,
     });
     res.status(200).json({
-        status: 'Logout success!'
+        status: "Logout success!",
     });
-}
+};
 
 module.exports = {
     register,
+    login,
     signout,
-    login
-}
+};

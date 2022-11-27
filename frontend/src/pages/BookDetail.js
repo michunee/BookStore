@@ -1,5 +1,4 @@
-import { Button, Card, CardMedia, Container, Divider, Fade, Grid, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Box, Card, CardMedia, Container, Divider, Fade, Grid, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -60,47 +59,38 @@ function BookDetail() {
             <Header />
             <Container maxWidth="lg">
                 {data.book && (
-                    <Grid container mt={12} className='animate__animated animate__fadeIn' spacing={3}>
-                        <Grid item xs={4} className='animate__animated animate__fadeInLeft' >
-                            <Fade in>
-                                <Card raised sx={{ my: 3 }}>
-                                    <CardMedia component='img' image={require(`/assets/${(data.book[0].bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)} alt={id} />
-                                </Card>
-                            </Fade>
+                    <Paper elevation={8}>
+                        <Grid container mt={12} className='animate__animated animate__fadeIn' spacing={3}>
+                            <Grid item xs={5} className='animate__animated animate__fadeInLeft' >
+                                <Fade in>
+                                    <CardMedia component='img' image={data.book[0].bookImg} alt={id} />
+                                </Fade>
+                            </Grid>
 
-                            <Box
-                                display='flex'
-                                justifyContent='space-between'
-                                mt={2}
-                                alignContent='center'
-                            >
-                                <GoBackBtn />
+                            <Grid item xs={7} >
 
-                                <Typography color="red" component='h5' variant='h6' textAlign='center'>
-                                    {data.book[0].bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                </Typography>
-                            </Box>
-                        </Grid>
-
-                        <Grid item xs={8} >
-                            <Paper elevation={8} sx={{ my: 2 }}>
                                 <List>
                                     <ListItem>
                                         <ListItemText primary='Tên sách' secondary={<Typography variant="h6">{data.book[0].bookName}</Typography>} />
                                     </ListItem>
-                                    <Divider />
+
                                     <ListItem>
                                         <ListItemText primary='Tác giả' secondary={data.book[0].bookAuthor} />
                                     </ListItem>
-                                    <Divider />
+
+                                    <ListItem>
+                                        <ListItemText primary='Giá' secondary={<Typography variant="h4" color="red">{data.book[0].bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })} </Typography>} />
+
+                                    </ListItem>
+
                                     <ListItem>
                                         <ListItemText primary='Mô tả' secondary={<ReadMore>{data.book[0].bookDes}</ReadMore>} />
                                     </ListItem>
-                                    <Divider />
+
                                     <ListItem>
                                         <ListItemText primary='Trạng thái' secondary={data.book[0].enable ? "Còn hàng" : "Hết hàng"} />
                                     </ListItem>
-                                    <Divider />
+
                                     <ListItem>
                                         <ListItemText primary='Số lượng' />
 
@@ -115,22 +105,34 @@ function BookDetail() {
                                         />
                                         <Typography variant="h7">{data.book[0].amount} sản phẩm có sẵn</Typography>
                                     </ListItem>
+                                    <div>
+                                        {localStorage.getItem('token')
+                                            ? <Button
+                                                variant='outlined'
+                                                color='primary'
+                                                onClick={handleAddBookIntoCart}
+                                                startIcon={<ShoppingCartIcon />}
+                                                sx={{ mt: 1 }}
+                                            >
+                                                Thêm vào giỏ hàng
+                                            </Button>
+                                            : <Button
+                                                variant='outlined'
+                                                color='primary'
+                                                onClick={() => navigate('/login')}
+                                                startIcon={<ShoppingCartIcon />}
+                                                sx={{ mt: 1 }}
+                                            >
+                                                Đăng nhập để mua hàng
+                                            </Button>
+                                        }
+                                    </div>
+
                                 </List>
-                            </Paper>
 
-                            <Button
-                                aria-label='addToCart'
-                                variant='outlined'
-                                color='primary'
-                                onClick={handleAddBookIntoCart}
-                                startIcon={<ShoppingCartIcon />}
-                                sx={{ mt: 1 }}
-                            >
-                                Thêm vào giỏ hàng
-                            </Button>
-
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Paper>
                 )
                 }
 

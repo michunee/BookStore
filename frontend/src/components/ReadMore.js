@@ -9,7 +9,7 @@ function ReadMore({ children }) {
 
     return (
         <span>
-            {isReadMore ? text.slice(0, 400) : text}
+            {isReadMore ? text.slice(0, 250) : text}
             <span onClick={toggleReadMore} style={{ color: "#1E90FF", cursor: "pointer" }}>
                 {isReadMore ? " ...Xem tiếp" : " ...Rút gọn"}
             </span>

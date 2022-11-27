@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Footer from "../components/Footer";
 import {
     MDBCard,
     MDBCardBody,
@@ -115,14 +116,16 @@ function Cart() {
         navigate(`/books/${id}`);
     }
 
+    console.log(cartItems.length);
+
 
     return (
         <div className="h-100 gradient-custom">
-            <Header></Header>
+            <Header />
             <MDBContainer className="py-5 mt-4 h-100">
                 <MDBRow className="justify-content-center my-4">
                     <MDBCol md="8">
-                        <MDBCard className="mb-4">
+                        <MDBCard style={{ maxHeight: 600, overflow: 'auto' }} className="mb-4">
                             <MDBCardHeader className="py-3">
 
                                 <MDBTypography tag="h5" className="mb-0">
@@ -151,54 +154,62 @@ function Cart() {
                                     </MDBCol>
                                 </MDBRow>
                             </MDBCardBody>
-                            {cartItems && cartItems.map((item) => (
-                                <MDBCardBody key={item.bookId}>
+                            {cartItems.length > 0 ?
+                                cartItems && cartItems.map((item) => (
+                                    <MDBCardBody key={item.bookId}>
 
+                                        <MDBRow className="align-items-center">
+
+                                            <MDBCol md="2"  >
+                                                <MDBCardImage onClick={() => handleClickImage(item.bookId)} style={{ maxWidth: "100px", cursor: "pointer" }}
+                                                    src={item.bookImg}
+                                                    alt="Generic placeholder image"
+                                                />
+                                            </MDBCol>
+                                            <MDBCol md="3" >
+                                                <div>
+                                                    {item.bookName}
+                                                </div>
+                                            </MDBCol>
+                                            <MDBCol md="2" className="d-flex justify-content-center">
+                                                <div>
+                                                    {item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                                </div>
+                                            </MDBCol>
+                                            <MDBCol md="2" className="d-flex justify-content-center">
+                                                <div>
+                                                    <IconButton onClick={() => handleDecreaseBook(item.bookId, item.amount, item.bookPrice)}>
+                                                        <RemoveCircleIcon fontSize="10px" color="warning" />
+                                                    </IconButton>
+                                                    {item.amount}
+                                                    <IconButton onClick={() => handleIncreaseBook(item.bookId, item.amount, item.bookPrice)}>
+                                                        <AddCircleIcon margin="5px" fontSize="10px" color="warning" />
+                                                    </IconButton>
+                                                </div>
+                                            </MDBCol>
+                                            <MDBCol md="2" className="d-flex justify-content-center">
+
+                                                {item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+
+                                            </MDBCol>
+                                            <MDBCol md="1" className="d-flex justify-content-center">
+                                                <IconButton aria-label="delete" onClick={() => handleDeleteBookFromCart(item.bookId)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </MDBCol>
+                                        </MDBRow>
+                                    </MDBCardBody>
+
+                                ))
+                                : <MDBCardBody>
                                     <MDBRow className="align-items-center">
-
-                                        <MDBCol md="2"  >
-                                            <MDBCardImage onClick={() => handleClickImage(item.bookId)} style={{ maxWidth: "100px", cursor: "pointer" }}
-                                                src={require(`/assets/${(item.bookImg).replace(/(\r\n|\n|\r)/gm, "")}`)}
-                                                alt="Generic placeholder image"
-                                            />
-                                        </MDBCol>
-                                        <MDBCol md="3" >
-                                            <div>
-                                                {item.bookName}
-                                            </div>
-                                        </MDBCol>
-                                        <MDBCol md="2" className="d-flex justify-content-center">
-                                            <div>
-                                                {item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                            </div>
-                                        </MDBCol>
-                                        <MDBCol md="2" className="d-flex justify-content-center">
-                                            <div>
-                                                <IconButton onClick={() => handleIncreaseBook(item.bookId, item.amount, item.bookPrice)}>
-                                                    <AddCircleIcon margin="5px" fontSize="10px" color="primary" />
-                                                </IconButton>
-                                                {item.amount}
-                                                <IconButton onClick={() => handleDecreaseBook(item.bookId, item.amount, item.bookPrice)}>
-                                                    <RemoveCircleIcon fontSize="10px" color="primary" />
-                                                </IconButton>
-                                            </div>
-                                        </MDBCol>
-                                        <MDBCol md="2" className="d-flex justify-content-center">
-
-                                            {item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-
-                                        </MDBCol>
-                                        <MDBCol md="1" className="d-flex justify-content-center">
-                                            <IconButton aria-label="delete" onClick={() => handleDeleteBookFromCart(item.bookId)}>
-                                                <DeleteIcon />
-                                            </IconButton>
+                                        <MDBCol md="12" className="d-flex justify-content-center">
+                                            <p className="text-muted">Giỏ hàng trống</p>
                                         </MDBCol>
                                     </MDBRow>
                                 </MDBCardBody>
-
-                            ))
-
                             }
+
                         </MDBCard>
 
                         <MDBCard className="mb-4">
@@ -267,13 +278,14 @@ function Cart() {
                                     </MDBListGroupItem>
                                 </MDBListGroup>
 
-                                <Button fullWidth variant="contained"> Thanh Toán </Button>
+                                <Button fullWidth color="error" variant="contained"> Thanh Toán </Button>
 
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow >
             </MDBContainer >
+            <Footer />
         </ div>
 
     )

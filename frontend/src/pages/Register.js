@@ -21,6 +21,7 @@ function Register() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
@@ -34,6 +35,10 @@ function Register() {
         setPassword(e.target.value);
     }
 
+    const handleconfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = {
@@ -43,7 +48,7 @@ function Register() {
         }
 
         if (!USER_REGEX.test(username)) {
-            alert("Username must be between 4 and 24 characters and contain only letters, numbers, dashes and underscores");
+            alert("Username must be 4-24 characters long and start with a letter");
             return;
         }
 
@@ -53,7 +58,12 @@ function Register() {
         }
 
         if (!PWD_REGEX.test(password)) {
-            alert("Password must be between 8 and 24 characters and contain at least one lowercase letter, one uppercase letter, one number and one special character");
+            alert("Password must be 8-24 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
             return;
         }
 
@@ -122,6 +132,18 @@ function Register() {
                                 fullWidth
                                 name="password"
                                 label="Mật khẩu"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                onChange={handleconfirmPasswordChange}
+                                required
+                                fullWidth
+                                name="password"
+                                label="Nhập lại mật khẩu"
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"

@@ -3,12 +3,14 @@ import { Container, Grid } from '@mui/material';
 
 import Header from '../components/Header';
 import ScrollTop from '../components/ScrollTop';
-import Sidebar from '../components/Sidebar';
-import Book from '../components/Book';
+import Sidebar from '../components/Book/Sidebar';
+import Book from '../components/Book/Book';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import Pagination from '../components/Pagination';
+import AllBook from '../components/AllBook';
+import ControlledCarousel from '../components/BestSeller';
+
 
 function Home() {
     // TODO: Get api những cuốn sách theo category
@@ -20,7 +22,6 @@ function Home() {
         setId(id);
     }
 
-
     useEffect(() => {
         const fetchData = () => {
             axios
@@ -29,8 +30,7 @@ function Home() {
             // console.log(localStorage.getItem('token'));
         }
         fetchData();
-        return () => {
-        }
+
     }, [id]);
 
     // TODO: Get api những category 
@@ -38,7 +38,10 @@ function Home() {
     return (
         <div >
             <Header />
-            <Container maxWidth="lg">
+
+            <Container style={{ marginTop: "100px" }} maxWidth="lg">
+                <ControlledCarousel></ControlledCarousel>
+                <AllBook></AllBook>
                 <Grid sx={{ mt: 10 }} container spacing={1}>
                     <Grid item xs={3} >
                         <Card style={{ boxShadow: "0 0 5px #ccc" }}>
@@ -47,7 +50,6 @@ function Home() {
                     </Grid>
                     <Grid item xs={9}>
                         <Book response={data} />
-                        <Pagination />
                     </Grid>
                 </Grid>
             </Container>

@@ -1,8 +1,16 @@
 const db = require('./database');
 
-exports.getAllBook = async () => {
+exports.getAllBook = async (page) => {
     return new Promise((resolve, reject) => {
-        let sql = "SELECT bookId, bookName, bookImg, bookPrice, enable FROM book";
+        if (page == null) {
+            let sql = "SELECT * FROM book";
+            db.query(sql, (err, data) => {
+                if (err) console.log(err);
+                else resolve(data);
+            })
+        }
+        let sql = "SELECT bookId, bookName, bookImg, bookPrice, enable FROM book LIMIT " + 12
+            + " OFFSET " + 12 * (page - 1);
         db.query(sql, (err, data) => {
             if (err) console.log(err);
             else resolve(data);
