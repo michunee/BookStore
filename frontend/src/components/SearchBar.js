@@ -1,6 +1,8 @@
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from "axios";
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -42,12 +44,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+// const Submit = (bookName)=> {
+//     bookName = 'a';
+// }
+
 
 
 function SearchBar() {
+    const [books, setBooks] = useState([]);
+    const a = async(e) => {
+        console.log('Onclick')
+        const response = await axios.get(`http://localhost:3000/api/books/a/${e.target.value}`, {
+            // headers: {
+            //     'Authorization': `Bearer ${localStorage.getItem('token')}`
+            // }
+        })
+        setBooks(response.data)
+    }
+    console.log(books)
     return (
         <div>
-            <Search>
+            <Search onChange={(e) => a(e)}>
                 <SearchIconWrapper>
                     <SearchIcon />
                 </SearchIconWrapper>
@@ -56,6 +73,7 @@ function SearchBar() {
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>
+            
         </div >
     );
 }

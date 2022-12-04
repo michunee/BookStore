@@ -23,7 +23,7 @@ function Home() {
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/categories/${id}`, {
+                .get(`api/books/category/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
