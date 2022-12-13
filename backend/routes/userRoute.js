@@ -14,7 +14,7 @@ router.route("/").get(protect.verifyAdmin, userController.getAllUser);
 
 router
   .route("/:username")
-  .get(protect.verifyUser, userController.getUserByUsername)
+  .get(userController.getUserByUsername)
   .patch(protect.verifyUser, userController.updateUserByUsername);
 
 module.exports = router;

@@ -8,7 +8,6 @@ const getAllUser = async (req, res) => {
 };
 
 const getUserByUsername = async (req, res) => {
-  console.log(req.user);
   const username = req.params.username;
   const user = await User.getUserByUsername(username);
   res.status(200).json({
@@ -18,7 +17,13 @@ const getUserByUsername = async (req, res) => {
 
 const updateUserByUsername = async (req, res) => {
   const username = req.params.username;
-  const user = await User.updateUserByUsername(username, req.body);
+  const { phonenumber, address, birthname } = req.body;
+  const user = await User.updateUserByUsername(
+    username,
+    phonenumber,
+    address,
+    birthname
+  );
   res.status(200).json({
     message: "Update user success!",
   });

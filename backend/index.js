@@ -13,7 +13,11 @@ const userRouter = require("./routes/userRoute");
 const categoryRouter = require("./routes/categoryRoute");
 const commentRouter = require("./routes/commentRoute");
 const cartRouter = require("./routes/cartRoute");
+<<<<<<< HEAD
 const billRouter = require("./routes/billRoute");
+=======
+const billRouter = require("./routes/billRoute.js");
+>>>>>>> tin
 
 const app = express();
 
@@ -37,4 +41,8 @@ app.use(catchErrorMiddleware);
 // error handler
 app.use(errorHandlerMiddleware);
 
+<<<<<<< HEAD
 module.exports = app;
+=======
+module.exports = app;
+>>>>>>> tin

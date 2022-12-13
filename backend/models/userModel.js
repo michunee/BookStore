@@ -65,12 +65,15 @@ exports.getUsernameByUserId = async (userId) => {
   });
 };
 
-exports.updateUserByUsername = async (username, body) => {
-  let { birthname, phonenumber, address } = body;
-  const userData = { birthname, phonenumber, address };
+exports.updateUserByUsername = async (
+  username,
+  phonenumber,
+  address,
+  birthname
+) => {
   return new Promise((resolve, reject) => {
-    let sql = `UPDATE user SET ? WHERE username = "${username}"`;
-    db.query(sql, userData, (err, data) => {
+    let sql = `UPDATE user SET birthname = '${birthname}', phonenumber = '${phonenumber}', address = '${address}' WHERE username = '${username}'`;
+    db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
     });
