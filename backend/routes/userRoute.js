@@ -17,4 +17,8 @@ router
   .get(userController.getUserByUsername)
   .patch(protect.verifyUser, userController.updateUserByUsername);
 
+router
+  .route("/:username/password")
+  .patch(protect.verifyUser, userController.changePasswordByUsername);
+
 module.exports = router;
