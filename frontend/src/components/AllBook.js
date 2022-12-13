@@ -47,7 +47,6 @@ function AllBook() {
                                             alt="image"
                                         />
                                     </MDBRipple>
-
                                     <CardContent>
                                         <Typography variant="body2" component="div" mb={1} noWrap>
                                             {book.bookName}

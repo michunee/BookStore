@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Divider, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Divider, Tab, Tabs, Typography } from "@mui/material";
 import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
 
@@ -36,23 +36,25 @@ function Sidebar(props) {
 
     return (
         <div>
-            <Typography variant="h6" sx={{ mt: 2, mb: 2 }} textAlign='center' >Sách theo danh mục</Typography>
-            <Divider />
-            <Tabs
-                orientation="vertical"
-                value={value}
-                onChange={handleChange}
-                textColor="primary"
-                indicatorColor="primary"
-                aria-label="Vertical tabs example"
-                sx={{ borderRight: 1, borderColor: 'divider' }}
-            >
-                {response.categoryList && response.categoryList.map((category) => {
-                    return (
-                        <Tab key={category.catId} label={category.catName} />
-                    )
-                })}
-            </Tabs>
+            <Card style={{ boxShadow: "0 0 5px #ccc" }}>
+                <Typography variant="h6" sx={{ mt: 2, mb: 2 }} textAlign='center' >Sách theo danh mục</Typography>
+                <Divider />
+                <Tabs
+                    orientation="vertical"
+                    value={value}
+                    onChange={handleChange}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    aria-label="Vertical tabs example"
+                    sx={{ borderRight: 1, borderColor: 'divider' }}
+                >
+                    {response.categoryList && response.categoryList.map((category) => {
+                        return (
+                            <Tab key={category.catId} label={category.catName} />
+                        )
+                    })}
+                </Tabs>
+            </Card>
         </div >
     );
 }

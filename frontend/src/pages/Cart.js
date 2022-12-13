@@ -120,7 +120,7 @@ function Cart() {
 
 
     return (
-        <div className="h-100 gradient-custom">
+        <div>
             <Header />
             <MDBContainer className="py-5 mt-4 h-100">
                 <MDBRow className="justify-content-center my-4">

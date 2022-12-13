@@ -36,7 +36,6 @@ function Book({ response }) {
         navigate(`/books/${id}`,)
     }
 
-
     return (
         <Grid container spacing={1}>
             {response.bookList && response.bookList.map((book, index) => {

@@ -2,10 +2,13 @@ import { Card, CardActionArea, CardMedia, Grid, Paper } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { useNavigate } from 'react-router-dom';
 
 function ControlledCarousel() {
     const [books, setBooks] = useState([]);
     const [index, setIndex] = useState(0);
+
+    const navigate = useNavigate();
 
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
@@ -19,6 +22,10 @@ function ControlledCarousel() {
                 console.log(res.data);
             })
     }, []);
+
+    const navigateToBookDetail = (id) => {
+        navigate(`/books/${id}`,)
+    }
 
     return (
         <div style={{ display: "flex" }}>
@@ -35,30 +42,26 @@ function ControlledCarousel() {
                             return (
                                 <Carousel.Item style={{ width: "300px", height: "300px" }} interval="2000" key={index}>
                                     <Card sx={{ height: "100%" }} style={{ boxShadow: "0 0 5px #ccc" }}>
-                                        <CardActionArea>
+                                        <CardActionArea onClick={() => navigateToBookDetail(book.bookId)}>
                                             <CardMedia
                                                 component="img"
                                                 image={book.bookImg}
                                                 alt="image"
                                             />
+                                            <Carousel.Caption style={{ position: "relative", bottom: 110 }}>
+                                                <img width="70px" alt="" src="https://freesvg.org/img/Best-seller-stamp.png">
+                                                </img>
+                                            </Carousel.Caption>
                                         </CardActionArea>
                                     </Card>
-                                    <Carousel.Caption style={{ position: "relative", bottom: 110 }}>
-                                        <img width="70px" alt="" src="https://freesvg.org/img/Best-seller-stamp.png">
-                                        </img>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
                             )
                         }
                         )}
                     </Carousel>
                 </Grid>
-
-
             </Grid>
-
         </div >
-
     );
 }
 

@@ -6,7 +6,6 @@ import { Divider, List, ListItem, ListItemText, Paper, Rating, Typography } from
 
 function Comment() {
     const [data, setData] = useState([]);
-
     const { id } = useParams();
 
     useEffect(() => {
@@ -21,7 +20,6 @@ function Comment() {
         }
         fetchData();
     }, [id]);
-
 
     return (
         <Paper elevation={8} sx={{ my: 8 }} >
@@ -48,25 +46,18 @@ function Comment() {
                                         <Typography marginTop='10px' variant="h7" gutterBottom component="div">
                                             {comment.content}
                                         </Typography>
-
                                     </React.Fragment>
-
                                 </ListItemText>
                             </ListItem>
                             <Divider />
-
                         </List>
-
                     )
                     )
                 )
-
             }
-
         </Paper>
 
     );
 }
-
 
 export default Comment;

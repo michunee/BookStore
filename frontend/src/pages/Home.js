@@ -1,4 +1,3 @@
-import Card from '@mui/material/Card';
 import { Container, Grid } from '@mui/material';
 
 import Header from '../components/Header';
@@ -38,23 +37,20 @@ function Home() {
     return (
         <div >
             <Header />
-
             <Container style={{ marginTop: "100px" }} maxWidth="lg">
-                <ControlledCarousel></ControlledCarousel>
-                <AllBook></AllBook>
+                <ControlledCarousel />
+                <AllBook />
                 <Grid sx={{ mt: 10 }} container spacing={1}>
                     <Grid item xs={3} >
-                        <Card style={{ boxShadow: "0 0 5px #ccc" }}>
-                            <Sidebar onClickSelectTab={useSelectTabHandler} />
-                        </Card>
+                        <Sidebar onClickSelectTab={useSelectTabHandler} />
                     </Grid>
                     <Grid item xs={9}>
                         <Book response={data} />
                     </Grid>
                 </Grid>
+                <ScrollTop />
             </Container>
             <Footer />
-            <ScrollTop />
         </div >
     )
 }
