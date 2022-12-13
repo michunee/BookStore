@@ -79,3 +79,13 @@ exports.updateUserByUsername = async (
     });
   });
 };
+
+exports.changePasswordByUsername = async (username, password) => {
+  return new Promise((resolve, reject) => {
+    let sql = `UPDATE user SET password = '${password}' WHERE username = '${username}'`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
