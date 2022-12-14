@@ -14,6 +14,7 @@ const categoryRouter = require("./routes/categoryRoute");
 const commentRouter = require("./routes/commentRoute");
 const cartRouter = require("./routes/cartRoute");
 const billRouter = require("./routes/billRoute.js");
+const adminRouter = require("./routes/adminRoute");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/comments", commentRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/bills", billRouter);
+app.use("/api/admins", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);

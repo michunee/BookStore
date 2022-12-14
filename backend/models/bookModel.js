@@ -52,3 +52,13 @@ exports.getBookByCart = async (bookId, cartId) => {
     });
   });
 };
+
+exports.getAverageRatingBook = async (bookId) => {
+  return new Promise((resolve, reject) => {
+    let sql = `SELECT AVG(rating) as avgRating FROM comment where bookId = ${bookId}`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};

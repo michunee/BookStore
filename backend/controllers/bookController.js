@@ -23,8 +23,17 @@ const getDetailBookById = async (req, res) => {
   });
 };
 
+const getAverageRatingBookById = async (req, res) => {
+  const bookId = req.params.bookId;
+  const data = await Book.getAverageRatingBook(bookId);
+  res.status(200).json({
+    data,
+  });
+};
+
 module.exports = {
   getAllBook,
   getDetailBookById,
   getBookByCategoryId,
+  getAverageRatingBookById,
 };
