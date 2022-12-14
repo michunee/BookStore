@@ -12,6 +12,14 @@ const getBillByUsername = async (req, res) => {
   });
 };
 
+const getBillByBillId = async (req, res) => {
+  const billId = req.params.billId;
+  const bill = await Bill.getBillByBillId(billId);
+  res.status(200).json({
+    bill,
+  });
+};
+
 const createBill = async (req, res) => {
   const username = req.params.username;
   const user = await User.getUserByUsername(username);
@@ -29,4 +37,5 @@ const createBill = async (req, res) => {
 module.exports = {
   getBillByUsername,
   createBill,
+  getBillByBillId,
 };

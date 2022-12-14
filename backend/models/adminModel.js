@@ -14,3 +14,13 @@ exports.createAdmin = async (username, password, email) => {
     });
   });
 };
+
+exports.getAllAdmin = async () => {
+  return new Promise((resolve, reject) => {
+    let sql = "SELECT * FROM user WHERE admin = 1";
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};

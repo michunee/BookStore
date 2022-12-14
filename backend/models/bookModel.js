@@ -62,3 +62,13 @@ exports.getAverageRatingBook = async (bookId) => {
     });
   });
 };
+
+exports.updateBookById = async (bookId, body) => {
+  return new Promise((resolve, reject) => {
+    let sql = `UPDATE book SET ? WHERE bookId = ${bookId}`;
+    db.query(sql, body, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
