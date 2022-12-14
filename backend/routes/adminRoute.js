@@ -9,4 +9,8 @@ router
   .get(protect.verifyAdmin, adminController.getAllAdmin)
   .post(protect.verifyAdmin, authController.createAdmin);
 
+router
+  .route("/reset-password/:username")
+  .patch(protect.verifyAdmin, adminController.resetPasswordByUsername);
+
 module.exports = router;

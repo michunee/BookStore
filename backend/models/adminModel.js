@@ -24,3 +24,13 @@ exports.getAllAdmin = async () => {
     });
   });
 };
+
+exports.resetPasswordByUsername = async (username, hashedPassword) => {
+  return new Promise((resolve, reject) => {
+    let sql = `UPDATE user SET password = '${hashedPassword}' WHERE username = '${username}'`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
