@@ -17,7 +17,7 @@ import MainPage from './pages/User/components/MainPage';
 import Profile from './pages/User/components/Profile';
 import Order from './pages/User/components/Order';
 import Notification from './pages/User/components/Notification';
-
+import Password from './pages/User/components/Password';
 
 function App() {
 
@@ -34,6 +34,7 @@ function App() {
           <Route path="/user/account/profile" element={<Profile />} />
           <Route path="/user/account/order" element={<Order />} />
           <Route path="/user/account/notification" element={<Notification />} />
+          <Route path="/user/account/password" element={<Password />} />
           <Route index element={<Navigate to='/user/account/profile' />}></Route>
         </Route>
 

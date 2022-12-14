@@ -25,6 +25,7 @@ const MainPage = () => {
                             <Tab label="Tài khoản của tôi" to="/user/account/profile" component={Link} />
                             <Tab label="Đơn mua" to="/user/account/order" component={Link} />
                             <Tab label="Thông báo" to="/user/account/notification" component={Link} />
+                            <Tab label="Đổi mật khẩu" to="/user/account/password" component={Link} />
                         </Tabs>
                     </Grid>
                     <Grid item xs={9} >
