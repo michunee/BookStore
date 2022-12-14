@@ -2,11 +2,14 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { userSelector } from "../../../redux/selectors";
 import axios from "axios";
-import { Divider, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, Input, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 
 function Profile() {
     const [data, setData] = useState({});
+    const [birthname, setBirthName] = useState("");
+    const [phonenumber, setPhoneNumber] = useState("");
+    const [address, setAddress] = useState("");
     const username = useSelector(userSelector);
 
     useEffect(() => {
@@ -17,10 +20,37 @@ function Profile() {
                 }
             })
                 .get(`api/users/${username}`)
-                .then(res => setData(res.data))
+                .then(res => {
+                    setData(res.data);
+                    setBirthName(res.data.user[0].birthname);
+                    setPhoneNumber(res.data.user[0].phonenumber);
+                    setAddress(res.data.user[0].address);
+                })
         }
         fetchData();
     }, [username]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            birthname: birthname,
+            phonenumber: phonenumber,
+            address: address
+        }
+
+        axios
+            .patch(`api/users/${username}`, data, {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+            )
+            .then(res => {
+                console.log(res.data)
+                alert("Update successfully");
+            })
+    }
+
     return (
         <Paper sx={{ p: 2 }} >
             {data.user && (
@@ -59,27 +89,35 @@ function Profile() {
                                         {data.user[0].username}
                                     </Typography>
                                     <TextField
-                                        required
-                                        id="outlined-required"
-                                        label="Họ và tên"
-                                        defaultValue={data.user[0].birthname}
+                                        sx={{ padding: "10px", width: "100%" }}
+                                        variant="standard"
+                                        value={birthname}
+                                        onChange={(e) => setBirthName(e.target.value)}
                                     />
                                     <Typography padding="15px" variant="body2" component="div" gutterBottom>
                                         {data.user[0].email}
                                     </Typography>
-                                    <Typography padding="15px" variant="body2" component="div" gutterBottom>
-                                        {data.user[0].phonenumber || "Chưa cập nhật"}
-                                    </Typography>
-                                    <Typography padding="15px" variant="body2" component="div" gutterBottom>
-                                        {data.user[0].address || "Chưa cập nhật"}
-                                    </Typography>
+                                    <TextField
+                                        sx={{ padding: "10px", width: "100%" }}
+                                        variant="standard"
+                                        value={phonenumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                    />
+                                    <TextField
+                                        sx={{ padding: "10px", width: "100%" }}
+                                        variant="standard"
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                    />
+                                    <Button onClick={handleSubmit} variant="contained" sx={{ marginTop: "20px" }} >Cập nhật</Button>
                                 </Box>
                             )}
                         </Grid>
                     </Grid>
                 </Box>
-            )}
-        </Paper>
+            )
+            }
+        </Paper >
     )
 }
 

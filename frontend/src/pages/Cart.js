@@ -73,7 +73,6 @@ function Cart() {
         })
             .patch(`api/carts/${username}/book/${id}/increase`, data)
             .then(res => {
-
                 setCartItems(res.data);
                 console.log(res.data);
             })
@@ -97,7 +96,6 @@ function Cart() {
             })
     }
 
-
     const handleDeleteBookFromCart = (id) => {
         axios
             .delete(`api/carts/${username}/book/${id}`, {
@@ -117,7 +115,6 @@ function Cart() {
     }
 
     console.log(cartItems.length);
-
 
     return (
         <div>
