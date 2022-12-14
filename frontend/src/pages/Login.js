@@ -20,10 +20,13 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     // const name = useSelector(state => state.user);
     // console.log(name);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -93,7 +96,6 @@ function Login() {
                     <Typography variant="h7" color="error">
                         {error}
                     </Typography>
-
 
                     <TextField
                         onChange={handlePasswordChange}
