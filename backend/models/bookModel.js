@@ -10,7 +10,7 @@ exports.getAllBook = async (page) => {
       });
     }
     let sql =
-      "SELECT bookId, bookName, bookImg, bookPrice, enable FROM book LIMIT " +
+      "SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId GROUP BY b.bookId LIMIT " +
       12 +
       " OFFSET " +
       12 * (page - 1);
@@ -23,9 +23,7 @@ exports.getAllBook = async (page) => {
 
 exports.getBookByCategoryId = async (catId) => {
   return new Promise((resolve, reject) => {
-    let sql =
-      "SELECT bookId, bookName, bookImg, bookPrice, enable FROM book where catId = " +
-      catId;
+    let sql = `SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where catId = ${catId} GROUP BY b.bookId`;
     db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
@@ -35,7 +33,7 @@ exports.getBookByCategoryId = async (catId) => {
 
 exports.getDetailBookById = async (bookId) => {
   return new Promise((resolve, reject) => {
-    let sql = "SELECT * FROM book where bookId = " + bookId;
+    let sql = `SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where b.bookId = ${bookId} GROUP BY b.bookId`;
     db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
