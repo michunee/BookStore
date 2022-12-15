@@ -33,7 +33,7 @@ exports.getBookByCategoryId = async (catId) => {
 
 exports.getDetailBookById = async (bookId) => {
   return new Promise((resolve, reject) => {
-    let sql = `SELECT b.bookId, bookName, bookDes, bookAuthor, amount, catId, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where b.bookId = ${bookId} GROUP BY b.bookId`;
+    let sql = `SELECT b.bookId, bookName, bookDes, rating, bookAuthor, amount, catId, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where b.bookId = ${bookId} GROUP BY b.bookId`;
     db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
