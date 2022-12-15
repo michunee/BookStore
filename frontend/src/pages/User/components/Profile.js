@@ -2,10 +2,9 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { userSelector } from "../../../redux/selectors";
 import axios from "axios";
-import { Alert, Button, Divider, Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Alert, Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { Container } from "@mui/system";
-import CloseIcon from '@mui/icons-material/Close';
 
 function Profile() {
     const [data, setData] = useState({});

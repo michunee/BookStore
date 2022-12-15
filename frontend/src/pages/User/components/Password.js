@@ -54,7 +54,7 @@ const Password = () => {
                             Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
                         </Typography>
                         <Divider />
-                        <Box component="form" >
+                        <Box component="form" onSubmit={handleSubmit} >
                             <TextField
                                 margin="normal"
                                 required
@@ -78,7 +78,7 @@ const Password = () => {
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                             <Button
-                                onClick={handleSubmit}
+                                type="submit"
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >

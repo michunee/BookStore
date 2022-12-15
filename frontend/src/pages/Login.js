@@ -15,6 +15,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { userSlice } from "../redux/reducer";
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -27,6 +31,10 @@ function Login() {
     const navigate = useNavigate();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,8 +55,6 @@ function Login() {
                 setError(err.response.data.message);
             }
             )
-
-
     }
 
     const handleEmailChange = (e) => {
@@ -61,7 +67,6 @@ function Login() {
 
     return (
         <Container component="main" maxWidth="xs">
-
             <CssBaseline />
             <Box
                 sx={{
@@ -77,8 +82,6 @@ function Login() {
                 <Typography component="h1" variant="h5">
                     Đăng nhập
                 </Typography>
-
-
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         onChange={handleEmailChange}
@@ -86,29 +89,36 @@ function Login() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
                         label="Email Address"
                         name="email"
                         autoComplete="email"
                         autoFocus
                     />
-
                     <Typography variant="h7" color="error">
                         {error}
                     </Typography>
-
-                    <TextField
-                        onChange={handlePasswordChange}
-                        value={password}
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
+                    <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                    </FormControl>
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Ghi nhớ đăng nhập"
