@@ -12,8 +12,4 @@ router
   .get(bookController.getDetailBookById)
   .patch(protect.verifyAdmin, bookController.updateBookById);
 
-router
-  .route("/avg-rating/:bookId")
-  .get(bookController.getAverageRatingBookById);
-
 module.exports = router;
