@@ -62,7 +62,7 @@ export default function Review() {
                                 <TableCell>{item.bookName}</TableCell>
                                 <TableCell>{item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })} </TableCell>
                                 <TableCell align="center">{item.amount}</TableCell>
-                                <TableCell align="center">{item.totalprice}</TableCell>
+                                <TableCell align="center">{item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
                             </TableRow>
                         )
                         )}
