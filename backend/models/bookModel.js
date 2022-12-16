@@ -2,32 +2,45 @@ const db = require("./database");
 
 exports.getAllBook = async (page) => {
   return new Promise((resolve, reject) => {
-    if (page == null) {
+    if (!page) {
       let sql = "SELECT * FROM book";
       db.query(sql, (err, data) => {
         if (err) console.log(err);
         else resolve(data);
       });
+    } else {
+      let sql =
+        "SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId GROUP BY b.bookId LIMIT " +
+        12 +
+        " OFFSET " +
+        12 * (page - 1);
+      db.query(sql, (err, data) => {
+        if (err) console.log(err);
+        else resolve(data);
+      });
     }
-    let sql =
-      "SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId GROUP BY b.bookId LIMIT " +
-      12 +
-      " OFFSET " +
-      12 * (page - 1);
-    db.query(sql, (err, data) => {
-      if (err) console.log(err);
-      else resolve(data);
-    });
   });
 };
 
-exports.getBookByCategoryId = async (catId) => {
+exports.getBookByCategoryId = async (catId, page) => {
   return new Promise((resolve, reject) => {
-    let sql = `SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where catId = ${catId} GROUP BY b.bookId`;
-    db.query(sql, (err, data) => {
-      if (err) console.log(err);
-      else resolve(data);
-    });
+    if (page == null) {
+      let sql = `SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where catId = ${catId} GROUP BY b.bookId`;
+      db.query(sql, (err, data) => {
+        if (err) console.log(err);
+        else resolve(data);
+      });
+    } else {
+      let sql =
+        `SELECT b.bookId, bookName, bookImg, bookPrice, enable, AVG(rating) as avgRating FROM book as b LEFT JOIN comment ON b.bookId = comment.bookId where catId = ${catId} GROUP BY b.bookId LIMIT ` +
+        12 +
+        ` OFFSET ` +
+        12 * (page - 1);
+      db.query(sql, (err, data) => {
+        if (err) console.log(err);
+        else resolve(data);
+      });
+    }
   });
 };
 

@@ -9,7 +9,8 @@ const getAllBook = async (req, res) => {
 
 const getBookByCategoryId = async (req, res) => {
   const catId = req.params.catId;
-  const bookList = await Book.getBookByCategoryId(catId);
+  const page = req.query.page;
+  const bookList = await Book.getBookByCategoryId(catId, page);
   res.status(200).json({
     bookList: bookList,
   });
