@@ -31,3 +31,13 @@ exports.createBill = async (cartId, userId, body) => {
     });
   });
 };
+
+exports.getBookByBillId = async (billId) => {
+  return new Promise((resolve, reject) => {
+    let sql = `SELECT book.bookName, book.bookAuthor, book.bookImg, bookcart.amount, bookcart.totalprice FROM bookcart INNER JOIN book ON bookcart.bookId = book.bookId INNER JOIN bill ON bookcart.cartId = bill.cartId WHERE bill.billId = ${billId}`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};

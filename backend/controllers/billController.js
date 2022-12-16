@@ -34,8 +34,17 @@ const createBill = async (req, res) => {
   });
 };
 
+const getBookByBillId = async (req, res) => {
+  const billId = req.params.billId;
+  const data = await Bill.getBookByBillId(billId);
+  res.status(200).json({
+    data,
+  });
+};
+
 module.exports = {
   getBillByUsername,
   createBill,
   getBillByBillId,
+  getBookByBillId,
 };
