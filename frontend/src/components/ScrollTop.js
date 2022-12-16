@@ -22,7 +22,6 @@ function ScrollTop() {
     };
     return (
         <div style={{ position: 'relative' }}>
-
             {showTopBtn && (
                 <Box
                     onClick={goToTop}

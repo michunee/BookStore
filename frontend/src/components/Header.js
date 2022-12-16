@@ -87,8 +87,6 @@ function Header() {
                     //         <ShoppingCartIcon />
                     //     </Badge>
                     // </Button> */}
-
-
                     {localStorage.getItem('token') ? (
                         <div>
 

@@ -44,11 +44,8 @@ function Cart() {
                     setCartItems(res.data.data);
                     console.log(res.data.data);
                 })
-            // console.log(localStorage.getItem('token'));
         }
         fetchData();
-        return () => {
-        }
     }, [username])
 
     useEffect(() => {
@@ -112,6 +109,10 @@ function Cart() {
 
     const handleClickImage = (id) => {
         navigate(`/books/${id}`);
+    }
+
+    const navigateToCheckoutBill = () => {
+        navigate('/checkout');
     }
 
     console.log(cartItems.length);
@@ -274,9 +275,9 @@ function Cart() {
                                         </span>
                                     </MDBListGroupItem>
                                 </MDBListGroup>
-
-                                <Button fullWidth color="error" variant="contained"> Thanh Toán </Button>
-
+                                {cartItems.length > 0 ?
+                                    <Button onClick={navigateToCheckoutBill} fullWidth color="warning" variant="contained"> Mua hàng </Button>
+                                    : <Button onClick={navigateToCheckoutBill} fullWidth color="warning" variant="contained" disabled> Mua hàng </Button>}
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>

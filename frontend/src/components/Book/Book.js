@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Grid } from '@mui/material';
+import { CardActionArea, Grid, Rating } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { MDBRipple } from 'mdb-react-ui-kit';
 
@@ -54,9 +54,17 @@ function Book({ response }) {
                                     <Typography variant="h7" component="div" mb={1} noWrap>
                                         {book.bookName}
                                     </Typography>
-                                    <Typography variant="body1" color="red">
-                                        {book.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                    </Typography>
+                                    <Grid container spacing={1}>
+                                        <Grid item xs={6}>
+                                            <Typography variant="body1" color="red">
+                                                {book.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Rating size="small" name="read-only" value={book.avgRating ?? 0} readOnly ></Rating>
+                                        </Grid>
+                                    </Grid>
+
                                 </CardContent>
                             </CardActionArea>
                         </Card>

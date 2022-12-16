@@ -70,8 +70,7 @@ function Register() {
         try {
             const res = await axios.post(REGISTER_URL, JSON.stringify(data), {
                 headers: {
-                    'Content-Type': 'application/json',
-                    withCredentials: true
+                    'token': `Bearer ${localStorage.getItem('token')}`,
                 }
             });
             console.log(res.data);

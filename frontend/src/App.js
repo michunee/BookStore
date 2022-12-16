@@ -18,6 +18,7 @@ import Profile from './pages/User/components/Profile';
 import Order from './pages/User/components/Order';
 import Notification from './pages/User/components/Notification';
 import Password from './pages/User/components/Password';
+import Checkout from './pages/Checkout/CheckOut';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/user/account/password" element={<Password />} />
           <Route index element={<Navigate to='/user/account/profile' />}></Route>
         </Route>
+        <Route path="/checkout" element={<Checkout></Checkout>}></Route>
 
 
         {/* <Route path="/user/account/profile" element={<Profile />} /> */}

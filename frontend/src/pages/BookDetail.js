@@ -1,9 +1,8 @@
-import { Button, Box, Card, CardMedia, Container, Divider, Fade, Grid, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material";
+import { Button, Box, Card, CardMedia, Container, Divider, Fade, Grid, List, ListItem, ListItemText, Paper, TextField, Typography, Rating } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header"
-import GoBackBtn from "../components/GoBackBtn";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReadMore from "../components/ReadMore";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +25,10 @@ function BookDetail() {
         const fetchData = () => {
             axios
                 .get(`api/books/${id}`)
-                .then(res => setData(res.data))
+                .then(res => {
+                    setData(res.data)
+                    console.log(res.data)
+                })
         }
         fetchData();
     }, [id]);
@@ -65,34 +67,26 @@ function BookDetail() {
                                     <CardMedia component='img' image={data.book[0].bookImg} alt={id} />
                                 </Fade>
                             </Grid>
-
                             <Grid item xs={7} >
-
                                 <List>
-                                    <ListItem>
-                                        <ListItemText primary='Tên sách' secondary={<Typography variant="h6">{data.book[0].bookName}</Typography>} />
+                                    <ListItem style={{ justifyContent: "space-between" }}>
+                                        <Typography variant="h6">{data.book[0].bookName}</Typography>
+                                        <Rating name="read-only" value={data.book[0].avgRating ?? 0} readOnly />
                                     </ListItem>
-
                                     <ListItem>
                                         <ListItemText primary='Tác giả' secondary={data.book[0].bookAuthor} />
                                     </ListItem>
-
                                     <ListItem>
                                         <ListItemText primary='Giá' secondary={<Typography variant="h4" color="red">{data.book[0].bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })} </Typography>} />
-
                                     </ListItem>
-
                                     <ListItem>
                                         <ListItemText primary='Mô tả' secondary={<ReadMore>{data.book[0].bookDes}</ReadMore>} />
                                     </ListItem>
-
                                     <ListItem>
                                         <ListItemText primary='Trạng thái' secondary={data.book[0].enable ? "Còn hàng" : "Hết hàng"} />
                                     </ListItem>
-
                                     <ListItem>
                                         <ListItemText primary='Số lượng' />
-
                                         <TextField
                                             sx={{ mx: 1 }}
                                             value={quantity}
@@ -126,15 +120,12 @@ function BookDetail() {
                                             </Button>
                                         }
                                     </div>
-
                                 </List>
-
                             </Grid>
                         </Grid>
                     </Paper>
                 )
                 }
-
                 <Comment />
             </Container>
             <Footer />

@@ -19,7 +19,6 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -94,9 +93,7 @@ function Login() {
                         autoComplete="email"
                         autoFocus
                     />
-                    <Typography variant="h7" color="error">
-                        {error}
-                    </Typography>
+
                     <FormControl sx={{ mt: 2, width: '100%' }} variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
@@ -119,10 +116,14 @@ function Login() {
                             label="Password"
                         />
                     </FormControl>
+
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Ghi nhớ đăng nhập"
                     />
+                    <Typography variant="h7" color="error">
+                        {error}
+                    </Typography>
                     <Button
                         type="submit"
                         fullWidth
@@ -131,6 +132,7 @@ function Login() {
                     >
                         Đăng nhập
                     </Button>
+
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -146,7 +148,7 @@ function Login() {
                 </Box>
             </Box>
 
-        </Container>
+        </Container >
     )
 }
 

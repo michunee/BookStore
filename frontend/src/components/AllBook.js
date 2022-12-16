@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, CardMedia, Grid, Pagination, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Grid, Pagination, Rating, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -51,9 +51,11 @@ function AllBook() {
                                         <Typography variant="body2" component="div" mb={1} noWrap>
                                             {book.bookName}
                                         </Typography>
+
                                         <Typography variant="h7" color="red">
                                             {book.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                                         </Typography>
+                                        <Rating size="small" name="read-only" value={book.avgRating ?? 0} readOnly ></Rating>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
@@ -64,8 +66,6 @@ function AllBook() {
             <Stack direction="row" mt="20px" justifyContent="center" spacing={2}>
                 <Pagination color="error" count={10} page={page} onChange={handleChangePage}></Pagination>
             </Stack>
-
-
         </div>
     );
 }

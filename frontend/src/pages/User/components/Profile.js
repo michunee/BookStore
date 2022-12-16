@@ -92,8 +92,9 @@ function Profile() {
                                             {data.user[0].username}
                                         </Typography>
                                         <TextField
-                                            sx={{ padding: "10px", width: "100%" }}
+                                            sx={{ padding: "10px" }}
                                             variant="standard"
+                                            fullWidth
                                             value={birthname}
                                             onChange={(e) => setBirthName(e.target.value)}
                                         />
@@ -101,14 +102,16 @@ function Profile() {
                                             {data.user[0].email}
                                         </Typography>
                                         <TextField
-                                            sx={{ padding: "10px", width: "100%" }}
+                                            sx={{ padding: "10px" }}
                                             variant="standard"
+                                            fullWidth
                                             value={phonenumber}
                                             onChange={(e) => setPhoneNumber(e.target.value)}
                                         />
                                         <TextField
-                                            sx={{ padding: "10px", width: "100%" }}
+                                            sx={{ padding: "10px" }}
                                             variant="standard"
+                                            fullWidth
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                         />
