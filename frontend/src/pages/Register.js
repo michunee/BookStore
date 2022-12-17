@@ -15,7 +15,6 @@ import axios from 'axios';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^[A-z0-9-_]{8,24}$/;
 const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
-const REGISTER_URL = '/api/users/register';
 
 function Register() {
     const [username, setUsername] = useState("");
@@ -68,7 +67,7 @@ function Register() {
         }
 
         try {
-            const res = await axios.post(REGISTER_URL, JSON.stringify(data), {
+            const res = await axios.post('api/users/register', data, {
                 headers: {
                     'token': `Bearer ${localStorage.getItem('token')}`,
                 }
@@ -92,7 +91,7 @@ function Register() {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <Avatar sx={{ m: 1, bgcolor: "#f44336" }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -121,6 +120,7 @@ function Register() {
                                 id="email"
                                 label="Địa chỉ email"
                                 name="email"
+                                type="email"
                                 autoComplete="email"
                             />
                         </Grid>
@@ -152,7 +152,6 @@ function Register() {
                     </Grid>
                     <Button
                         type="submit"
-                        onClick={handleSubmit}
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}

@@ -1,39 +1,38 @@
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Pagination, Stack } from '@mui/material';
 
 import Header from '../components/Header';
 import ScrollTop from '../components/ScrollTop';
 import Sidebar from '../components/Book/Sidebar';
-import Book from '../components/Book/Book';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import AllBook from '../components/AllBook';
-import ControlledCarousel from '../components/BestSeller';
+import AllBook from '../components/Book/AllBook';
+import ControlledCarousel from '../components/Banner';
+import BookByCategory from '../components/Book/BookByCategory';
 
 
 function Home() {
-    // TODO: Get api những cuốn sách theo category
-    // TODO: Gọi api lấy tất cả category về sau đó truyền phần tử đầu tiên của category vào useState setId
     const [id, setId] = useState(1);
     const [data, setData] = useState({});
+    const [page, setPage] = useState(1);
 
     const useSelectTabHandler = (id) => {
         setId(id);
     }
 
+    const handleChangePage = (event, value) => {
+        setPage(value);
+    }
+
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get(`api/books/category/${id}`)
+                .get(`api/books/category/${id}?page=${page}`)
                 .then(res => setData(res.data))
-            // console.log(localStorage.getItem('token'));
         }
         fetchData();
+    }, [page, id]);
 
-    }, [id]);
-
-    // TODO: Get api những category 
-    // const { response, error, loading } = useAxios({ url: "api/books/categories/1" })
     return (
         <div >
             <Header />
@@ -45,7 +44,10 @@ function Home() {
                         <Sidebar onClickSelectTab={useSelectTabHandler} />
                     </Grid>
                     <Grid item xs={9}>
-                        <Book response={data} />
+                        <BookByCategory response={data} />
+                        <Stack direction="row" mt="20px" justifyContent="center" spacing={2}>
+                            <Pagination color="error" count={2} page={page} onChange={handleChangePage}></Pagination>
+                        </Stack>
                     </Grid>
                 </Grid>
                 <ScrollTop />

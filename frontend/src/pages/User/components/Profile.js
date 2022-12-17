@@ -39,7 +39,6 @@ function Profile() {
             phonenumber,
             address
         }
-
         axios
             .patch(`api/users/${username}`, data, {
                 headers: {

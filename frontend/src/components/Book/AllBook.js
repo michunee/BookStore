@@ -63,7 +63,7 @@ function AllBook() {
                 })}
             </Grid>
             <Stack direction="row" mt="20px" justifyContent="center" spacing={2}>
-                <Pagination color="error" count={10} page={page} onChange={handleChangePage}></Pagination>
+                <Pagination color="error" count={15} page={page} onChange={handleChangePage}></Pagination>
             </Stack>
         </div>
     );

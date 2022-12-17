@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react';
 import { userSelector } from '../../redux/selectors';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 const steps = ['Địa chỉ nhận hàng', 'Kiểm tra đơn đặt hàng'];
 
@@ -39,8 +40,17 @@ export default function Checkout() {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
+    const [open, setOpen] = React.useState(false);
     const shippingFee = 15000;
     const username = useSelector(userSelector);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     useEffect(() => {
         const fetchData = () => {
@@ -113,14 +123,13 @@ export default function Checkout() {
                         ))}
                     </Stepper>
                     {activeStep === steps.length ? (
-                        <React.Fragment>
+                        <React.Fragment sx={{ display: "flex" }}>
                             <Typography variant="h5" gutterBottom>
-                                Thank you for your order.
+                                Cảm ơn bạn đã đặt hàng!
                             </Typography>
                             <Typography variant="subtitle1">
-                                Your order number is #2001539. We have emailed your order
-                                confirmation, and will send you an update when your order has
-                                shipped.
+                                Mã đơn hàng của bạn là #10506. Chúng tôi đã gửi email xác nhận đơn hàng của bạn.
+                                Đội ngũ BookStore xin chân thành cảm ơn và chúc bạn một ngày tốt lành!
                             </Typography>
                         </React.Fragment>
                     ) : (
@@ -134,14 +143,37 @@ export default function Checkout() {
                                 )}
 
                                 {activeStep === steps.length - 1 ? (
-                                    <Box component="form" onSubmit={handlePayment}>
+                                    <Box >
                                         <Button
                                             variant="contained"
                                             color="warning"
-                                            type="submit"
+                                            onClick={handleClickOpen}
                                         >
                                             Đặt hàng
                                         </Button>
+
+                                        <Dialog
+                                            open={open}
+                                            keepMounted
+                                            onClose={handleClose}
+                                            aria-describedby="alert-dialog-slide-description"
+                                        >
+                                            <DialogTitle>{"Xác nhận đơn hàng"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-slide-description">
+                                                    Bạn có chắc chắn muốn đặt hàng?
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button color="error" onClick={handleClose}>
+                                                    Hủy
+                                                </Button>
+                                                <Box component="form" onSubmit={handlePayment}>
+                                                    <Button color="error" variant='contained' type="submit">Đồng ý</Button>
+                                                </Box>
+                                            </DialogActions>
+                                        </Dialog>
+
                                     </Box>
                                 ) : (
                                     <Button

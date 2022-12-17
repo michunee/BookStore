@@ -47,7 +47,7 @@ function App() {
             <Route path="/user/account/password" element={<Password />} />
             <Route index element={<Navigate to='/user/account/profile' />}></Route>
           </Route>
-          <Route path="/checkout" element={<Checkout></Checkout>}></Route>
+          <Route path="/checkout" element={<Checkout />}></Route>
 
 
           {/* <Route path="/user/account/profile" element={<Profile />} /> */}

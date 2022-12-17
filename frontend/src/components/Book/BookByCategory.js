@@ -9,7 +9,7 @@ import { MDBRipple } from 'mdb-react-ui-kit';
 // import CircularProgress from '@mui/material/CircularProgress';
 // import { Box } from '@mui/system';
 
-function Book({ response }) {
+function BookByCategory({ response }) {
     const navigate = useNavigate();
 
     // if (loading) {
@@ -75,4 +75,4 @@ function Book({ response }) {
     )
 }
 
-export default Book
+export default BookByCategory

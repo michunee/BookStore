@@ -3,7 +3,6 @@ import useAxios from "../../hooks/useAxios";
 import { useState } from "react";
 
 function Sidebar(props) {
-    // TODO: Viết api lấy ra tất cả category, endpoint = /categories
     const { response, error, loading } = useAxios({ url: "api/categories" })
     const [value, setValue] = useState(0);
 
@@ -12,7 +11,6 @@ function Sidebar(props) {
         const idSelected = response.categoryList[newValue].catId;
         props.onClickSelectTab(idSelected)
     };
-
 
     if (loading) {
         return (

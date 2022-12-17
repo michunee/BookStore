@@ -121,7 +121,6 @@ function Cart() {
                     <MDBCol md="8">
                         <MDBCard style={{ maxHeight: 600, overflow: 'auto' }} className="mb-4">
                             <MDBCardHeader className="py-3">
-
                                 <MDBTypography tag="h5" className="mb-0">
                                     Giỏ hàng - {cartItems.length} sản phẩm
                                 </MDBTypography>
@@ -132,7 +131,6 @@ function Cart() {
                                         <p className="small text-muted">Sản phẩm</p>
                                     </MDBCol>
                                     <MDBCol md="3">
-
                                     </MDBCol>
                                     <MDBCol md="2" className="d-flex justify-content-center">
                                         <p className="small text-muted">Đơn giá</p>

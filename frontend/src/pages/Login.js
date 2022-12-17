@@ -24,8 +24,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    // const name = useSelector(state => state.user);
-    // console.log(name);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -75,7 +74,7 @@ function Login() {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <Avatar sx={{ m: 1, bgcolor: "#f44336" }}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -125,8 +124,6 @@ function Login() {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Ghi nhớ đăng nhập"
                     />
-
-
                     <Button
                         type="submit"
                         fullWidth

@@ -23,6 +23,10 @@ const Order = () => {
         fetchData();
     }, [username])
 
+    const handleViewDetail = (id) => {
+        console.log(id)
+    }
+
     return (
         <div>
             <TableContainer component={Box}>
@@ -47,7 +51,7 @@ const Order = () => {
                                 <TableCell align="center">{order.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
                                 <TableCell align="center">{order.totalPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
                                 <TableCell align="center">Đã thanh toán</TableCell>
-                                <TableCell align="center"><Button color="error">Xem</Button></TableCell>
+                                <TableCell align="center"><Button onClick={() => handleViewDetail()} color="error">Xem</Button></TableCell>
                             </TableRow>
                         )
                         )}

@@ -38,10 +38,6 @@ export default function Review() {
         setTotal(subTotal + shippingFee);
     }, [data])
 
-    const handle = () => {
-
-    }
-
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -52,6 +48,7 @@ export default function Review() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Tên sản phẩm</TableCell>
+                            <TableCell ></TableCell>
                             <TableCell>Đơn giá</TableCell>
                             <TableCell align='center'>Số lượng</TableCell>
                             <TableCell align='center'>Số tiền </TableCell>
@@ -62,7 +59,8 @@ export default function Review() {
                             <TableRow key={item.bookId}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell>{item.bookName}</TableCell>
+                                <TableCell><img style={{ maxWidth: "100px" }} src={item.bookImg}></img></TableCell>
+                                <TableCell align="left">{item.bookName}</TableCell>
                                 <TableCell>{item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })} </TableCell>
                                 <TableCell align="center">{item.amount}</TableCell>
                                 <TableCell align="center">{item.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>

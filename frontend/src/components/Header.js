@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Badge, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Badge, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Logout from '@mui/icons-material/Logout';
@@ -14,6 +14,7 @@ import { useState } from "react";
 function Header() {
     const username = useSelector(userSelector);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [openDialog, setOpenDialog] = useState(false);
     const open = Boolean(anchorEl);
 
     // console.log(username);
@@ -32,6 +33,14 @@ function Header() {
                 localStorage.removeItem('token');
                 navigate('/');
             })
+    }
+
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    }
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
     }
 
     const handleMenu = (event) => {
@@ -82,11 +91,7 @@ function Header() {
                             </Button>
                         )
                     }
-                    {/* // <Button color='inherit' onClick={handleGoToCart}>
-                    //     <Badge badgeContent={4} color='secondary'>
-                    //         <ShoppingCartIcon />
-                    //     </Badge>
-                    // </Button> */}
+
                     {localStorage.getItem('token') ? (
                         <div>
 
@@ -140,11 +145,28 @@ function Header() {
                                     Tài khoản của tôi
                                 </MenuItem>
 
-                                <MenuItem onClick={handleLogout}><Logout fontSize="small" />
+                                <MenuItem onClick={handleOpenDialog}>
+                                    <Logout fontSize="small" />
                                     <Typography sx={{ ml: 2 }}>
                                         Đăng xuất
                                     </Typography>
                                 </MenuItem>
+                                <Dialog open={openDialog} keepMounted onClose={handleCloseDialog} aria-labelledby="alert-dialog-slide-description">
+                                    <DialogTitle>{"Đăng xuất"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-slide-description">
+                                            Bạn có chắc chắn muốn đăng xuất?
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleCloseDialog}>
+                                            Hủy
+                                        </Button>
+                                        <Button onClick={handleLogout}>
+                                            Đăng xuất
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </Menu>
                         </div>
                     ) : (
