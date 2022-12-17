@@ -8,9 +8,16 @@ import { userSelector } from "../../../redux/selectors";
 const Password = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const username = useSelector(userSelector);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -60,8 +67,9 @@ const Password = () => {
                                 id="newPassword"
                                 label="Mật khẩu mới"
                                 name="newPassword"
-                                type="password"
+                                type="text"
                                 value={newPassword}
+                                autoComplete="new-password"
                                 onChange={(e) => setNewPassword(e.target.value)}
                             />
                             <TextField
@@ -71,7 +79,7 @@ const Password = () => {
                                 id="confirmPassword"
                                 label="Nhập lại mật khẩu mới"
                                 name="confirmPassword"
-                                type="password"
+                                type="text"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />

@@ -42,7 +42,6 @@ function Cart() {
                 })
                 .then(res => {
                     setCartItems(res.data.data);
-                    console.log(res.data.data);
                 })
         }
         fetchData();
@@ -71,7 +70,6 @@ function Cart() {
             .patch(`api/carts/${username}/book/${id}/increase`, data)
             .then(res => {
                 setCartItems(res.data);
-                console.log(res.data);
             })
     }
 
@@ -89,7 +87,6 @@ function Cart() {
             .patch(`api/carts/${username}/book/${id}/decrease`, data)
             .then(res => {
                 setCartItems(res.data);
-                console.log(res.data);
             })
     }
 
@@ -101,7 +98,6 @@ function Cart() {
                 }
             })
             .then(res => {
-                console.log('123', res.data);
                 setCartItems(res.data);
             }
             )

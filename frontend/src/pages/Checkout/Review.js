@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../../redux/selectors';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Card, CardContent, CardHeader, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 export default function Review() {
     const [data, setData] = useState([])
@@ -38,6 +37,10 @@ export default function Review() {
         setSubtotal(subTotal);
         setTotal(subTotal + shippingFee);
     }, [data])
+
+    const handle = () => {
+
+    }
 
     return (
         <React.Fragment>

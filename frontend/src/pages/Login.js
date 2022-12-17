@@ -116,14 +116,17 @@ function Login() {
                             label="Password"
                         />
                     </FormControl>
-
+                    <Box sx={{ mt: "16px", display: "flex" }}>
+                        <Typography variant="h7" color="error">
+                            {error}
+                        </Typography>
+                    </Box>
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Ghi nhớ đăng nhập"
                     />
-                    <Typography variant="h7" color="error">
-                        {error}
-                    </Typography>
+
+
                     <Button
                         type="submit"
                         fullWidth

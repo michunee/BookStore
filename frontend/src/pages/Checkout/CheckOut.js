@@ -14,7 +14,10 @@ import AddressForm from './AddressForm';
 import Review from './Review';
 import Header from '../../components/Header';
 import GoBackBtn from '../../components/GoBackBtn';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { userSelector } from '../../redux/selectors';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const steps = ['Địa chỉ nhận hàng', 'Kiểm tra đơn đặt hàng'];
 
@@ -33,8 +36,60 @@ const theme = createTheme();
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
+    const [cartItems, setCartItems] = useState([]);
+    const [subtotal, setSubtotal] = useState(0);
+    const [total, setTotal] = useState(0);
+    const shippingFee = 15000;
+    const username = useSelector(userSelector);
+
+    useEffect(() => {
+        const fetchData = () => {
+            axios
+                .get(`api/carts/${username}`, {
+                    headers: {
+                        'token': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                .then(res => {
+                    setCartItems(res.data.data);
+                    console.log(res.data.data);
+                })
+        }
+        fetchData();
+    }, [username])
+
+    useEffect(() => {
+        let subTotal = 0;
+        cartItems.forEach(item => {
+            subTotal += item.totalprice;
+        })
+        setSubtotal(subTotal);
+        setTotal(subTotal + shippingFee);
+    }, [cartItems])
+
+    const handlePayment = (e) => {
+        e.preventDefault();
+        const data = {
+            price: subtotal,
+            ship: shippingFee,
+            discount: 0,
+            totalPrice: total
+        }
+
+        axios
+            .post(`api/bills/${username}`, data, {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => {
+                console.log(res);
+                setActiveStep(activeStep + 1)
+            })
+    }
+
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
+        setActiveStep(activeStep + 1)
     };
 
     const handleBack = () => {
@@ -77,13 +132,27 @@ export default function Checkout() {
                                         Quay lại
                                     </Button>
                                 )}
-                                <Button
-                                    variant="contained"
-                                    color="warning"
-                                    onClick={handleNext}
-                                >
-                                    {activeStep === steps.length - 1 ? 'Đặt hàng' : 'Tiếp theo'}
-                                </Button>
+
+                                {activeStep === steps.length - 1 ? (
+                                    <Box component="form" onSubmit={handlePayment}>
+                                        <Button
+                                            variant="contained"
+                                            color="warning"
+                                            type="submit"
+                                        >
+                                            Đặt hàng
+                                        </Button>
+                                    </Box>
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        color="warning"
+                                        onClick={handleNext}
+                                    >
+                                        Tiếp theo
+                                    </Button>
+                                )
+                                }
                             </Box>
                         </React.Fragment>
                     )}
