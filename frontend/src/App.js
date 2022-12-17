@@ -19,36 +19,47 @@ import Order from './pages/User/components/Order';
 import Notification from './pages/User/components/Notification';
 import Password from './pages/User/components/Password';
 import Checkout from './pages/Checkout/CheckOut';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#b71c1c',
+      },
+    }
+  });
 
   return (
-    <Router>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/books/:id" element={<BookDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/user/account/" element={<MainPage />} >
-          <Route path="/user/account/profile" element={<Profile />} />
-          <Route path="/user/account/order" element={<Order />} />
-          <Route path="/user/account/notification" element={<Notification />} />
-          <Route path="/user/account/password" element={<Password />} />
-          <Route index element={<Navigate to='/user/account/profile' />}></Route>
-        </Route>
-        <Route path="/checkout" element={<Checkout></Checkout>}></Route>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/books/:id" element={<BookDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user/account/" element={<MainPage />} >
+            <Route path="/user/account/profile" element={<Profile />} />
+            <Route path="/user/account/order" element={<Order />} />
+            <Route path="/user/account/notification" element={<Notification />} />
+            <Route path="/user/account/password" element={<Password />} />
+            <Route index element={<Navigate to='/user/account/profile' />}></Route>
+          </Route>
+          <Route path="/checkout" element={<Checkout></Checkout>}></Route>
 
 
-        {/* <Route path="/user/account/profile" element={<Profile />} /> */}
+          {/* <Route path="/user/account/profile" element={<Profile />} /> */}
 
-        {/* <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/comment" element={<Comment />} /> */}
 
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </ThemeProvider>
+
   )
 }
 

@@ -115,7 +115,7 @@ function Profile() {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                         />
-                                        <Button onClick={handleSubmit} variant="contained" sx={{ mt: 3, mb: 2 }} >Cập nhật</Button>
+                                        <Button onClick={handleSubmit} color="error" variant="contained" sx={{ mt: 3, mb: 2 }} >Cập nhật</Button>
 
                                     </Box>
                                 )}

@@ -73,12 +73,13 @@ export default function Checkout() {
                             {getStepContent(activeStep)}
                             <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: "20px" }}>
                                 {activeStep !== 0 && (
-                                    <Button onClick={handleBack} >
+                                    <Button color="warning" onClick={handleBack} >
                                         Quay lại
                                     </Button>
                                 )}
                                 <Button
                                     variant="contained"
+                                    color="warning"
                                     onClick={handleNext}
                                 >
                                     {activeStep === steps.length - 1 ? 'Đặt hàng' : 'Tiếp theo'}

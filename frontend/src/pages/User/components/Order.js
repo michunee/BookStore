@@ -1,5 +1,4 @@
 import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { Container } from "@mui/system";
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
@@ -8,7 +7,7 @@ import { userSelector } from "../../../redux/selectors";
 const Order = () => {
     const [orders, setOrders] = useState([])
     const username = useSelector(userSelector);
-    console.log(username);
+
     useEffect(() => {
         const fetchData = () => {
             axios
@@ -19,7 +18,6 @@ const Order = () => {
                 })
                 .then(res => {
                     setOrders(res.data)
-                    console.log(orders.billList[0].billId);
                 })
         }
         fetchData();
@@ -46,10 +44,10 @@ const Order = () => {
                             >
                                 <TableCell align="center">{order.billId}</TableCell>
                                 <TableCell align="center">{order.date.split('T').join(' ').split('.000Z').join('')}</TableCell>
-                                <TableCell align="center">{order.price}</TableCell>
-                                <TableCell align="center">{order.totalPrice}</TableCell>
+                                <TableCell align="center">{order.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
+                                <TableCell align="center">{order.totalPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
                                 <TableCell align="center">Đã thanh toán</TableCell>
-                                <TableCell align="center"><Button>Xem</Button></TableCell>
+                                <TableCell align="center"><Button color="error">Xem</Button></TableCell>
                             </TableRow>
                         )
                         )}

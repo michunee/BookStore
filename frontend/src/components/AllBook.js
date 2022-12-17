@@ -17,7 +17,6 @@ function AllBook() {
             .get(`api/books?page=${page}`)
             .then(res => {
                 setBooks(res.data)
-                console.log(res.data);
             })
     }, [page]);
 
@@ -38,9 +37,9 @@ function AllBook() {
                 {books.bookList && books.bookList.map((book, index) => {
                     return (
                         <Grid item xs={2} key={index}>
-                            <Card sx={{ height: "100%" }} style={{ boxShadow: "0 0 5px #ccc" }}>
+                            <Card style={{ boxShadow: "0 0 5px #ccc" }}>
                                 <CardActionArea onClick={() => navigateToBookDetail(book.bookId)} component="div" >
-                                    <MDBRipple rippleTag='div' className='bg-image hover-overlay hover-zoom '>
+                                    <MDBRipple style={{ display: "flex" }} rippleTag='div' className='bg-image hover-overlay hover-zoom '>
                                         <CardMedia
                                             component="img"
                                             image={book.bookImg}

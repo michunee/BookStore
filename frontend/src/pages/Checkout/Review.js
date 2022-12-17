@@ -77,9 +77,9 @@ export default function Review() {
                     <Typography style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         Phí vận chuyển: {shippingFee.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
                     </Typography>
-                    <Typography style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         Tổng thanh toán: <Typography variant='h5' color="red">{total.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Typography>
-                    </Typography>
+                    </Box>
                 </Box>
             </Box>
 

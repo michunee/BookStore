@@ -11,7 +11,6 @@ const Password = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const username = useSelector(userSelector);
-    console.log(newPassword);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,7 +31,6 @@ const Password = () => {
                 console.log(res.data);
                 setSuccess(res.data.message);
                 setError('');
-                console.log(newPassword);
             }
             )
             .catch(err => {
@@ -80,6 +78,7 @@ const Password = () => {
                             <Button
                                 type="submit"
                                 variant="contained"
+                                color="error"
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Đổi mật khẩu

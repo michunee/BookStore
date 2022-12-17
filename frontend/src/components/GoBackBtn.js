@@ -7,6 +7,7 @@ function GoBackBtn() {
     const handleReturn = () => navigate(-1);
     return (
         <Button
+            color="error"
             startIcon={<ArrowBackIcon />}
             onClick={handleReturn}
         >

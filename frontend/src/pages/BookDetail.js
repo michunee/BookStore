@@ -71,7 +71,10 @@ function BookDetail() {
                                 <List>
                                     <ListItem style={{ justifyContent: "space-between" }}>
                                         <Typography variant="h6">{data.book[0].bookName}</Typography>
-                                        <Rating name="read-only" value={data.book[0].avgRating ?? 0} readOnly />
+                                        <Box display="flex" alignItems="center" gap="10px">
+                                            <Typography variant="h7" color="red">{Math.round((data.book[0].avgRating) * 10) / 10 ?? 0} / 5</Typography>
+                                            <Rating name="read-only" value={data.book[0].avgRating ?? 0} readOnly />
+                                        </Box>
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText primary='Tác giả' secondary={data.book[0].bookAuthor} />
@@ -102,19 +105,19 @@ function BookDetail() {
                                         {localStorage.getItem('token')
                                             ? <Button
                                                 variant='outlined'
-                                                color='primary'
+                                                color='error'
                                                 onClick={handleAddBookIntoCart}
                                                 startIcon={<ShoppingCartIcon />}
-                                                sx={{ mt: 1 }}
+                                                sx={{ my: 2 }}
                                             >
                                                 Thêm vào giỏ hàng
                                             </Button>
                                             : <Button
                                                 variant='outlined'
-                                                color='primary'
+                                                color='error'
                                                 onClick={() => navigate('/login')}
                                                 startIcon={<ShoppingCartIcon />}
-                                                sx={{ mt: 1 }}
+                                                sx={{ my: 2 }}
                                             >
                                                 Đăng nhập để mua hàng
                                             </Button>
