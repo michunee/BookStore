@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 15, 2022 lúc 07:23 PM
+-- Thời gian đã tạo: Th12 17, 2022 lúc 10:00 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -48,7 +48,8 @@ INSERT INTO `bill` (`billId`, `cartId`, `userId`, `price`, `ship`, `discount`, `
 (6, 5, 45, 132000, 15000, 0, 147000, '2022-11-10 00:48:00'),
 (7, 10, 45, 200000, 15000, 0, 215000, '2022-11-10 00:49:45'),
 (8, 11, 45, 200000, 15000, 0, 215000, '2022-11-10 00:50:25'),
-(9, 12, 45, 200000, 15000, 0, 215000, '2022-11-20 08:29:26');
+(9, 12, 45, 200000, 15000, 0, 215000, '2022-11-20 08:29:26'),
+(10, 16, 49, 200000, 15000, 0, 215000, '2022-12-16 20:28:56');
 
 -- --------------------------------------------------------
 
@@ -273,7 +274,10 @@ CREATE TABLE `bookcart` (
 
 INSERT INTO `bookcart` (`cartId`, `bookId`, `amount`, `totalprice`) VALUES
 (16, 11, 5, 430000),
-(16, 2, 5, 500000);
+(16, 2, 7, 700000),
+(21, 3, 2, 280000),
+(21, 70, 1, 118000),
+(21, 114, 1, 90000);
 
 -- --------------------------------------------------------
 
@@ -302,7 +306,8 @@ INSERT INTO `cart` (`cartId`, `userId`, `status`) VALUES
 (12, 45, 1),
 (14, 48, 0),
 (15, 45, 0),
-(16, 49, 0);
+(16, 49, 1),
+(21, 49, 0);
 
 -- --------------------------------------------------------
 
@@ -357,6 +362,28 @@ INSERT INTO `comment` (`commentId`, `userId`, `bookId`, `content`, `rating`, `da
 (10, 46, 3, 'Tuyệt vời', 5, '2022-11-10 00:30:35'),
 (11, 49, 3, 'Bình thường', 4, '2022-12-14 09:30:55'),
 (12, 49, 3, 'Bình thường', 2, '2022-12-14 09:33:37');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `receiver`
+--
+
+CREATE TABLE `receiver` (
+  `receiverId` int(11) NOT NULL,
+  `receiverName` varchar(50) NOT NULL,
+  `receiverPhone` varchar(50) NOT NULL,
+  `receiverAddress` varchar(50) NOT NULL,
+  `cartId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `receiver`
+--
+
+INSERT INTO `receiver` (`receiverId`, `receiverName`, `receiverPhone`, `receiverAddress`, `cartId`) VALUES
+(1, 'Khoi Nguyen', '0902188341', '135 Huỳnh Thúc Kháng', 21),
+(2, 'Khoi Nguyen', '0902188341', '135 Huỳnh Thúc Kháng', 21);
 
 -- --------------------------------------------------------
 
@@ -434,6 +461,13 @@ ALTER TABLE `comment`
   ADD KEY `fk_bookId` (`bookId`);
 
 --
+-- Chỉ mục cho bảng `receiver`
+--
+ALTER TABLE `receiver`
+  ADD PRIMARY KEY (`receiverId`),
+  ADD KEY `fk_cartId4` (`cartId`);
+
+--
 -- Chỉ mục cho bảng `user`
 --
 ALTER TABLE `user`
@@ -449,7 +483,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `billId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `book`
@@ -461,7 +495,7 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `cartId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -474,6 +508,12 @@ ALTER TABLE `category`
 --
 ALTER TABLE `comment`
   MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT cho bảng `receiver`
+--
+ALTER TABLE `receiver`
+  MODIFY `receiverId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
@@ -517,6 +557,12 @@ ALTER TABLE `cart`
 ALTER TABLE `comment`
   ADD CONSTRAINT `fk_bookId` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`),
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+
+--
+-- Các ràng buộc cho bảng `receiver`
+--
+ALTER TABLE `receiver`
+  ADD CONSTRAINT `fk_cartId4` FOREIGN KEY (`cartId`) REFERENCES `cart` (`cartId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
