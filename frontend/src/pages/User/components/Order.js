@@ -10,7 +10,8 @@ const Order = () => {
     const [open, setOpen] = useState(false)
     const [openComment, setOpenComment] = useState(false)
     const [content, setContent] = useState('')
-    const [rating, setRating] = useState(0)
+    const [idBook, setIdBook] = useState('')
+    const [rating, setRating] = useState(1)
     const shipping = 15000
     const username = useSelector(userSelector);
 
@@ -30,7 +31,6 @@ const Order = () => {
     }, [username])
 
     const handleViewDetail = (id) => {
-        setOpen(true)
         axios
             .get(`api/bills/${id}/books`, {
                 headers: {
@@ -40,19 +40,8 @@ const Order = () => {
             .then(res => {
                 setDetailBill(res.data.data)
                 console.log(res.data.data)
+                setOpen(true)
             })
-    }
-
-    const handleOpenComment = () => {
-        setOpenComment(true)
-    }
-
-    const handleCloseComment = () => {
-        setOpenComment(false)
-    }
-
-    const handleChangeContent = (e) => {
-        setContent(e.target.value)
     }
 
     const handlePostComment = (id) => {
@@ -60,6 +49,7 @@ const Order = () => {
             content: content,
             rating: rating
         }
+        console.log(id)
         axios
             .post(`api/comments/user/${username}/book/${id}`, data, {
                 headers: {
@@ -72,9 +62,21 @@ const Order = () => {
             })
     }
 
+    const handleOpenComment = (id) => {
+        setIdBook(id)
+        setOpenComment(true)
+    }
+
+    const handleCloseComment = () => {
+        setOpenComment(false)
+    }
+
     const handleClose = () => {
         setOpen(false)
     }
+
+
+
 
     return (
         <div>
@@ -134,10 +136,11 @@ const Order = () => {
                                                                 <TableCell align="center">{book.amount}</TableCell>
                                                                 <TableCell align="center">{book.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
                                                                 <TableCell align="center">
-                                                                    <Button onClick={handleOpenComment} color="error">Đánh giá</Button>
+                                                                    <Button onClick={() => handleOpenComment(book.bookId)} color="error">Đánh giá</Button>
                                                                     <Dialog
                                                                         open={openComment}
                                                                         onClose={handleCloseComment}
+                                                                        id
                                                                         aria-labelledby="scroll-dialog-title"
                                                                         aria-describedby="scroll-dialog-description"
                                                                         maxWidth="lg"
@@ -161,13 +164,16 @@ const Order = () => {
                                                                                 required
                                                                                 variant="outlined"
                                                                                 value={content}
-                                                                                onChange={handleChangeContent}
-
+                                                                                multiline
+                                                                                rows={4}
+                                                                                onChange={(e) => setContent(e.target.value)}
                                                                             />
                                                                         </DialogContent>
                                                                         <DialogActions>
                                                                             <Button onClick={handleCloseComment}>Đóng</Button>
-                                                                            <Button onClick={() => handlePostComment(book.bookId)} variant="outlined" color="error">Gửi</Button>
+
+                                                                            <Button color="error" onClick={() => handlePostComment(idBook)} variant='contained' >Gửi</Button>
+
                                                                         </DialogActions>
                                                                     </Dialog>
                                                                 </TableCell>
