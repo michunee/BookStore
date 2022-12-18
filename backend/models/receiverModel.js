@@ -1,8 +1,8 @@
 const db = require("./database");
 
-exports.getReceiverbyCartId = async (cartId) => {
+exports.getReceiverByBillId = async (billId) => {
   return new Promise((resolve, reject) => {
-    let sql = `SELECT * FROM receiver WHERE cartId = ${cartId}`;
+    let sql = `SELECT receiverName, receiverPhone, receiverAddress FROM receiver INNER JOIN bill ON receiver.cartId = bill.cartId WHERE bill.billId = ${billId}`;
     db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
