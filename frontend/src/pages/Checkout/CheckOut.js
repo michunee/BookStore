@@ -40,7 +40,7 @@ export default function Checkout() {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const shippingFee = 15000;
     const username = useSelector(userSelector);
 
@@ -123,12 +123,12 @@ export default function Checkout() {
                         ))}
                     </Stepper>
                     {activeStep === steps.length ? (
-                        <React.Fragment sx={{ display: "flex" }}>
+                        <React.Fragment >
                             <Typography variant="h5" gutterBottom>
                                 Cảm ơn bạn đã đặt hàng!
                             </Typography>
                             <Typography variant="subtitle1">
-                                Mã đơn hàng của bạn là #10506. Chúng tôi đã gửi email xác nhận đơn hàng của bạn.
+                                Mã đơn hàng của bạn là #10506. <br /> Chúng tôi đã gửi email xác nhận đơn hàng của bạn.
                                 Đội ngũ BookStore xin chân thành cảm ơn và chúc bạn một ngày tốt lành!
                             </Typography>
                         </React.Fragment>
