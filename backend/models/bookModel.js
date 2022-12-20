@@ -22,6 +22,27 @@ exports.getAllBook = async (page) => {
   });
 };
 
+exports.createBook = async (body) => {
+  const { bookName, bookAuthor, bookImg, bookPrice, bookDes, catId } = body;
+  return new Promise((resolve, reject) => {
+    let sql = `INSERT INTO book (bookName, bookAuthor, bookImg, bookPrice, bookDes, catId) VALUES ('${bookName}', '${bookAuthor}', '${bookImg}', ${bookPrice}, '${bookDes}', ${catId})`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
+
+exports.deleteBookById = async (bookId) => {
+  return new Promise((resolve, reject) => {
+    let sql = `DELETE FROM book WHERE bookId = ${bookId}`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
+
 exports.getBookByCategoryId = async (catId, page) => {
   return new Promise((resolve, reject) => {
     if (page == null) {
