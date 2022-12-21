@@ -2,7 +2,7 @@ const db = require("./database");
 
 exports.getBillByUserId = async (userId) => {
   return new Promise((resolve, reject) => {
-    let sql = `SELECT * FROM bill WHERE userId = ${userId}`;
+    let sql = `SELECT * FROM bill WHERE userId = ${userId} ORDER BY date DESC`;
     db.query(sql, (err, data) => {
       if (err) console.log(err);
       else resolve(data);
