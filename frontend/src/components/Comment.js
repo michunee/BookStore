@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import axios from 'axios';
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Divider, List, ListItem, ListItemText, Paper, Rating, Typography } from '@mui/material';
-=======
 import axios from "axios";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  Box,
   Divider,
   List,
   ListItem,
@@ -19,7 +11,6 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
->>>>>>> 43192a60d7ff0612734cc4db2c4405f669b6b108
 
 function Comment() {
   const [data, setData] = useState([]);
@@ -78,40 +69,10 @@ function Comment() {
               </ListItemText>
             </ListItem>
             <Divider />
-<<<<<<< HEAD
-            {data.commentList && (
-                data.commentList.map((comment, index) => (
-                    <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                        <ListItem alignItems="flex-start">
-                            <ListItemText>
-                                <Typography variant="h7" gutterBottom component="div">
-                                    {comment.username}
-                                </Typography>
-                                <React.Fragment>
-                                    <Rating name="read-only" value={comment.rating ?? 0} readOnly ></Rating>
-                                    <br></br>
-                                    <small style={{ opacity: '0.8' }}>{comment.date.split('T').join(' ').split('.000Z').join('')}</small>
-                                    <br></br>
-                                    <Typography fontWeight={"500"} marginTop='10px' variant="h7" gutterBottom component="div">
-                                        {comment.content}
-                                    </Typography>
-                                </React.Fragment>
-                            </ListItemText>
-                        </ListItem>
-                        <Divider />
-                    </List>
-                )
-                )
-            )
-            }
-        </Paper>
-    );
-=======
           </List>
         ))}
     </Paper>
   );
->>>>>>> 43192a60d7ff0612734cc4db2c4405f669b6b108
 }
 
 export default Comment;
