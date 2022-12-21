@@ -201,7 +201,6 @@ function Cart() {
                                     </MDBRow>
                                 </MDBCardBody>
                             }
-
                         </MDBCard>
 
                         <MDBCard className="mb-4">
@@ -212,7 +211,6 @@ function Cart() {
                                 <p className="mb-0">12.10.2020 - 14.10.2020</p>
                             </MDBCardBody>
                         </MDBCard>
-
                         <MDBCard className="mb-4 mb-lg-0">
                             <MDBCardBody>
                                 <p>
@@ -279,7 +277,6 @@ function Cart() {
             </MDBContainer >
             <Footer />
         </ div>
-
     )
 }
 

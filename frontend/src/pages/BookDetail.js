@@ -38,7 +38,6 @@ function BookDetail() {
         console.log(quantity);
     }
 
-
     const handleAddBookIntoCart = () => {
         const data = {
             bookAmount: quantity,

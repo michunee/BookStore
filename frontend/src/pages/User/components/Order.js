@@ -75,9 +75,6 @@ const Order = () => {
         setOpen(false)
     }
 
-
-
-
     return (
         <div>
             <TableContainer component={Box}>
@@ -104,108 +101,106 @@ const Order = () => {
                                 <TableCell align="center">Đã thanh toán</TableCell>
                                 <TableCell align="center">
                                     <Button onClick={() => handleViewDetail(order.billId)} color="error">Xem</Button>
-                                    <Dialog
-                                        open={open}
-                                        onClose={handleClose}
-                                        aria-labelledby="scroll-dialog-title"
-                                        aria-describedby="scroll-dialog-description"
-                                        maxWidth="lg"
-                                    >
-                                        <DialogTitle id="scroll-dialog-title">
-                                            Chi tiết đơn hàng
-                                        </DialogTitle>
-                                        <DialogContent width={1200} sx={{ p: 5 }}>
-                                            <Box>
-                                                <Table>
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell>Tên sách</TableCell>
-                                                            <TableCell></TableCell>
-                                                            <TableCell>Tác giả</TableCell>
-                                                            <TableCell align="center">Số lượng</TableCell>
-                                                            <TableCell align="center">Tổng giá</TableCell>
-                                                            <TableCell align="center">Đánh giá</TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {detailBill.map((book) => (
-                                                            <TableRow key={book.bookId}>
-                                                                <TableCell><img width={80} src={book.bookImg}></img></TableCell>
-                                                                <TableCell>{book.bookName}</TableCell>
-                                                                <TableCell>{book.bookAuthor}</TableCell>
-                                                                <TableCell align="center">{book.amount}</TableCell>
-                                                                <TableCell align="center">{book.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
-                                                                <TableCell align="center">
-                                                                    <Button onClick={() => handleOpenComment(book.bookId)} color="error">Đánh giá</Button>
-                                                                    <Dialog
-                                                                        open={openComment}
-                                                                        onClose={handleCloseComment}
-                                                                        id
-                                                                        aria-labelledby="scroll-dialog-title"
-                                                                        aria-describedby="scroll-dialog-description"
-                                                                        maxWidth="lg"
-                                                                    >
-                                                                        <DialogTitle id="scroll-dialog-title">
-                                                                            Đánh giá sản phẩm
-                                                                        </DialogTitle>
-                                                                        <DialogContent sx={{ p: 5 }}>
-                                                                            <Rating
-                                                                                name="simple-controlled"
-                                                                                value={rating}
-                                                                                onChange={(event, newValue) => {
-                                                                                    setRating(newValue);
-                                                                                }}
-                                                                            />
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                label="Nội dung"
-                                                                                margin="normal"
-                                                                                name="content"
-                                                                                required
-                                                                                variant="outlined"
-                                                                                value={content}
-                                                                                multiline
-                                                                                rows={4}
-                                                                                onChange={(e) => setContent(e.target.value)}
-                                                                            />
-                                                                        </DialogContent>
-                                                                        <DialogActions>
-                                                                            <Button onClick={handleCloseComment}>Đóng</Button>
-
-                                                                            <Button color="error" onClick={() => handlePostComment(idBook)} variant='contained' >Gửi</Button>
-
-                                                                        </DialogActions>
-                                                                    </Dialog>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        ))}
-                                                    </TableBody>
-                                                </Table>
-                                            </Box>
-                                            <Box sx={{ mt: 2, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }} >
-                                                <Typography variant="h7">
-                                                    Phí vận chuyển: {shipping.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
-                                                </Typography>
-
-                                                <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                                    Tổng tiền: <Typography variant='h6' color="red">{detailBill.reduce((total, book) => total + book.totalprice, shipping).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Typography>
-                                                </Box>
-                                            </Box>
-
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={handleClose}>Cancel</Button>
-                                            <Button onClick={handleClose}>Subscribe</Button>
-                                        </DialogActions>
-                                    </Dialog>
                                 </TableCell>
                             </TableRow>
                         )
                         )}
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="scroll-dialog-title"
+                            aria-describedby="scroll-dialog-description"
+                            maxWidth="lg"
+
+                        >
+                            <DialogTitle id="scroll-dialog-title">
+                                Chi tiết đơn hàng
+                            </DialogTitle>
+                            <DialogContent width={1200} sx={{ p: 5 }}>
+                                <Box>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Tên sách</TableCell>
+                                                <TableCell></TableCell>
+                                                <TableCell>Tác giả</TableCell>
+                                                <TableCell align="center">Số lượng</TableCell>
+                                                <TableCell align="center">Tổng giá</TableCell>
+                                                <TableCell align="center">Đánh giá</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {detailBill.map((book) => (
+                                                <TableRow key={book.bookId}>
+                                                    <TableCell><img width={80} src={book.bookImg}></img></TableCell>
+                                                    <TableCell>{book.bookName}</TableCell>
+                                                    <TableCell>{book.bookAuthor}</TableCell>
+                                                    <TableCell align="center">{book.amount}</TableCell>
+                                                    <TableCell align="center">{book.totalprice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
+                                                    <TableCell align="center">
+                                                        <Button onClick={() => handleOpenComment(book.bookId)} color="error">Đánh giá</Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Box>
+                                <Box sx={{ mt: 2, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }} >
+                                    <Typography variant="h7">
+                                        Phí vận chuyển: {shipping.toLocaleString('vi', { style: 'currency', currency: 'VND' })}
+                                    </Typography>
+
+                                    <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                        Tổng tiền: <Typography variant='h6' color="red">{detailBill.reduce((total, book) => total + book.totalprice, shipping).toLocaleString('vi', { style: 'currency', currency: 'VND' })}</Typography>
+                                    </Box>
+                                </Box>
+
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Hủy</Button>
+                                <Button variant="outlined" onClick={handleClose}>Đồng ý</Button>
+                            </DialogActions>
+                        </Dialog>
+                        <Dialog
+                            open={openComment}
+                            onClose={handleCloseComment}
+                            sx={{ opacity: 1 }}
+                            aria-labelledby="scroll-dialog-title"
+                            aria-describedby="scroll-dialog-description"
+                            maxWidth="lg"
+                        >
+                            <DialogTitle id="scroll-dialog-title">
+                                Đánh giá sản phẩm
+                            </DialogTitle>
+                            <DialogContent sx={{ p: 5 }}>
+                                <Rating
+                                    name="simple-controlled"
+                                    value={rating ?? 0}
+                                    onChange={(event, newValue) => {
+                                        setRating(newValue);
+                                    }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    label="Nội dung"
+                                    margin="normal"
+                                    name="content"
+                                    required
+                                    variant="outlined"
+                                    value={content}
+                                    multiline
+                                    rows={4}
+                                    onChange={(e) => setContent(e.target.value)}
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseComment}>Đóng</Button>
+                                <Button color="error" onClick={() => handlePostComment(idBook)} variant='contained' >Gửi</Button>
+                            </DialogActions>
+                        </Dialog>
                     </TableBody>
                 </Table>
             </TableContainer>
-
         </div>
     )
 }

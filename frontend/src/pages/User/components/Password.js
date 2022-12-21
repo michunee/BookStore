@@ -60,7 +60,7 @@ const Password = () => {
                                 id="newPassword"
                                 label="Mật khẩu mới"
                                 name="newPassword"
-                                type="text"
+                                type="password"
                                 value={newPassword}
                                 autoComplete="new-password"
                                 onChange={(e) => setNewPassword(e.target.value)}
@@ -72,7 +72,7 @@ const Password = () => {
                                 id="confirmPassword"
                                 label="Nhập lại mật khẩu mới"
                                 name="confirmPassword"
-                                type="text"
+                                type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />

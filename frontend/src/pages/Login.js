@@ -44,9 +44,16 @@ function Login() {
         axios.post("api/users/login", data)
             .then(res => {
                 console.log(res.data);
-                localStorage.setItem("token", res.data.accessToken);
-                dispatch(userSlice.actions.getUserName(res.data.data[0].username));
-                navigate("/");
+                if (res.data.data[0].admin === 0) {
+                    localStorage.setItem("token", res.data.accessToken);
+                    dispatch(userSlice.actions.getUserName(res.data.data[0].username));
+                    navigate("/");
+                }
+                else {
+                    localStorage.setItem("token", res.data.accessToken);
+                    dispatch(userSlice.actions.getUserName(res.data.data[0].username));
+                    navigate("/dashboard");
+                }
             })
 
             .catch(err => {
@@ -54,7 +61,6 @@ function Login() {
             }
             )
     }
-
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     }
@@ -100,6 +106,8 @@ function Login() {
                             value={password}
                             onChange={handlePasswordChange}
                             type={showPassword ? 'text' : 'password'}
+                            required
+                            autoComplete='current-password'
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
