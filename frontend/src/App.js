@@ -17,9 +17,13 @@ import Order from './pages/User/components/Order';
 import Notification from './pages/User/components/Notification';
 import Password from './pages/User/components/Password';
 import Checkout from './pages/Checkout/CheckOut';
-import Admin from './pages/Admin/components/Dashboard';
 import { createTheme, ThemeProvider } from '@mui/material';
 import PageNotFound from './pages/PageNotFound';
+import AdminMainPage from './pages/Admin/MainPage';
+import CustomerList from './pages/Admin/CustomerList';
+import AdminList from './pages/Admin/AdminList';
+import AddBook from './pages/Admin/AddBook';
+import UpdateBook from './pages/Admin/UpdateBook';
 
 function App() {
   const theme = createTheme({
@@ -34,21 +38,55 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/books/:id" element={<BookDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/user/account/" element={<MainPage />} >
-            <Route path="/user/account/profile" element={<Profile />} />
-            <Route path="/user/account/order" element={<Order />} />
-            <Route path="/user/account/notification" element={<Notification />} />
-            <Route path="/user/account/password" element={<Password />} />
-            <Route index element={<Navigate to='/user/account/profile' />}></Route>
-          </Route>
-          <Route path="/checkout" element={<Checkout />}></Route>
-          <Route path="/dashboard" element={<Admin />}></Route>
+          {localStorage.getItem('token') !== null ?
+            (
+              <>
+                <Route path="*" element={<PageNotFound />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/books/:id" element={<BookDetail />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/user/account/" element={<MainPage />} >
+                  <Route path="/user/account/profile" element={<Profile />} />
+                  <Route path="/user/account/order" element={<Order />} />
+                  <Route path="/user/account/notification" element={<Notification />} />
+                  <Route path="/user/account/password" element={<Password />} />
+                  <Route index element={<Navigate to='/user/account/profile' />} />
+                </Route>
+              </>
+            )
+            : (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<PageNotFound />} />
+                <Route path="/books/:id" element={<BookDetail />} />
+                <Route path="/register" element={<Register />} />
+              </>
+            )
+          }
+          {localStorage.getItem('token') !== null || localStorage.getItem('role') === '1' ?
+            (
+              <>
+                <Route path="/admin/account/" element={<AdminMainPage />}>
+                  <Route path="/admin/account/profile" element={<Profile />} />
+                  <Route path="/admin/account/customer" element={<CustomerList />} />
+                  <Route path="/admin/account/admin" element={<AdminList />} />
+                  <Route path="/admin/account/password" element={<Password />} />
+                  <Route path="/admin/account/book/add" element={<AddBook />} />
+                  <Route path="/admin/account/book/edit" element={<UpdateBook />} />
+                  <Route index element={<Navigate to='/admin/account/profile' />}></Route>
+                </Route>
+              </>
+            ) : (
+              <>
+                <Route path="*" element={<PageNotFound />} />
+              </>
+            )
+          }
+
         </Routes>
       </Router>
     </ThemeProvider>

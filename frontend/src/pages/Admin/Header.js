@@ -1,11 +1,9 @@
 import { AppBar, Avatar, Badge, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Logout from '@mui/icons-material/Logout';
 import { Box } from "@mui/system";
-import SearchBar from "./SearchBar";
 import { useSelector } from "react-redux";
-import { userSelector } from "../redux/selectors";
+import { userSelector } from "../../redux/selectors";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -16,7 +14,6 @@ function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
     const open = Boolean(anchorEl);
-
     // console.log(username);
     const navigate = useNavigate();
 
@@ -30,9 +27,7 @@ function Header() {
             )
             .then(res => {
                 console.log(res.data);
-                localStorage.removeItem('token');
-                localStorage.setItem('role', "1")
-                navigate('/');
+                navigate('/login');
             })
     }
 
@@ -52,50 +47,27 @@ function Header() {
         setAnchorEl(null);
     };
 
-    const handleGoToCart = () => {
-        navigate('/cart');
-        window.scrollTo(0, 0)
-    }
-
-    const handleGoToUserPage = () => {
-        navigate('/user/account');
+    const handleGoToAdminPage = () => {
+        navigate('/admin/account');
     }
 
     return (
         <AppBar color="inherit" position='fixed' >
             <Toolbar>
                 <Typography color="inherit" variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+                    <Link to="/admin/account" style={{ textDecoration: 'none', color: 'white' }}>
                         <img width="100px" alt="" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/National_Book_Store_2016_logo.svg/800px-National_Book_Store_2016_logo.svg.png">
                         </img>
                     </Link>
                 </Typography>
-
-                <SearchBar />
 
                 <Box
                     display='flex'
                     justifyContent='space-between'
                     alignContent='center'
                 >
-                    {localStorage.getItem('token') ?
-                        <Button color='inherit' onClick={handleGoToCart}>
-                            <Badge badgeContent={4} color='error'>
-                                <ShoppingCartIcon />
-                            </Badge>
-                        </Button>
-                        : (
-                            <Button color='inherit' onClick={() => navigate('/login')}>
-                                <Badge badgeContent={0} color='error'>
-                                    <ShoppingCartIcon />
-                                </Badge>
-                            </Button>
-                        )
-                    }
-
                     {localStorage.getItem('token') ? (
                         <div>
-
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -142,10 +114,9 @@ function Header() {
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
-                                <MenuItem onClick={handleGoToUserPage}><Avatar sx={{ width: 24, height: 24 }} />
+                                <MenuItem onClick={handleGoToAdminPage}><Avatar sx={{ width: 24, height: 24 }} />
                                     Tài khoản của tôi
                                 </MenuItem>
-
                                 <MenuItem onClick={handleOpenDialog}>
                                     <Logout fontSize="small" />
                                     <Typography sx={{ ml: 2 }}>
@@ -175,10 +146,6 @@ function Header() {
                             <Button >Đăng nhập</Button>
                         </Link>
                     )}
-
-                    {/* <Button color='inherit' onClick={handleGoToUserPage}>{username}</Button>
-
-                    <Button color='inherit' onClick={handleLogout}>Logout</Button> */}
                 </Box>
             </Toolbar>
         </AppBar >

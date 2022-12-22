@@ -46,13 +46,15 @@ function Login() {
                 console.log(res.data);
                 if (res.data.data[0].admin === 0) {
                     localStorage.setItem("token", res.data.accessToken);
+                    localStorage.setItem("role", res.data.data[0].admin);
                     dispatch(userSlice.actions.getUserName(res.data.data[0].username));
                     navigate("/");
                 }
                 else {
                     localStorage.setItem("token", res.data.accessToken);
+                    localStorage.setItem("role", res.data.data[0].admin);
                     dispatch(userSlice.actions.getUserName(res.data.data[0].username));
-                    navigate("/dashboard");
+                    navigate("/admin/account/profile");
                 }
             })
 
