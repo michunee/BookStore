@@ -94,3 +94,13 @@ exports.updateBookById = async (bookId, body) => {
     });
   });
 };
+
+exports.searchBook = async (keyword) => {
+  return new Promise((resolve, reject) => {
+    let sql = `SELECT * FROM book WHERE bookName LIKE '%${keyword}%' LIMIT 10`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};

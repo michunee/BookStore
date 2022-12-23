@@ -47,6 +47,19 @@ const updateBookById = async (req, res) => {
   });
 };
 
+const searchBook = async (req, res) => {
+  const keyword = req.query.keyword;
+  if (!keyword) {
+    res.status(400).json({
+      message: "Tìm sản phẩm mong muốn...",
+    });
+  }
+  const data = await Book.searchBook(keyword);
+  res.status(200).json({
+    data,
+  });
+};
+
 module.exports = {
   getAllBook,
   getDetailBookById,
@@ -54,4 +67,5 @@ module.exports = {
   updateBookById,
   createBook,
   deleteBookById,
+  searchBook,
 };

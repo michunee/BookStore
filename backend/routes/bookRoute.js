@@ -10,6 +10,8 @@ router
 
 router.route("/category/:catId").get(bookController.getBookByCategoryId);
 
+router.route("/search").get(bookController.searchBook);
+
 router
   .route("/:bookId")
   .get(bookController.getDetailBookById)
