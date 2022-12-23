@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MDBRipple } from 'mdb-react-ui-kit';
 
-
 function AllBook() {
     const [books, setBooks] = useState([]);
     const [page, setPage] = useState(1);

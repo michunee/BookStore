@@ -11,7 +11,7 @@ const MainPage = () => {
     return (
         <div>
             <Header />
-            <Container style={{ marginTop: "100px", paddingTop: "20px", border: "1px solid #ccc", borderRadius: "10px", height: "600px" }} maxWidth="lg">
+            <Container style={{ marginTop: "100px", paddingTop: "20px", border: "1px solid #ccc", borderRadius: "10px", height: "600px", overflow: 'auto' }} maxWidth="lg">
                 <Grid container spacing={2}>
                     <Grid item xs={3} >
                         <Tabs
@@ -21,9 +21,9 @@ const MainPage = () => {
                             textColor="primary"
                             indicatorColor="primary"
                             aria-label="Vertical tabs example"
-                            sx={{ borderRight: 1, borderColor: 'divider' }}>
+                            sx={{ borderRight: 1, borderColor: 'divider', position: 'fixed' }}>
                             <Tab label="Tài khoản của tôi" to="/admin/account/profile" component={Link} />
-                            <Tab label="Tất cả sách" to="/admin/account/book/edit" component={Link} />
+                            <Tab label="Tất cả sách" to="/admin/account/book" component={Link} />
                             <Tab label="Thêm sách" to="/admin/account/book/add" component={Link} />
                             <Tab label="Tài khoản khách hàng" to="/admin/account/customer" component={Link} />
                             <Tab label="Tài khoản admin" to="/admin/account/admin" component={Link} />

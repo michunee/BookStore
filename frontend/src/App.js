@@ -23,7 +23,7 @@ import AdminMainPage from './pages/Admin/MainPage';
 import CustomerList from './pages/Admin/CustomerList';
 import AdminList from './pages/Admin/AdminList';
 import AddBook from './pages/Admin/AddBook';
-import UpdateBook from './pages/Admin/UpdateBook';
+import BookList from './pages/Admin/BookList';
 
 function App() {
   const theme = createTheme({
@@ -76,7 +76,7 @@ function App() {
                   <Route path="/admin/account/admin" element={<AdminList />} />
                   <Route path="/admin/account/password" element={<Password />} />
                   <Route path="/admin/account/book/add" element={<AddBook />} />
-                  <Route path="/admin/account/book/edit" element={<UpdateBook />} />
+                  <Route path="/admin/account/book" element={<BookList />} />
                   <Route index element={<Navigate to='/admin/account/profile' />}></Route>
                 </Route>
               </>
