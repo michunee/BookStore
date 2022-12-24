@@ -31,7 +31,7 @@ function Header() {
             .then(res => {
                 console.log(res.data);
                 localStorage.removeItem('token');
-                localStorage.setItem('role', "1")
+                localStorage.setItem('role', '1')
                 navigate('/');
             })
     }
@@ -63,16 +63,14 @@ function Header() {
 
     return (
         <AppBar color="inherit" position='fixed' >
-            <Toolbar>
+            <Toolbar sx={{ gap: "20px" }}>
                 <Typography color="inherit" variant='h6' component='div' sx={{ flexGrow: 1 }}>
                     <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
                         <img width="100px" alt="" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/National_Book_Store_2016_logo.svg/800px-National_Book_Store_2016_logo.svg.png">
                         </img>
                     </Link>
                 </Typography>
-
                 <SearchBar />
-
                 <Box
                     display='flex'
                     justifyContent='space-between'
@@ -95,7 +93,6 @@ function Header() {
 
                     {localStorage.getItem('token') ? (
                         <div>
-
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"

@@ -38,7 +38,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          {localStorage.getItem('token') !== null ?
+          {localStorage.getItem('token') !== null && localStorage.getItem('role') === '0' ?
             (
               <>
                 <Route path="*" element={<PageNotFound />} />
@@ -67,7 +67,7 @@ function App() {
               </>
             )
           }
-          {localStorage.getItem('token') !== null || localStorage.getItem('role') === '1' ?
+          {localStorage.getItem('role') === '1' ?
             (
               <>
                 <Route path="/admin/account/" element={<AdminMainPage />}>

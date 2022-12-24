@@ -1,62 +1,48 @@
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(3),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '30ch',
-        },
-    },
-}));
-
-
+import { Autocomplete, Box, Stack, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SearchBar() {
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = () => {
+            axios.get("api/books")
+                .then(res => {
+                    setData(res.data.bookList)
+                })
+        }
+        fetchData();
+    }, [])
+
+    const handleNavigateToBookDetail = (id) => {
+        navigate(`/books/${id}`);
+    }
 
     return (
         <div>
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Tìm kiếm..."
-                    inputProps={{ 'aria-label': 'search' }}
+
+            <Stack sx={{}}>
+                <Autocomplete
+                    id="combo-box-demo"
+                    options={data}
+                    getOptionLabel={(data) => data.bookName}
+                    style={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} variant="standard" placeholder="Tìm kiếm..." />}
+                    renderOption={(props, data) => (
+                        <Box  {...props} key={data.bookId}>
+                            <li onClick={() => handleNavigateToBookDetail(data.bookId)} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <img src={data.bookImg} alt="" width="60px" />
+                                <Typography sx={{ fontSize: 14 }} color="text.primary">
+                                    {data.bookName}
+                                </Typography>
+                            </li>
+                        </Box>
+                    )}
                 />
-            </Search>
+            </Stack>
         </div >
     );
 }

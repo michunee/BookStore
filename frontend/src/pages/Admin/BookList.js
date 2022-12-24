@@ -18,13 +18,13 @@ const BookList = () => {
     const [quantity, setQuantity] = useState("");
     const [category, setCategory] = useState("");
     const [idBook, setIdBook] = useState("");
+    const [success, setSuccess] = useState("");
     const [open, setOpen] = useState(false);
-
 
     useEffect(() => {
         const fetchData = () => {
             axios
-                .get('api/books', {
+                .get(`api/books`, {
                     headers: {
                         'token': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -46,7 +46,6 @@ const BookList = () => {
             })
             .then(res => {
                 setDetailBook(res.data.book)
-                console.log(res.data.book)
                 setName(res.data.book[0].bookName)
                 setAuthor(res.data.book[0].bookAuthor)
                 setPrice(res.data.book[0].bookPrice)
@@ -69,8 +68,8 @@ const BookList = () => {
             })
             .then(res => {
                 console.log(res.data)
+                setSuccess(res.data.message)
             })
-
     }
 
     const handleClose = () => {
@@ -78,36 +77,36 @@ const BookList = () => {
     }
 
     const handleUpdateBook = (id) => {
+        const data = {
+            bookName: name,
+            bookAuthor: author,
+            bookPrice: price,
+            bookDes: description,
+            bookImg: image,
+            amount: quantity,
+            catId: category
+        }
         axios
-            .patch(`api/books/${id}`, {
-                bookName: name,
-                bookAuthor: author,
-                bookPrice: price,
-                bookDes: description,
-                bookImg: image,
-                amount: quantity,
-                catId: category
-            }, {
+            .patch(`api/books/${id}`, data, {
                 headers: {
                     'token': `Bearer ${localStorage.getItem('token')}`
                 }
             })
             .then(res => {
                 console.log(res.data)
-                setBook(res.data.bookList)
                 setOpen(false)
+                setSuccess(res.data.message)
             })
-
     }
 
     return (
         <div>
             <TableContainer sx={{ px: 2 }} component={Box}>
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
                     <Typography variant="h6" component="div" gutterBottom>
                         Danh sách sản phẩm
                     </Typography>
-                    <Box>
+                    <Box sx={{ position: "absolute", right: "272px", backgroundColor: "#FFF", zIndex: 1 }}>
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}
                             placeholder="Tìm kiếm..."
@@ -138,6 +137,7 @@ const BookList = () => {
                                 return item
                             }
                         }).map((item) => (
+
                             <TableRow key={item.bookId}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
@@ -146,7 +146,7 @@ const BookList = () => {
                                 </TableCell>
                                 <TableCell>{item.bookAuthor}</TableCell>
                                 <TableCell >{item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <IconButton
                                         aria-label="edit"
                                         onClick={() => handleViewDetail(item.bookId)}
@@ -154,7 +154,7 @@ const BookList = () => {
                                         <EditIcon />
                                     </IconButton>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <IconButton
                                         aria-label="delete"
                                         onClick={() => handleDeleteBook(item.bookId)}
@@ -162,8 +162,12 @@ const BookList = () => {
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
+
                             </TableRow>
-                        ))}
+                        ))
+                        }
+                        {success && <Alert severity="success">{success}</Alert>}
+
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -209,15 +213,23 @@ const BookList = () => {
                                         />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <TextField
-                                            fullWidth
-                                            label="Danh mục"
-                                            name="category"
-                                            onChange={(e) => setCategory(e.target.value)}
-                                            required
-                                            value={category}
-                                            variant="outlined"
-                                        />
+                                        <Box sx={{ mt: 2, display: "flex", gap: "20px" }}>
+                                            <Typography>Thể loại:</Typography>
+                                            <select name="chọn" style={{ outline: "none" }} onChange={(e) => setCategory(e.target.value)}>
+                                                <option>Chọn thể loại</option>
+                                                <option value="1">Ngôn tình, tình cảm</option>
+                                                <option value="2">Kinh dị</option>
+                                                <option value="3">Trinh thám</option>
+                                                <option value="4">Khoa học viễn tưởng</option>
+                                                <option value="5">Cổ tích, thiếu nhi</option>
+                                                <option value="6">Giáo khoa, kiến thức</option>
+                                                <option value="7">Tiểu sử, tự truyện</option>
+                                                <option value="8">Bí ẩn</option>
+                                                <option value="9">Hành động, phiêu lưu</option>
+                                                <option value="10">Tâm lý</option>
+                                                <option value="11">Lịch sử</option>
+                                            </select>
+                                        </Box>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <TextField
@@ -260,8 +272,8 @@ const BookList = () => {
                                 <Button onClick={handleClose}>Đóng</Button>
                                 <Button variant="contained" onClick={() => handleUpdateBook(idBook)}>Lưu</Button>
                             </DialogActions>
-
                         </Dialog>
+
                     </TableBody>
                 </Table>
             </TableContainer >

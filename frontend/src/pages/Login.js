@@ -44,16 +44,13 @@ function Login() {
         axios.post("api/users/login", data)
             .then(res => {
                 console.log(res.data);
+                localStorage.setItem("token", res.data.accessToken);
+                dispatch(userSlice.actions.getUserName(res.data.data[0].username));
                 if (res.data.data[0].admin === 0) {
-                    localStorage.setItem("token", res.data.accessToken);
                     localStorage.setItem("role", res.data.data[0].admin);
-                    dispatch(userSlice.actions.getUserName(res.data.data[0].username));
                     navigate("/");
                 }
                 else {
-                    localStorage.setItem("token", res.data.accessToken);
-                    localStorage.setItem("role", res.data.data[0].admin);
-                    dispatch(userSlice.actions.getUserName(res.data.data[0].username));
                     navigate("/admin/account/profile");
                 }
             })

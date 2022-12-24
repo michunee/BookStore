@@ -27,6 +27,7 @@ function Header() {
             )
             .then(res => {
                 console.log(res.data);
+                localStorage.removeItem('token');
                 navigate('/login');
             })
     }
