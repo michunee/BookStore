@@ -80,11 +80,17 @@ function Header() {
                     alignContent='center'
                 >
                     {localStorage.getItem('token') ?
-                        <Button color='inherit' onClick={handleGoToCart}>
-                            <Badge badgeContent={4} color='error'>
-                                <ShoppingCartIcon />
-                            </Badge>
-                        </Button>
+                        (
+                            localStorage.getItem('role') === '1' ?
+                                ""
+                                : (
+                                    <Button color='inherit' onClick={handleGoToCart}>
+                                        <Badge badgeContent={4} color='error'>
+                                            <ShoppingCartIcon />
+                                        </Badge>
+                                    </Button>
+                                )
+                        )
                         : (
                             <Button color='inherit' onClick={() => navigate('/login')}>
                                 <Badge badgeContent={0} color='error'>

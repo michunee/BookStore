@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../redux/selectors';
 import axios from 'axios';
+import { Box, Button } from '@mui/material';
 
 export default function AddressForm() {
     const [data, setData] = useState({})
@@ -31,6 +32,24 @@ export default function AddressForm() {
         }
         fetchData();
     }, [username])
+
+    // const handleCreateReceiver = () => {
+    //     const data = {
+    //         receiverName: birthname,
+    //         receiverPhone: phonenumber,
+    //         receiverAddress: address
+    //     }
+    //     axios
+    //         .patch(`api/receivers/${username}`, data, {
+    //             headers: {
+    //                 'token': `Bearer ${localStorage.getItem('token')}`
+    //             }
+    //         }
+    //         )
+    //         .then(res => {
+    //             console.log(res.data)
+    //         })
+    // }
 
     return (
         <div>
@@ -66,6 +85,15 @@ export default function AddressForm() {
                     />
                 </Grid>
             </Grid>
+            {/* <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                    variant="contained"
+                    color="warning"
+                    onClick={handleCreateReceiver}
+                >
+                    Tiếp theo
+                </Button>
+            </Box> */}
         </div>
     );
 }

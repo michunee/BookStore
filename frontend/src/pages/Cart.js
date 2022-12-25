@@ -111,8 +111,6 @@ function Cart() {
         navigate('/checkout');
     }
 
-    console.log(cartItems.length);
-
     return (
         <div>
             <Header />

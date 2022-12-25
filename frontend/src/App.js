@@ -38,35 +38,21 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          {localStorage.getItem('token') !== null && localStorage.getItem('role') === '0' ?
-            (
-              <>
-                <Route path="*" element={<PageNotFound />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/books/:id" element={<BookDetail />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/user/account/" element={<MainPage />} >
-                  <Route path="/user/account/profile" element={<Profile />} />
-                  <Route path="/user/account/order" element={<Order />} />
-                  <Route path="/user/account/notification" element={<Notification />} />
-                  <Route path="/user/account/password" element={<Password />} />
-                  <Route index element={<Navigate to='/user/account/profile' />} />
-                </Route>
-              </>
-            )
-            : (
-              <>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="*" element={<PageNotFound />} />
-                <Route path="/books/:id" element={<BookDetail />} />
-                <Route path="/register" element={<Register />} />
-              </>
-            )
-          }
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/books/:id" element={<BookDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/user/account/" element={<MainPage />} >
+            <Route path="/user/account/profile" element={<Profile />} />
+            <Route path="/user/account/order" element={<Order />} />
+            <Route path="/user/account/notification" element={<Notification />} />
+            <Route path="/user/account/password" element={<Password />} />
+            <Route index element={<Navigate to='/user/account/profile' />} />
+          </Route>
+
           <Route path="/admin/account/" element={<AdminMainPage />}>
             <Route path="/admin/account/profile" element={<Profile />} />
             <Route path="/admin/account/customer" element={<CustomerList />} />

@@ -101,25 +101,32 @@ function BookDetail() {
                                         <Typography variant="h7">{data.book[0].amount} sản phẩm có sẵn</Typography>
                                     </ListItem>
                                     <div>
-                                        {localStorage.getItem('token')
-                                            ? <Button
-                                                variant='outlined'
-                                                color='error'
-                                                onClick={handleAddBookIntoCart}
-                                                startIcon={<ShoppingCartIcon />}
-                                                sx={{ my: 2 }}
-                                            >
-                                                Thêm vào giỏ hàng
-                                            </Button>
-                                            : <Button
-                                                variant='outlined'
-                                                color='error'
-                                                onClick={() => navigate('/login')}
-                                                startIcon={<ShoppingCartIcon />}
-                                                sx={{ my: 2 }}
-                                            >
-                                                Đăng nhập để mua hàng
-                                            </Button>
+                                        {localStorage.getItem('token') ?
+                                            (
+                                                localStorage.getItem('role') === '1' ?
+                                                    ""
+                                                    : (
+                                                        <Button
+                                                            variant='outlined'
+                                                            color='error'
+                                                            onClick={handleAddBookIntoCart}
+                                                            startIcon={<ShoppingCartIcon />}
+                                                            sx={{ my: 2 }}
+                                                        >
+                                                            Thêm vào giỏ hàng
+                                                        </Button>
+                                                    )
+                                            ) : (
+                                                <Button
+                                                    variant='outlined'
+                                                    color='error'
+                                                    onClick={() => navigate('/login')}
+                                                    startIcon={<ShoppingCartIcon />}
+                                                    sx={{ my: 2 }}
+                                                >
+                                                    Đăng nhập để mua hàng
+                                                </Button>
+                                            )
                                         }
                                     </div>
                                 </List>

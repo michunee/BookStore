@@ -41,7 +41,7 @@ export default function Review() {
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
-                Thanh toán
+                Xác nhận thanh toán
             </Typography>
             <TableContainer component={Box}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -59,7 +59,7 @@ export default function Review() {
                             <TableRow key={item.bookId}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell><img style={{ maxWidth: "100px" }} src={item.bookImg}></img></TableCell>
+                                <TableCell><img style={{ maxWidth: "100px" }} src={item.bookImg} alt=""></img></TableCell>
                                 <TableCell align="left">{item.bookName}</TableCell>
                                 <TableCell>{item.bookPrice.toLocaleString('vi', { style: 'currency', currency: 'VND' })} </TableCell>
                                 <TableCell align="center">{item.amount}</TableCell>

@@ -100,6 +100,7 @@ export default function Checkout() {
 
     const handleNext = () => {
         setActiveStep(activeStep + 1)
+
     };
 
     const handleBack = () => {
@@ -107,14 +108,13 @@ export default function Checkout() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <div>
             <Toolbar>
                 <Header />
             </Toolbar>
             <Container component="main" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                    <GoBackBtn></GoBackBtn>
+                    <GoBackBtn />
                     <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                         {steps.map((label) => (
                             <Step key={label}>
@@ -141,7 +141,6 @@ export default function Checkout() {
                                         Quay lại
                                     </Button>
                                 )}
-
                                 {activeStep === steps.length - 1 ? (
                                     <Box >
                                         <Button
@@ -151,7 +150,6 @@ export default function Checkout() {
                                         >
                                             Đặt hàng
                                         </Button>
-
                                         <Dialog
                                             open={open}
                                             keepMounted
@@ -190,6 +188,6 @@ export default function Checkout() {
                     )}
                 </Paper>
             </Container>
-        </ThemeProvider>
+        </div>
     );
 }
