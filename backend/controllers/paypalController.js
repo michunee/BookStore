@@ -75,25 +75,19 @@ const successPayment = (req, res) => {
       },
     ],
   };
-  paypal.payment.execute(
-    paymentId,
-    execute_payment_json,
-    function (error, payment) {
-      if (error) {
-        console.log(error.response);
-        throw error;
-      } else {
-        console.log(JSON.stringify(payment));
-        res.status(200).json({
-          message: "Payment success!",
-        });
-      }
+
+  paypal.payment.execute(paymentId, execute_payment_json, (error) => {
+    if (error) {
+      console.log(error.response);
+      throw error;
+    } else {
+      res.redirect("http://localhost:3001/checkout");
     }
-  );
+  });
 };
 
 const cancelPayment = (req, res) =>
-  res.status(200).json({ message: "Cancel payment" });
+  res.redirect("http://localhost:3001/checkout");
 
 module.exports = {
   createPayment,

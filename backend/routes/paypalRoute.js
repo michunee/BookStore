@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const paypalController = require("../controllers/paypalController");
-const protect = require("../middlewares/authorization");
 
 router.route("/").get(paypalController.createPayment);
 
