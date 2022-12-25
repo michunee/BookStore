@@ -19,6 +19,7 @@ import { userSelector } from '../../redux/selectors';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Địa chỉ nhận hàng', 'Kiểm tra đơn đặt hàng'];
 
@@ -33,8 +34,6 @@ function getStepContent(step) {
     }
 }
 
-const theme = createTheme();
-
 export default function Checkout() {
     const [activeStep, setActiveStep] = useState(0);
     const [cartItems, setCartItems] = useState([]);
@@ -43,6 +42,8 @@ export default function Checkout() {
     const [open, setOpen] = useState(false);
     const shippingFee = 15000;
     const username = useSelector(userSelector);
+
+    const navigate = useNavigate();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -86,21 +87,38 @@ export default function Checkout() {
             totalPrice: total
         }
 
-        axios
-            .post(`api/bills/${username}`, data, {
+        Promise.all([
+            axios.get(`api/paypal?totalPrice=1`, {
+                headers: {
+                    'token': `Bearer ${localStorage.getItem('token')}`
+                }
+            }),
+            axios.post(`api/bills/${username}`, data, {
                 headers: {
                     'token': `Bearer ${localStorage.getItem('token')}`
                 }
             })
+        ])
             .then(res => {
                 console.log(res);
                 setActiveStep(activeStep + 1)
             })
+
+
+        // axios
+        //     .post(`api/bills/${username}`, data, {
+        //         headers: {
+        //             'token': `Bearer ${localStorage.getItem('token')}`
+        //         }
+        //     })
+        //     .then(res => {
+        //         console.log(res);
+        //         setActiveStep(activeStep + 1)
+        //     })
     }
 
     const handleNext = () => {
         setActiveStep(activeStep + 1)
-
     };
 
     const handleBack = () => {

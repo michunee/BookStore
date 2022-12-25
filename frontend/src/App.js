@@ -60,7 +60,7 @@ function App() {
             <Route path="/admin/account/password" element={<Password />} />
             <Route path="/admin/account/book/add" element={<AddBook />} />
             <Route path="/admin/account/book" element={<BookList />} />
-            <Route index element={<Navigate to='/admin/account/profile' />}></Route>
+            <Route index element={<Navigate to='/admin/account/profile' />} />
           </Route>
         </Routes>
       </Router>
