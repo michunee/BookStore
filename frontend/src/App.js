@@ -67,26 +67,15 @@ function App() {
               </>
             )
           }
-          {localStorage.getItem('role') === '1' ?
-            (
-              <>
-                <Route path="/admin/account/" element={<AdminMainPage />}>
-                  <Route path="/admin/account/profile" element={<Profile />} />
-                  <Route path="/admin/account/customer" element={<CustomerList />} />
-                  <Route path="/admin/account/admin" element={<AdminList />} />
-                  <Route path="/admin/account/password" element={<Password />} />
-                  <Route path="/admin/account/book/add" element={<AddBook />} />
-                  <Route path="/admin/account/book" element={<BookList />} />
-                  <Route index element={<Navigate to='/admin/account/profile' />}></Route>
-                </Route>
-              </>
-            ) : (
-              <>
-                <Route path="*" element={<PageNotFound />} />
-              </>
-            )
-          }
-
+          <Route path="/admin/account/" element={<AdminMainPage />}>
+            <Route path="/admin/account/profile" element={<Profile />} />
+            <Route path="/admin/account/customer" element={<CustomerList />} />
+            <Route path="/admin/account/admin" element={<AdminList />} />
+            <Route path="/admin/account/password" element={<Password />} />
+            <Route path="/admin/account/book/add" element={<AddBook />} />
+            <Route path="/admin/account/book" element={<BookList />} />
+            <Route index element={<Navigate to='/admin/account/profile' />}></Route>
+          </Route>
         </Routes>
       </Router>
     </ThemeProvider>

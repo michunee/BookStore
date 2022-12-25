@@ -1,12 +1,14 @@
-import { Divider, Grid, IconButton, InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Alert, Divider, Grid, IconButton, InputBase, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const CustomerList = () => {
     const [user, setUser] = useState([]);
     const [searchedVal, setSearchedVal] = useState("");
+    const [success, setSuccess] = useState('');
 
     useEffect(() => {
         const fetchData = () => {
@@ -23,6 +25,19 @@ const CustomerList = () => {
         }
         fetchData();
     }, [])
+
+    const handleResetPassword = (username) => {
+        axios.create({
+            headers: {
+                'token': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .patch(`api/admins/reset-password/${username}`)
+            .then(res => {
+                console.log(res.data);
+                setSuccess(res.data.message);
+            })
+    }
 
     return (
         <div>
@@ -50,8 +65,9 @@ const CustomerList = () => {
                             <TableCell>Tên tài khoản</TableCell>
                             <TableCell>Họ tên</TableCell>
                             <TableCell>Email</TableCell>
-                            <TableCell>Số điện thoại</TableCell>
+                            <TableCell>Số ĐT</TableCell>
                             <TableCell>Địa chỉ</TableCell>
+                            <TableCell>Reset</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -72,10 +88,24 @@ const CustomerList = () => {
                                 <TableCell >{item.email}</TableCell>
                                 <TableCell>{item.phonenumber}</TableCell>
                                 <TableCell>{item.address}</TableCell>
+                                <TableCell>
+                                    <IconButton
+                                        aria-label="reset"
+                                        onClick={() => handleResetPassword(item.username)}>
+                                        <RestartAltIcon />
+                                    </IconButton>
+                                </TableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
+                {success &&
+                    <Alert
+                        onClose={() => setSuccess('')}
+                        sx={{}}
+                        severity="success">{success}
+                    </Alert>}
             </TableContainer >
         </div >
     )

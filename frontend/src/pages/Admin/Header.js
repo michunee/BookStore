@@ -56,7 +56,7 @@ function Header() {
         <AppBar color="inherit" position='fixed' >
             <Toolbar>
                 <Typography color="inherit" variant='h6' component='div' sx={{ flexGrow: 1 }}>
-                    <Link to="#" style={{ textDecoration: 'none', color: 'white' }}>
+                    <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
                         <img width="100px" alt="" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/National_Book_Store_2016_logo.svg/800px-National_Book_Store_2016_logo.svg.png">
                         </img>
                     </Link>

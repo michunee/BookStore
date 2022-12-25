@@ -23,7 +23,6 @@ function SearchBar() {
 
     return (
         <div>
-
             <Stack sx={{}}>
                 <Autocomplete
                     id="combo-box-demo"

@@ -58,7 +58,10 @@ function Header() {
     }
 
     const handleGoToUserPage = () => {
-        navigate('/user/account');
+        if (localStorage.getItem('role') === '1')
+            navigate('/admin/account');
+        else if (localStorage.getItem('role') === '0')
+            navigate('/user/account');
     }
 
     return (
