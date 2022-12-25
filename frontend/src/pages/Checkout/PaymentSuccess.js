@@ -1,3 +1,6 @@
+import { Typography } from "@mui/material"
+import React from "react"
+
 const PaymentSuccess = () => {
     return (
         <div>
@@ -13,3 +16,5 @@ const PaymentSuccess = () => {
         </div>
     )
 }
+
+export default PaymentSuccess

@@ -81,7 +81,7 @@ const successPayment = (req, res) => {
       console.log(error.response);
       throw error;
     } else {
-      res.redirect("http://localhost:3001/checkout");
+      res.redirect("http://localhost:3001/checkout/success");
     }
   });
 };

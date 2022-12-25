@@ -101,6 +101,7 @@ export default function Checkout() {
         ])
             .then(res => {
                 console.log(res);
+                window.location = res.data.forwardLink
                 setActiveStep(activeStep + 1)
             })
 

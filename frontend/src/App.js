@@ -24,6 +24,7 @@ import CustomerList from './pages/Admin/CustomerList';
 import AdminList from './pages/Admin/AdminList';
 import AddBook from './pages/Admin/AddBook';
 import BookList from './pages/Admin/BookList';
+import PaymentSuccess from './pages/Checkout/PaymentSuccess';
 
 function App() {
   const theme = createTheme({
@@ -38,7 +39,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/books/:id" element={<BookDetail />} />
@@ -52,7 +53,7 @@ function App() {
             <Route path="/user/account/password" element={<Password />} />
             <Route index element={<Navigate to='/user/account/profile' />} />
           </Route>
-
+          <Route path="/checkout/success" element={<PaymentSuccess />} />
           <Route path="/admin/account/" element={<AdminMainPage />}>
             <Route path="/admin/account/profile" element={<Profile />} />
             <Route path="/admin/account/customer" element={<CustomerList />} />
