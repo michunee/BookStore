@@ -11,7 +11,7 @@ function GoBackBtn() {
             startIcon={<ArrowBackIcon />}
             onClick={handleReturn}
         >
-            Quay lại giỏ hàng
+            Trở về
         </Button>
     )
 }
