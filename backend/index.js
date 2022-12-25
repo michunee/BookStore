@@ -16,6 +16,7 @@ const cartRouter = require("./routes/cartRoute");
 const billRouter = require("./routes/billRoute.js");
 const adminRouter = require("./routes/adminRoute");
 const receiverRouter = require("./routes/receiverRoute");
+const paypalRouter = require("./routes/paypalRoute");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/carts", cartRouter);
 app.use("/api/bills", billRouter);
 app.use("/api/admins", adminRouter);
 app.use("/api/receivers", receiverRouter);
+app.use("/api/paypal", paypalRouter);
 
 // catch 404 and forward to error handler
 app.use(catchErrorMiddleware);
