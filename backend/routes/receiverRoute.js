@@ -5,6 +5,7 @@ const protect = require("../middlewares/authorization");
 
 router
   .route("/:username")
+  .get(protect.verifyUser, receiverController.getReceiverByUsername)
   .post(protect.verifyUser, receiverController.createReceiverbyUsername);
 
 module.exports = router;
