@@ -1,4 +1,5 @@
 const paypal = require("paypal-rest-sdk");
+const Bill = require("../models/billModel");
 
 var globalPrice = 0;
 
@@ -88,8 +89,11 @@ const successPayment = (req, res) => {
   });
 };
 
-const cancelPayment = (req, res) =>
+const cancelPayment = async (req, res) => {
+  const bills = await Bill.getAllBills();
+  await Bill.deleteBillById(bills[0].billId);
   res.redirect("http://localhost:3001/checkout");
+};
 
 module.exports = {
   createPayment,
