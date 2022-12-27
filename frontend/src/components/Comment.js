@@ -11,6 +11,7 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
 
 function Comment() {
   const [data, setData] = useState([]);
@@ -33,9 +34,15 @@ function Comment() {
 
   return (
     <Paper elevation={8} sx={{ my: 8 }}>
-      <Typography variant="h6" gutterBottom component="div" padding="20px">
-        ĐÁNH GIÁ SẢN PHẨM
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="h6" gutterBottom component="div" padding="20px">
+          ĐÁNH GIÁ SẢN PHẨM
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom component="div">
+          ({data.commentList?.length} đánh giá)
+        </Typography>
+      </Box>
+
       <Divider />
       {data.commentList &&
         data.commentList.map((comment, index) => (
