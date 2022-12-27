@@ -1,4 +1,5 @@
 const paypal = require("paypal-rest-sdk");
+const Bill = require("../models/billModel");
 
 var globalPrice = 0;
 
@@ -53,7 +54,9 @@ const createPayment = async (req, res) => {
     } else {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
-          res.redirect(payment.links[i].href);
+          res.status(200).json({
+            redirectUrl: payment.links[i].href,
+          });
         }
       }
     }
@@ -86,8 +89,11 @@ const successPayment = (req, res) => {
   });
 };
 
-const cancelPayment = (req, res) =>
+const cancelPayment = async (req, res) => {
+  const bills = await Bill.getAllBills();
+  await Bill.deleteBillById(bills[0].billId);
   res.redirect("http://localhost:3001/checkout");
+};
 
 module.exports = {
   createPayment,
