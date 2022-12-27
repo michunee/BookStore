@@ -53,7 +53,9 @@ const createPayment = async (req, res) => {
     } else {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
-          res.redirect(payment.links[i].href);
+          res.status(200).json({
+            redirectUrl: payment.links[i].href,
+          });
         }
       }
     }
