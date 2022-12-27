@@ -95,7 +95,7 @@ export default function Checkout() {
 
     Promise.all([
       axios
-        .get(`api/paypal?totalPrice=1`, {
+        .get(`api/paypal?totalPrice=${(data.totalPrice / 23000).toFixed(2)}`, {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
           },
