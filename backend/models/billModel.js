@@ -41,3 +41,23 @@ exports.getBookByBillId = async (billId) => {
     });
   });
 };
+
+exports.getAllBills = async () => {
+  return new Promise((resolve, reject) => {
+    let sql = `SELECT billId FROM bill ORDER BY billId DESC`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
+
+exports.deleteBillById = async (billId) => {
+  return new Promise((resolve, reject) => {
+    let sql = `DELETE FROM bill WHERE billId = ${billId}`;
+    db.query(sql, (err, data) => {
+      if (err) console.log(err);
+      else resolve(data);
+    });
+  });
+};
